@@ -1,52 +1,75 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TextInput, Button, ListItem } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button} from "react-native";
+import PlaceInput from "./src/components/PlaceInput/PlaceInput";
+import PlaceList from "./src/components/PlaceList/PlaceList";
+import placeImage from './src/assets/limpiezaprueba.jpg';
+import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
 
 export default class App extends Component {
   state = {
-    placeName: "",
-    places: [] 
+    places: [],
+    selectedPlace: null
   };
-
-
-  placeNameChangedHandler = val => {
-    this.setState({
-      placeName: val
+  
+  placeAddedHandler = placeName => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.concat({ 
+          key: Math.random(),
+          name: placeName,
+          image: placeImage,
+          webImage: {
+            url: 'https://img.freepik.com/vector-gratis/limpiadores-productos-limpieza-servicio-limpieza_18591-52068.jpg'
+          }
+      })
+      };
     });
   };
 
-  placeSubmitHandler = () => {
-    if(this.state.placeName.trim() === "") {
-      return;
-    }
+  placeSelectedHandler = key => {
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(prevState.placeName)
-      }
+        selectedPlace: prevState.places.find(place => {
+          return place.key === key;
+        })
+      };
     })
   }
 
+  placeDeletedHandler = () => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter(place => {
+          return place.key !== prevState.selectedPlace.key;
+        }),
+        selectedPlace: null
+      };
+    });
+  }
+
+  modalClosedHandler = () => {
+    this.setState({
+      selectedPlace: null
+    });
+  }
+
+
   render() {
-    const placesOutput = this.state.places.map((place, i) => (
-    <Text key={i}>{place}</Text>
-    ));
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.placeInput}
-            placeholder="An awesome place"
-            value={this.state.placeName}
-            onChangeText={this.placeNameChangedHandler}
-          />
-          <Button style={styles.placeButton}
-          title="Add" onPress={this.placeSubmitHandler} />
-        </View>
-        <View style={styles.listContainer}>
-          {placesOutput}
-        </View>
+        <PlaceDetail selectedPlace={this.state.selectedPlace}
+        onItemDeleted={this.placeDeletedHandler}
+        onModalClosed={this.modalClosedHandler}/>
+        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
+        <PlaceList
+          places={this.state.places}
+          onItemSelected={this.placeSelectedHandler}
+        />
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -55,22 +78,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start"
-  },
-  inputContainer: {
-    // flex: 1,
-    width: "100%",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  placeInput: {
-    width: "70%" 
-  },
-  placeButton: {
-    width: "30%"
-  },
-  listContainer: {
-    width: "100%"
   }
 });
 
