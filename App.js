@@ -2,12 +2,26 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TextInput, Button} from "react-native";
 import PlaceInput from "./src/components/PlaceInput/PlaceInput";
 import PlaceList from "./src/components/PlaceList/PlaceList";
-import placeImage from './src/assets/limpiezaprueba.jpg';
+import limpiezaNImage from './src/assets/limpiezaNormal.png';
+import limpiezaPImage from './src/assets/limpiezaProfunda.png'
 import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
+import TipoServicio from './src/components/TipoServicio/TipoServicio'
 
 export default class App extends Component {
   state = {
     places: [],
+    tipoServicios: [
+      {
+        descripcion: 'Limpieza Normal',
+        image: limpiezaNImage
+
+      },
+      {
+        descripcion: 'Limpieza Profunda',
+        image: limpiezaPImage
+
+      }
+  ],
     selectedPlace: null
   };
   
@@ -17,10 +31,7 @@ export default class App extends Component {
         places: prevState.places.concat({ 
           key: Math.random(),
           name: placeName,
-          image: placeImage,
-          webImage: {
-            url: 'https://img.freepik.com/vector-gratis/limpiadores-productos-limpieza-servicio-limpieza_18591-52068.jpg'
-          }
+          image: limpiezaNImage,
       })
       };
     });
@@ -57,6 +68,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TipoServicio tipoServicio={this.state.tipoServicios}/>
         <PlaceDetail selectedPlace={this.state.selectedPlace}
         onItemDeleted={this.placeDeletedHandler}
         onModalClosed={this.modalClosedHandler}/>
@@ -75,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 26,
-    backgroundColor: "#fff",
+    backgroundColor: "#672D91",
     alignItems: "center",
     justifyContent: "flex-start"
   }
