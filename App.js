@@ -121,6 +121,7 @@ export default class App extends Component {
         <View style={styles.formContainer}>
 
           <Recurrencia />
+          <Text style={styles.textPregunta}>¿Dónde lo quieres?</Text>
           <DomicilioPicker 
           domicilios={this.state.domicilios}
           onItemSelected={this.domicilioSelectedHandler}
@@ -159,7 +160,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     paddingTop: 5,
     backgroundColor: '#672D91',
     alignItems: 'center',
@@ -174,4 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  textPregunta: {
+    color: 'grey'
+  }
 });
