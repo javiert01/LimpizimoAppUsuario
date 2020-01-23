@@ -4,7 +4,6 @@ import {View, Button, StyleSheet, Text, ScrollView} from 'react-native';
 export default function() {
   const [btn, setCahngeColor] = useState(1);
   return (
-    <ScrollView>
       <View style={styles.container}>
         <View style={styles.recurrenciaStl}>
           <Button
@@ -41,13 +40,13 @@ export default function() {
           </View>
         </View>
       </View>
-    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    height: 150,
     borderRadius: 5,
     paddingTop: 5,
     paddingLeft: 5,

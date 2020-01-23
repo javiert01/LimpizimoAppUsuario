@@ -95,6 +95,7 @@ export default class App extends Component {
     });
   };
 
+
   placeDeletedHandler = () => {
     this.setState(prevState => {
       return {
@@ -118,6 +119,19 @@ export default class App extends Component {
         <BienvenidoUsuario usuario={this.state.usuario} />
         <TipoServicio tipoServicio={this.state.tipoServicios} />
         <View style={styles.formContainer}>
+
+          <Recurrencia />
+          <DomicilioPicker 
+          domicilios={this.state.domicilios}
+          onItemSelected={this.domicilioSelectedHandler}
+          iconos = {this.state.iconos}
+          domicilioSelected = {this.state.domicilioSelected}/>
+        </View>
+
+        {/* <PlaceDetail selectedPlace={this.state.selectedPlace}
+        onItemDeleted={this.placeDeletedHandler}
+        onModalClosed={this.modalClosedHandler}/>
+
           <DomicilioPicker
             domicilios={this.state.domicilios}
             onItemSelected={this.domicilioSelectedHandler}
@@ -131,12 +145,12 @@ export default class App extends Component {
           onModalClosed={this.modalClosedHandler}
         />
 
+
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
         <PlaceList
           places={this.state.places}
           onItemSelected={this.placeSelectedHandler}
-        />
-        <Recurrencia />
+        /> */}
       </View>
     );
   }
