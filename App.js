@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TextInput, Button} from "react-native";
 import PlaceInput from "./src/components/PlaceInput/PlaceInput";
@@ -9,6 +10,8 @@ import TipoServicio from './src/components/TipoServicio/TipoServicio'
 import BienvenidoUsuario from './src/components/BienvenidoUsuario/BienvenidoUsuario'
 import DomicilioPicker from './src/components/DomicilioPicker/DomicilioPicker';
 import edificioPickerImage from './src/assets/icono-edificio-morado.png';
+import Recurrencia from './src/components/Recurrencia/Recurrencia';
+
 
 
 export default class App extends Component {
@@ -52,26 +55,24 @@ export default class App extends Component {
     tipoServicios: [
       {
         descripcion: 'Limpieza Normal',
-        image: limpiezaNImage
-
+        image: limpiezaNImage,
       },
       {
         descripcion: 'Limpieza Profunda',
-        image: limpiezaPImage
-
-      }
-  ],
-    selectedPlace: null
+        image: limpiezaPImage,
+      },
+    ],
+    selectedPlace: null,
   };
-  
+
   placeAddedHandler = placeName => {
     this.setState(prevState => {
       return {
-        places: prevState.places.concat({ 
+        places: prevState.places.concat({
           key: Math.random(),
           name: placeName,
           image: limpiezaNImage,
-      })
+        }),
       };
     });
   };
@@ -81,10 +82,10 @@ export default class App extends Component {
       return {
         selectedPlace: prevState.places.find(place => {
           return place.key === key;
-        })
+        }),
       };
-    })
-  }
+    });
+  };
 
   domicilioSelectedHandler = id => {
     console.log('domicilio selected handler', id);
@@ -104,21 +105,21 @@ export default class App extends Component {
         places: prevState.places.filter(place => {
           return place.key !== prevState.selectedPlace.key;
         }),
-        selectedPlace: null
+        selectedPlace: null,
       };
     });
-  }
+  };
 
   modalClosedHandler = () => {
     this.setState({
-      selectedPlace: null
+      selectedPlace: null,
     });
-  }
-
+  };
 
   render() {
     return (
       <View style={styles.container}>
+
         <BienvenidoUsuario usuario={this.state.usuario}/>
         <TipoServicio tipoServicio={this.state.tipoServicios}/>
         <View style={styles.formContainer}>
@@ -131,20 +132,22 @@ export default class App extends Component {
         <PlaceDetail selectedPlace={this.state.selectedPlace}
         onItemDeleted={this.placeDeletedHandler}
         onModalClosed={this.modalClosedHandler}/>
+
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
         <PlaceList
           places={this.state.places}
           onItemSelected={this.placeSelectedHandler}
         />
+        <Recurrencia />
       </View>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     paddingTop: 5,
     backgroundColor: "#672D91",
     alignItems: "center",
@@ -159,4 +162,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start"
   }
+
 });

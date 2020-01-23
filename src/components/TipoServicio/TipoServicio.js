@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native' 
+import {View, Text, Image, StyleSheet} from 'react-native';
 
-const tipoServicio = (props) => (
-    <View>
+const tipoServicio = props => (
+  <View>
     <View style={styles.viewContainerTitulo}>
+
         <Text style={styles.tituloText}>¿Qué servicio necesitas?</Text>
         <Text style={styles.subtituloText}>Elige el tipo de limpieza</Text>
     </View>
@@ -14,15 +15,31 @@ const tipoServicio = (props) => (
         <Image 
         source={props.tipoServicio[1].image} 
         style={styles.limpiezaPImage}/>
+
     </View>
     <View style={styles.viewContainer}>
-        <Text style={styles.descripcionText}>{props.tipoServicio[0].descripcion}</Text>
-        <Text style={styles.descripcionText}>{props.tipoServicio[1].descripcion}</Text>
+      <Image
+        source={props.tipoServicio[0].image}
+        style={styles.limpiezaImage}
+      />
+      <Image
+        source={props.tipoServicio[1].image}
+        style={styles.limpiezaImage}
+      />
     </View>
+    <View style={styles.viewContainer}>
+      <Text style={styles.descripcionText}>
+        {props.tipoServicio[0].descripcion}
+      </Text>
+      <Text style={styles.descripcionText}>
+        {props.tipoServicio[1].descripcion}
+      </Text>
     </View>
+  </View>
 );
 
 const styles = StyleSheet.create({
+
     viewContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -60,6 +77,7 @@ const styles = StyleSheet.create({
         padding: 5,
         marginRight: 10
     }
+
 });
 
 export default tipoServicio;
