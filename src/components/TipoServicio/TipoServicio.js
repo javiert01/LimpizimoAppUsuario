@@ -10,10 +10,10 @@ const tipoServicio = (props) => (
     <View style={styles.viewContainer} >
         <Image 
         source={props.tipoServicio[0].image} 
-        style={styles.limpiezaImage}/>
+        style={styles.limpiezaNImage}/>
         <Image 
         source={props.tipoServicio[1].image} 
-        style={styles.limpiezaImage}/>
+        style={styles.limpiezaPImage}/>
     </View>
     <View style={styles.viewContainer}>
         <Text style={styles.descripcionText}>{props.tipoServicio[0].descripcion}</Text>
@@ -26,15 +26,22 @@ const styles = StyleSheet.create({
     viewContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#672D91'
+        backgroundColor: '#672D91',
     },
     viewContainerTitulo: {
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: '#672D91'
     },
-    limpiezaImage: {
-        marginRight: 8,
+    limpiezaNImage: {
+        marginRight: 30,
+        marginLeft: 10,
+        height: 50,
+        width: 50,
+        padding: 50
+    },
+    limpiezaPImage: {
+        marginRight: 10,
         height: 50,
         width: 50,
         padding: 50
@@ -50,7 +57,8 @@ const styles = StyleSheet.create({
     },
     descripcionText: {
         color: 'white',
-        padding: 5
+        padding: 5,
+        marginRight: 10
     }
 });
 

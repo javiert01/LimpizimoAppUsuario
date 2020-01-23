@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 const bienvenidoUsuario = (props) => (
-    <View>
-        <Text>
-            Bienvenido {props.username}
+    <View style={styles.textContainer}>
+        <Text style={styles.tituloText}>
+            Bienvenido {props.usuario.nombre}
         </Text>
     </View>
 );
@@ -12,11 +12,21 @@ const bienvenidoUsuario = (props) => (
 const styles = StyleSheet.create({
     textContainer: {
         width: "100%",
-        marginBottom: 5,
-        padding: 10,
-        backgroundColor: "#eee",
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
+        backgroundColor: "#6EBE43",
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: 15,
+        paddingTop: 8,
+        paddingBottom: 8
+    },
+    tituloText: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 15,
+        textAlign: 'center'
+    },
+
 });
+
+export default bienvenidoUsuario;
 
