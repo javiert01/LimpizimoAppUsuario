@@ -4,7 +4,6 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 const tipoServicio = props => (
   <View>
     <View style={styles.viewContainerTitulo}>
-
         <Text style={styles.tituloText}>¿Qué servicio necesitas?</Text>
         <Text style={styles.subtituloText}>Elige el tipo de limpieza</Text>
     </View>
@@ -16,16 +15,6 @@ const tipoServicio = props => (
         source={props.tipoServicio[1].image} 
         style={styles.limpiezaPImage}/>
 
-    </View>
-    <View style={styles.viewContainer}>
-      <Image
-        source={props.tipoServicio[0].image}
-        style={styles.limpiezaImage}
-      />
-      <Image
-        source={props.tipoServicio[1].image}
-        style={styles.limpiezaImage}
-      />
     </View>
     <View style={styles.viewContainer}>
       <Text style={styles.descripcionText}>

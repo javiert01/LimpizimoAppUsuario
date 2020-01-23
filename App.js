@@ -99,6 +99,7 @@ export default class App extends Component {
   }
 
 
+
   placeDeletedHandler = () => {
     this.setState(prevState => {
       return {
@@ -123,13 +124,15 @@ export default class App extends Component {
         <BienvenidoUsuario usuario={this.state.usuario}/>
         <TipoServicio tipoServicio={this.state.tipoServicios}/>
         <View style={styles.formContainer}>
+          <Recurrencia />
           <DomicilioPicker 
           domicilios={this.state.domicilios}
           onItemSelected={this.domicilioSelectedHandler}
           iconos = {this.state.iconos}
           domicilioSelected = {this.state.domicilioSelected}/>
         </View>
-        <PlaceDetail selectedPlace={this.state.selectedPlace}
+
+        {/* <PlaceDetail selectedPlace={this.state.selectedPlace}
         onItemDeleted={this.placeDeletedHandler}
         onModalClosed={this.modalClosedHandler}/>
 
@@ -137,8 +140,7 @@ export default class App extends Component {
         <PlaceList
           places={this.state.places}
           onItemSelected={this.placeSelectedHandler}
-        />
-        <Recurrencia />
+        /> */}
       </View>
     );
   }
