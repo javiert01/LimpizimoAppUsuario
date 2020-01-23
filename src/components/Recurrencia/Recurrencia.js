@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Button, StyleSheet, Text, ScrollView} from 'react-native';
 
-const recurrencia = props => {
+export default function() {
+  const [btn, setCahngeColor] = useState(1);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -9,18 +10,22 @@ const recurrencia = props => {
           <Button
             style={styles.botonesStl}
             title="Servicio Única vez"
-            color="#672D91"
+            color={btn === 1 ? '#44BE6E' : '#672D91'}
             uppercase={false}
             onPress={() => {
               console.log('Ser unica vez');
+              setCahngeColor(1);
             }}
           />
           <Button
             style={styles.botonesStl}
             title="Servicio frecuente"
             uppercase={false}
-            color="#44BE6E"
-            onPress={() => console.log('Frecuente')}
+            color={btn === 2 ? '#44BE6E' : '#672D91'}
+            onPress={() => {
+              setCahngeColor(2);
+              console.log('Frecuente');
+            }}
           />
         </View>
         <View style={styles.pickerContainer}>
@@ -38,20 +43,20 @@ const recurrencia = props => {
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     borderRadius: 5,
     paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   recurrenciaStl: {
     borderRadius: 5,
     flexDirection: 'row',
     paddingTop: 5,
-    paddingLeft: 7,
-    paddingRight: 7,
     paddingBottom: 5,
     backgroundColor: '#672D91',
   },
@@ -70,6 +75,8 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingRight: 7,
   },
+  colorVerde: {backgroundColor: '#672D91'},
+  colorAzul: {backgroundColor: '#44BECE'},
 });
 
-export default recurrencia;
+// export default recurrencia;
