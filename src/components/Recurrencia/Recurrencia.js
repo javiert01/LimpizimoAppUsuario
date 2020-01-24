@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Button, StyleSheet, Text, ScrollView} from 'react-native';
+import {View, Button, StyleSheet, Text} from 'react-native';
 
 export default function() {
   const [btn, setCahngeColor] = useState(1);
