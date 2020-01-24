@@ -4,16 +4,16 @@ import {Picker, StyleSheet, View, Image, Text} from 'react-native';
 
 const domicilioPicker = (props) => (
     <View style={styles.viewContainer}>
-    <Image source={props.iconos[0].image} 
+    <Image source={props.iconoSelected.image} 
         style={styles.icono}/>
     <View style={styles.pickerContainer}>
     <Picker
-    selectedValue={props.domicilioSelected.id}
+    selectedValue={props.domicilioSelected.tipoDomicilio}
     style={styles.picker}
-    onValueChange={(itemValue, itemIndex) => props.onItemSelected(itemIndex)
+    onValueChange={(itemValue, itemIndex) => props.onItemSelected(itemValue, itemIndex)
     }>
     {props.domicilios.map((domicilio) => {
-        return (<Picker.Item label={domicilio.tipoDomicilio} value={domicilio.id} key={domicilio.id}/>) //if you have a bunch of keys value pair
+        return (<Picker.Item label={domicilio.tipoDomicilio} value={domicilio.tipoDomicilio} key={domicilio.id}/>) //if you have a bunch of keys value pair
     })}
     </Picker>
     <Text style={styles.descripcionDomicilioText}>
@@ -22,6 +22,7 @@ const domicilioPicker = (props) => (
     </View>
     </View>
 );
+
 
 
 const styles = StyleSheet.create({

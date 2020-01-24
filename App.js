@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button, ScrollView} from 'react-native';
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
 import limpiezaNImage from './src/assets/limpieza-normal-circulo.png';
@@ -8,7 +8,12 @@ import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
 import TipoServicio from './src/components/TipoServicio/TipoServicio';
 import BienvenidoUsuario from './src/components/BienvenidoUsuario/BienvenidoUsuario';
 import DomicilioPicker from './src/components/DomicilioPicker/DomicilioPicker';
+import HorasServicioPicker from './src/components/HorasServicioPicker/HorasServicioPicker';
 import edificioPickerImage from './src/assets/icono-edificio-morado.png';
+import casaPickerImage from './src/assets/icono-casa-morado.png';
+import otrosPickerImage from './src/assets/icono-otros-morado.png';
+import BotonPedirServicio from './src/components/BotonPedirServicio/BotonPedirServicio'
+
 import Recurrencia from './src/components/Recurrencia/Recurrencia';
 
 export default class App extends Component {
@@ -19,9 +24,22 @@ export default class App extends Component {
     },
     iconos: [
       {
+        tipoDomicilio: 'Trabajo',
         image: edificioPickerImage,
       },
+      {
+        tipoDomicilio: 'Casa',
+        image: casaPickerImage
+      },
+      {
+        tipoDomicilio: 'Otro',
+        image: otrosPickerImage
+      }
     ],
+    iconoSelected: {
+      tipoDomicilio: 'Trabajo',
+      image: edificioPickerImage
+    },
     domicilios: [
       {
         id: 0,
@@ -42,6 +60,7 @@ export default class App extends Component {
         ciudad: 'Quito',
       },
     ],
+    tiempoServicio: 4,
     domicilioSelected: {
       id: 0,
       tipoDomicilio: 'Trabajo',
@@ -84,17 +103,23 @@ export default class App extends Component {
     });
   };
 
-  domicilioSelectedHandler = id => {
-    console.log('domicilio selected handler', id);
+  domicilioSelectedHandler = (value ,id) => {
+    console.log('value icono', value);
     this.setState(prevState => {
       return {
         domicilioSelected: prevState.domicilios.find(domicilio => {
           return domicilio.id === id;
         }),
+        iconoSelected: prevState.iconos.find(icono =>{
+          return icono.tipoDomicilio === value
+        })
       };
     });
   };
 
+  calcularTiempoServicio = () => {
+    /* Logica para calcular el tiempo del servicio */
+  }
 
   placeDeletedHandler = () => {
     this.setState(prevState => {
@@ -118,17 +143,20 @@ export default class App extends Component {
       <View style={styles.container}>
         <BienvenidoUsuario usuario={this.state.usuario} />
         <TipoServicio tipoServicio={this.state.tipoServicios} />
+        <ScrollView>
         <View style={styles.formContainer}>
-
           <Recurrencia />
           <Text style={styles.textPregunta}>¿Dónde lo quieres?</Text>
           <DomicilioPicker 
           domicilios={this.state.domicilios}
           onItemSelected={this.domicilioSelectedHandler}
           iconos = {this.state.iconos}
+          iconoSelected = {this.state.iconoSelected}
           domicilioSelected = {this.state.domicilioSelected}/>
           <Text style={styles.textPregunta}>Horas del servicio</Text>
+        <HorasServicioPicker tiempoServicio={this.state.tiempoServicio} />
         </View>
+        </ScrollView>
 
         {/* <PlaceDetail selectedPlace={this.state.selectedPlace}
         onItemDeleted={this.placeDeletedHandler}
@@ -166,8 +194,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  contentContainer: {
+    alignItems: 'flex-start',
+    width: '100%',
+    flex: 1,
+    paddingTop: 5,
+    backgroundColor: 'white',
+    height: 1000
+  },
   formContainer: {
-    //flex: 1,
     width: '100%',
     flex: 1,
     paddingTop: 5,
