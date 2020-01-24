@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#672D91',
   },
   botonesStl: {
-    borderRadius: 5,
+    borderRadius: 50,
     marginTop: 10,
     textTransform: 'lowercase',
   },
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingRight: 7,
   },
-  colorVerde: {backgroundColor: '#672D91'},
+  colorVerde: {backgroundColor: '#63c331'},
   colorAzul: {backgroundColor: '#44BECE'},
 });
 
