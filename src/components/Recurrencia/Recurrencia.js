@@ -1,45 +1,45 @@
 import React, {useState} from 'react';
-import {View, Button, StyleSheet, Text, ScrollView} from 'react-native';
+import {View, Button, StyleSheet, Text} from 'react-native';
 
 export default function() {
   const [btn, setCahngeColor] = useState(1);
   return (
-      <View style={styles.container}>
-        <View style={styles.recurrenciaStl}>
-          <Button
-            style={styles.botonesStl}
-            title="Servicio Única vez"
-            color={btn === 1 ? '#44BE6E' : '#672D91'}
-            uppercase={false}
-            onPress={() => {
-              console.log('Ser unica vez');
-              setCahngeColor(1);
-            }}
-          />
-          <Button
-            style={styles.botonesStl}
-            title="Servicio frecuente"
-            uppercase={false}
-            color={btn === 2 ? '#44BE6E' : '#672D91'}
-            onPress={() => {
-              setCahngeColor(2);
-              console.log('Frecuente');
-            }}
-          />
+    <View style={styles.container}>
+      <View style={styles.recurrenciaStl}>
+        <Button
+          style={styles.botonesStl}
+          title="Servicio Única vez"
+          color={btn === 1 ? '#44BE6E' : '#672D91'}
+          uppercase={false}
+          onPress={() => {
+            console.log('Ser unica vez');
+            setCahngeColor(1);
+          }}
+        />
+        <Button
+          style={styles.botonesStl}
+          title="Servicio frecuente"
+          uppercase={false}
+          color={btn === 2 ? '#44BE6E' : '#672D91'}
+          onPress={() => {
+            setCahngeColor(2);
+            console.log('Frecuente');
+          }}
+        />
+      </View>
+      <View style={styles.pickerContainer}>
+        <View style={styles.col1}>
+          <Text style={styles.txtStl}>Recurrencia</Text>
+          <Text style={styles.txtStl}>Día del Servicio</Text>
+          <Text style={styles.txtStl}>Inicio del servicio</Text>
         </View>
-        <View style={styles.pickerContainer}>
-          <View style={styles.col1}>
-            <Text style={styles.txtStl}>Recurrencia</Text>
-            <Text style={styles.txtStl}>Día del Servicio</Text>
-            <Text style={styles.txtStl}>Inicio del servicio</Text>
-          </View>
-          <View style={styles.col2}>
-            <Text style={styles.txtStl}>Picker1</Text>
-            <Text style={styles.txtStl}>Picker2</Text>
-            <Text style={styles.txtStl}>Picker3</Text>
-          </View>
+        <View style={styles.col2}>
+          <Text style={styles.txtStl}>Picker1</Text>
+          <Text style={styles.txtStl}>Picker2</Text>
+          <Text style={styles.txtStl}>Picker3</Text>
         </View>
       </View>
+    </View>
   );
 }
 
