@@ -76,14 +76,14 @@ export default function(props) {
       <View style={styles.viewContainer}>
         <TouchableHighlight
           onPress={() => {
-            console.log('Btn 1');
+            // console.log('Btn 1');
             setCahngeColor(1);
           }}>
           <Bromm isLoggedIn={btn === 1 ? false : true} />
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => {
-            console.log('Btn 2');
+            // console.log('Btn 2');
             setCahngeColor(2);
           }}>
           <Bucket isLoggedIn={btn === 2 ? false : true} />

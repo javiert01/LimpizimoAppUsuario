@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Button, StyleSheet, Text} from 'react-native';
+import MyDatePicker from '../MyDatePicker/MyDatePicker';
 
 export default function() {
   const [btn, setCahngeColor] = useState(1);
@@ -12,7 +13,7 @@ export default function() {
           color={btn === 1 ? '#44BE6E' : '#672D91'}
           uppercase={false}
           onPress={() => {
-            console.log('Ser unica vez');
+            // console.log('Ser unica vez');
             setCahngeColor(1);
           }}
         />
@@ -23,7 +24,7 @@ export default function() {
           color={btn === 2 ? '#44BE6E' : '#672D91'}
           onPress={() => {
             setCahngeColor(2);
-            console.log('Frecuente');
+            // console.log('Frecuente');
           }}
         />
       </View>
@@ -34,7 +35,11 @@ export default function() {
           <Text style={styles.txtStl}>Inicio del servicio</Text>
         </View>
         <View style={styles.col2}>
+          {/*
           <Text style={styles.txtStl}>Picker1</Text>
+           */}
+          <MyDatePicker />
+
           <Text style={styles.txtStl}>Picker2</Text>
           <Text style={styles.txtStl}>Picker3</Text>
         </View>
