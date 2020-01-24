@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Button, StyleSheet, Text} from 'react-native';
-import MyDatePicker from '../MyDatePicker/MyDatePicker';
+
 
 export default function() {
   const [btn, setCahngeColor] = useState(1);
