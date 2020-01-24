@@ -127,6 +127,7 @@ export default class App extends Component {
           onItemSelected={this.domicilioSelectedHandler}
           iconos = {this.state.iconos}
           domicilioSelected = {this.state.domicilioSelected}/>
+          <Text style={styles.textPregunta}>Horas del servicio</Text>
         </View>
 
         {/* <PlaceDetail selectedPlace={this.state.selectedPlace}
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   textPregunta: {
-    color: 'grey'
+    color: 'grey',
+    margin: 5
   }
 });
