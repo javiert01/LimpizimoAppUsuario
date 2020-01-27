@@ -1,32 +1,46 @@
 import React, {useState} from 'react';
-import {View, Button, StyleSheet, Text} from 'react-native';
+//import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Button} from 'react-native-elements';
+import MyDataPicker2 from '../MyDataPicker/MyDataPicker2';
 
 export default function() {
-  const [btn, setCahngeColor] = useState(1);
+  const [btn, setChangeColor] = useState(1);
   return (
     <View style={styles.container}>
       <View style={styles.recurrenciaStl}>
-        <Button
-          style={styles.botonesStl}
-          title="Servicio Única vez"
-          color={btn === 1 ? '#44BE6E' : '#672D91'}
-          uppercase={false}
+        <TouchableOpacity
           onPress={() => {
-            // console.log('Ser unica vez');
-            setCahngeColor(1);
+            console.log(1);
+            setChangeColor(1);
           }}
-        />
-        <Button
-          style={styles.botonesStl}
-          title="Servicio frecuente"
-          uppercase={false}
-          color={btn === 2 ? '#44BE6E' : '#672D91'}
+          //color={btn === 1 ? '#44BE6E' : '#672D91'}
+        >
+          <Text
+            style={
+              ({backgroundColor: btn === 1 ? '#63c331' : '#672D91'},
+              styles.botonesStl)
+            }>
+            Servicio Única vez{' '}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
-            setCahngeColor(2);
-            // console.log('Frecuente');
+            console.log(2);
+            setChangeColor(2);
           }}
-        />
+          // color={btn === 2 ? '#44BE6E' : '#672D91'}
+        >
+          <Text
+            style={
+              ({backgroundColor: btn === 2 ? '#63c331' : '#672D91'},
+              styles.botonesStl)
+            }>
+            Servicio frecuente{' '}
+          </Text>
+        </TouchableOpacity>
       </View>
+
       <View style={styles.pickerContainer}>
         <View style={styles.col1}>
           <Text style={styles.txtStl}>Recurrencia</Text>
@@ -38,8 +52,10 @@ export default function() {
           <Text style={styles.txtStl}>Picker1</Text>
           <MyDatePicker />
            */}
-
+          {/**
           <Text style={styles.txtStl}>Picker2</Text>
+           */}
+          <MyDataPicker2 />
           <Text style={styles.txtStl}>Picker3</Text>
         </View>
       </View>
@@ -64,9 +80,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#672D91',
   },
   botonesStl: {
-    borderRadius: 50,
+    //borderRadius: 50,
     marginTop: 10,
-    textTransform: 'lowercase',
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    color: 'white',
+    backgroundColor: '#63c331',
   },
   pickerContainer: {
     flexDirection: 'row',
