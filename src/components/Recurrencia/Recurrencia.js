@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {View, Button, StyleSheet, Text} from 'react-native';
+//import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
+import {Button} from 'react-native-elements';
+import MyDataPicker2 from '../MyDataPicker/MyDataPicker2';
 
 export default function() {
   const [btn, setCahngeColor] = useState(1);
@@ -7,7 +10,9 @@ export default function() {
     <View style={styles.container}>
       <View style={styles.recurrenciaStl}>
         <Button
-          style={styles.botonesStl}
+          //style={styles.botonesStl}
+          // Este es de react-native-elements
+          buttonStyle={styles.botonesStl}
           title="Servicio Única vez"
           color={btn === 1 ? '#44BE6E' : '#672D91'}
           uppercase={false}
@@ -17,7 +22,9 @@ export default function() {
           }}
         />
         <Button
-          style={styles.botonesStl}
+          //style={styles.botonesStl}
+          // Este es de react-native-elements
+          buttonStyle={styles.botonesStl}
           title="Servicio frecuente"
           uppercase={false}
           color={btn === 2 ? '#44BE6E' : '#672D91'}
@@ -39,8 +46,10 @@ export default function() {
           <Text style={styles.txtStl}>Picker1</Text>
           <MyDatePicker />
            */}
-
+          {/**
           <Text style={styles.txtStl}>Picker2</Text>
+           */}
+          <MyDataPicker2 />
           <Text style={styles.txtStl}>Picker3</Text>
         </View>
       </View>
