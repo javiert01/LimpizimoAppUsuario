@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Button, StyleSheet, Text} from 'react-native';
 
-
 export default function() {
   const [btn, setCahngeColor] = useState(1);
   return (
@@ -37,8 +36,8 @@ export default function() {
         <View style={styles.col2}>
           {/*
           <Text style={styles.txtStl}>Picker1</Text>
-           */}
           <MyDatePicker />
+           */}
 
           <Text style={styles.txtStl}>Picker2</Text>
           <Text style={styles.txtStl}>Picker3</Text>

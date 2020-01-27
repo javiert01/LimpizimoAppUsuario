@@ -9,6 +9,7 @@ function BroomWithe(props) {
     <Image
       source={require('../../assets/broomPruple.png')}
       style={styles.limpiezaNImage}
+      resizeMode="contain"
     />
   );
 }
@@ -18,6 +19,7 @@ function BroomGreen(props) {
     <Image
       source={require('../../assets/broomGreen.png')}
       style={styles.limpiezaNImage}
+      resizeMode="contain"
     />
   );
 }
