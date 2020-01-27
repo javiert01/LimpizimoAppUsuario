@@ -27,6 +27,7 @@ export default function() {
           }}
         />
       </View>
+
       <View style={styles.pickerContainer}>
         <View style={styles.col1}>
           <Text style={styles.txtStl}>Recurrencia</Text>
