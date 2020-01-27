@@ -61,6 +61,7 @@ export default class App extends Component {
       },
     ],
     tiempoServicio: 4,
+    costoServicio: 26,
     domicilioSelected: {
       id: 0,
       tipoDomicilio: 'Trabajo',
@@ -121,6 +122,35 @@ export default class App extends Component {
     /* Logica para calcular el tiempo del servicio */
   }
 
+  calcularCostoServicio = () => {
+    /* Logica para calcular el costo del servicio */
+  }
+
+  onEnviarServicio = () => {
+    console.log('enviando servicio...');
+      const servicioData = {
+        habilidades: '5e1c834fb329ab00047108b9',
+        usuario: '5e1cf0a2e4c4270004381ac7',
+        estado: 'Pendiente',
+        fechaInicio: '2020,01,27',
+        aux_id_domicilio: '5e10a2b818b18900044de346',
+        duracion: 3,
+        costo: 100,
+        frecuencia: 1,
+        nombreSala: 'sala1',
+        horaInicio: '10:00'
+      };
+      fetch('https://limpizimo-optimus.herokuapp.com/servicio/crear',{
+        method: 'POST',
+        body: JSON.stringify(servicioData)
+      })
+      .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(parsedRes => {
+        console.log(parsedRes);
+      });
+  }
+
   placeDeletedHandler = () => {
     this.setState(prevState => {
       return {
@@ -155,6 +185,7 @@ export default class App extends Component {
           domicilioSelected = {this.state.domicilioSelected}/>
           <Text style={styles.textPregunta}>Horas del servicio</Text>
         <HorasServicioPicker tiempoServicio={this.state.tiempoServicio} />
+        <BotonPedirServicio costoServicio={this.state.costoServicio} onEnviarServicio={this.onEnviarServicio}/>
         </View>
         </ScrollView>
 
@@ -189,6 +220,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    //height: 1900,
     paddingTop: 5,
     backgroundColor: '#672D91',
     alignItems: 'center',
@@ -199,12 +231,12 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     paddingTop: 5,
-    backgroundColor: 'white',
-    height: 1000
+    backgroundColor: 'white'
   },
   formContainer: {
     width: '100%',
-    flex: 1,
+    //flex: 1,
+    height: 500,
     paddingTop: 5,
     backgroundColor: 'white',
     alignItems: 'center',
