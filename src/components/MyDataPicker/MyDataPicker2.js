@@ -88,5 +88,6 @@ const styles = StyleSheet.create({
   buttonImg: {
     width: 25,
     height: 21,
+    justifyContent: 'center',
   },
 });
