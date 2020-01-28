@@ -1,106 +1,75 @@
-import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, TouchableHighlight} from 'react-native';
-//==============================================
-// INICIO ESCOBA
-//==============================================
+import React, {Component} from 'react';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import limpiezaNImg from '../../assets/limpieza-normal-circulo.png';
+import limpiezaPImg from '../../assets/limpieza-profunda-circulo.png';
+import limpiezaNSeleccionadaImg from '../../assets/limpieza-normal-seleccionada.png';
+import limpiezaPSeleccionadaImg from '../../assets/limpieza-profunda-seleccionada.png';
 
-function BroomWithe(props) {
-  return (
-    <Image
-      source={require('../../assets/broomPruple.png')}
-      style={styles.limpiezaNImage}
-      resizeMode="contain"
-    />
-  );
-}
 
-function BroomGreen(props) {
-  return (
-    <Image
-      source={require('../../assets/broomGreen.png')}
-      style={styles.limpiezaNImage}
-      resizeMode="contain"
-    />
-  );
-}
-//==============================================
-// INICIO ESCOBA
-//==============================================
-
-//==============================================
-// INICIO BALDE
-//==============================================
-function BucketWhite(props) {
-  return (
-    <Image
-      source={require('../../assets/bucketPurple.png')}
-      style={styles.limpiezaNImage}
-    />
-  );
-}
-function BucketGreen(props) {
-  return (
-    <Image
-      source={require('../../assets/bucketGreen.png')}
-      style={styles.limpiezaNImage}
-    />
-  );
-}
-
-//==============================================
-// INICIO BALDE
-//==============================================
-
-function Bromm(props) {
-  const isLoggedIn = props.isLoggedIn;
-  if (isLoggedIn) {
-    return <BroomWithe />;
+class TipoServicio extends Component {
+  state = {
+    limpiezaPSelected: false,
+    limpiezaNSelected: false
   }
-  return <BroomGreen />;
-}
 
-function Bucket(props) {
-  const isLoggedIn = props.isLoggedIn;
-  if (isLoggedIn) {
-    return <BucketWhite />;
+  renderImageLimpiezaNormal = () => {
+    var imgSource = this.state.limpiezaNSelected ? limpiezaNSeleccionadaImg : limpiezaNImg;
+    return (
+      <Image
+        style={ styles.limpiezaNImage }
+        source={ imgSource }
+      />
+    );
   }
-  return <BucketGreen />;
-}
 
-export default function(props) {
-  const [btn, setCahngeColor] = useState(1);
-  return (
-    <View>
+  renderImageLimpiezaProfunda = () => {
+    var imgSource = this.state.limpiezaPSelected? limpiezaPSeleccionadaImg : limpiezaPImg;
+    return (
+      <Image
+        style={ styles.limpiezaPImage }
+        source={ imgSource }
+      />
+    );
+  }
+
+  render() {
+    return (
+      <View>
       <View style={styles.viewContainerTitulo}>
         <Text style={styles.tituloText}>¿Qué servicio necesitas?</Text>
         <Text style={styles.subtituloText}>Elige el tipo de limpieza</Text>
       </View>
       <View style={styles.viewContainer}>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
-            // console.log('Btn 1');
-            setCahngeColor(1);
+            this.setState({ 
+              limpiezaNSelected: !this.state.limpiezaNSelected,
+              limpiezaPSelected: false
+            }) 
           }}>
-          <Bromm isLoggedIn={btn === 1 ? false : true} />
-        </TouchableHighlight>
-        <TouchableHighlight
+          {this.renderImageLimpiezaNormal()}
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
-            // console.log('Btn 2');
-            setCahngeColor(2);
+            this.setState({ 
+              limpiezaPSelected: !this.state.limpiezaPSelected,
+              limpiezaNSelected: false 
+            }) 
           }}>
-          <Bucket isLoggedIn={btn === 2 ? false : true} />
-        </TouchableHighlight>
+          {this.renderImageLimpiezaProfunda()}
+        </TouchableOpacity>
       </View>
       <View style={styles.viewContainer}>
         <Text style={styles.descripcionText}>
-          {props.tipoServicio[0].descripcion}
+          {this.props.tipoServicio[0].descripcion}
         </Text>
         <Text style={styles.descripcionText}>
-          {props.tipoServicio[1].descripcion}
+          {this.props.tipoServicio[1].descripcion}
         </Text>
       </View>
     </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -115,27 +84,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#672D91',
   },
   limpiezaNImage: {
+    height: 90,
+    width: 90,
     marginRight: 30,
-    marginLeft: 10,
-    height: 50,
-    width: 50,
-    padding: 50,
+    marginLeft: 10
+    //padding: 40,
     //backgroundColor: '#756984',
   },
   limpiezaPImage: {
-    marginRight: 10,
-    height: 50,
-    width: 50,
-    padding: 50,
+    marginLeft: 0,
+    height: 90,
+    width: 90,
+    //padding: 40,
   },
   tituloText: {
     fontWeight: 'bold',
     color: 'white',
     fontSize: 20,
+    padding: 1
   },
   subtituloText: {
     color: 'white',
-    padding: 10,
+    paddingBottom: 10,
   },
   descripcionText: {
     color: 'white',
@@ -144,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default tipoServicio;
+export default TipoServicio;
