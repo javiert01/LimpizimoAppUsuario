@@ -81,31 +81,8 @@ export default class App extends Component {
     ],
     selectedPlace: null,
   };
-
-  placeAddedHandler = placeName => {
-    this.setState(prevState => {
-      return {
-        places: prevState.places.concat({
-          key: Math.random(),
-          name: placeName,
-          image: limpiezaNImage,
-        }),
-      };
-    });
-  };
-
-  placeSelectedHandler = key => {
-    this.setState(prevState => {
-      return {
-        selectedPlace: prevState.places.find(place => {
-          return place.key === key;
-        }),
-      };
-    });
-  };
-
+  
   domicilioSelectedHandler = (value ,id) => {
-    console.log('value icono', value);
     this.setState(prevState => {
       return {
         domicilioSelected: prevState.domicilios.find(domicilio => {
@@ -132,7 +109,7 @@ export default class App extends Component {
         habilidades: '5e1c834fb329ab00047108b9',
         usuario: '5e1cf0a2e4c4270004381ac7',
         estado: 'Pendiente',
-        fechaInicio: '2020,01,27',
+        fechaInicio: '2020,01,28',
         aux_id_domicilio: '5e10a2b818b18900044de346',
         duracion: 3,
         costo: 100,

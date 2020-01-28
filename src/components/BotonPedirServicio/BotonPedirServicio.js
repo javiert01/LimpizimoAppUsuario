@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native'
+import {View, Text, Image, StyleSheet, TouchableHighlight, TouchableNativeFeedback } from 'react-native'
 import pedirServicioImg from '../../assets/boton-pedir-servicio.png'
 
 const botonPedirServicio = (props) => {
@@ -9,14 +9,14 @@ const botonPedirServicio = (props) => {
     return(
 
     <View style={styles.viewContainer}>
-        <TouchableHighlight onPress={() => props.onEnviarServicio()}>
+        <TouchableNativeFeedback onPress={() => props.onEnviarServicio()}>
         <View style={styles.viewContainer}>
         <Image source={imgBoton.image} style={styles.imgFondo} />
         <Text style={styles.textBoton}>PEDIR</Text>
         <Text style={styles.textBoton2}>AHORA</Text>
         <Text style={styles.textCostoServicio}>U$D {props.costoServicio}</Text>
         </View>
-        </TouchableHighlight>     
+        </TouchableNativeFeedback>     
     </View>
     );
 }
