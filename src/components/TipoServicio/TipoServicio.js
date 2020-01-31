@@ -45,7 +45,8 @@ class TipoServicio extends Component {
             this.setState({ 
               limpiezaNSelected: !this.state.limpiezaNSelected,
               limpiezaPSelected: false
-            }) 
+            });
+            this.props.onTipoServicioSelected('Limpieza Normal')
           }}>
           {this.renderImageLimpiezaNormal()}
         </TouchableOpacity>
@@ -54,7 +55,8 @@ class TipoServicio extends Component {
             this.setState({ 
               limpiezaPSelected: !this.state.limpiezaPSelected,
               limpiezaNSelected: false 
-            }) 
+            });
+            this.props.onTipoServicioSelected('Limpieza Profunda') 
           }}>
           {this.renderImageLimpiezaProfunda()}
         </TouchableOpacity>
@@ -84,24 +86,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#672D91',
   },
   limpiezaNImage: {
-    height: 90,
-    width: 90,
+    height: 70,
+    width: 70,
     marginRight: 30,
-    marginLeft: 10
+    marginLeft: 20
     //padding: 40,
     //backgroundColor: '#756984',
   },
   limpiezaPImage: {
-    marginLeft: 0,
-    height: 90,
-    width: 90,
+    marginLeft: 30,
+    height: 70,
+    width: 70,
     //padding: 40,
   },
   tituloText: {
     fontWeight: 'bold',
     color: 'white',
     fontSize: 20,
-    padding: 1
+    //padding: 1
   },
   subtituloText: {
     color: 'white',

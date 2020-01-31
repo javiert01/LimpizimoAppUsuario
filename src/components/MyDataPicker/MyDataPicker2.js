@@ -2,6 +2,7 @@
 // LEER LA DOCUMENTACION POR SI SALE ALGUN ERROR
 // https://github.com/react-native-community/react-native-datetimepicker
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
 import {
   View,
   Text,
@@ -11,8 +12,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {selectDiaServicio, selectHoraServicio} from '../../store/actions/index'
 
-export default class App extends Component {
+class MyDataPicker extends Component {
   state = {
     date: new Date(),
     hora: new Date(),
@@ -23,8 +25,11 @@ export default class App extends Component {
   setValuePicker = (event, date) => {
     if(this.state.mode === 'date') {
       this.setDate(event, date);
+      this.props.onSelectDiaServicio(this.parseDate(date));
+
     }else {
       this.setHora(event,date);
+      this.props.onSelectHoraServicio(this.parseTime(date));
     }
   }
 
@@ -122,7 +127,9 @@ export default class App extends Component {
             mode={mode}
             is24Hour={true}
             display="default"
-            onChange={this.setValuePicker}
+            onChange={
+              this.setValuePicker
+            }
           />
         )}
       </View>
@@ -147,3 +154,22 @@ const styles = StyleSheet.create({
     marginLeft: 5
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    diaServicioSelected: state.servicios.diaServicioSelected,
+    horaServicioSelected: state.servicios.horaServicioSelected
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSelectDiaServicio: (dia) => dispatch(selectDiaServicio(dia)),
+    onSelectHoraServicio: (hora) => dispatch(selectHoraServicio(hora)),
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyDataPicker);

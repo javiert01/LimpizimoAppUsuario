@@ -37,24 +37,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#672D91',
         flexDirection: 'column',
         borderRadius: 20,
-        height: 60
+        height: 35
     },
     picker: {
         width: 200,
-        height: 40,
+        height: 20,
         color: 'white'
     },
     icono: {
-        marginTop: 10,
+        marginTop: 7,
         marginRight: 8,
         height: 10,
         width: 25,
         borderRadius: 20, 
         backgroundColor: 'white',
-        padding: 15
+        padding: 12
     },
     descripcionDomicilioText: {
-        color: 'white'
+        color: 'white',
+        fontSize: 11,
+        marginLeft: 3
     }
 });
 
