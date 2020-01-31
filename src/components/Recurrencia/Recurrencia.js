@@ -30,13 +30,14 @@ class Recurrencia extends Component {
       )
     }
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.recurrenciaStl}>
           <TouchableOpacity
             onPress={() => {
               this.setState({
                 unicaVezSelected: true
-              })
+              });
+              this.props.onTipoRecurrenciaSelected('Única vez');
             }}
           >
             <Text
@@ -52,7 +53,8 @@ class Recurrencia extends Component {
             onPress={() => {
               this.setState({
                 unicaVezSelected: false
-              })
+              });
+              this.props.onTipoRecurrenciaSelected('Frecuente');
             }}
             // color={btn === 2 ? '#44BE6E' : '#672D91'}
           >
@@ -66,7 +68,7 @@ class Recurrencia extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-  
+        <View style={styles.container}>
         <View style={styles.pickerContainer}>
           <View style={styles.col1}>
             {textRecurrencia}
@@ -75,9 +77,10 @@ class Recurrencia extends Component {
           </View>
           <View style={styles.col2}>
             {recurrenciaPicker}
-            <MyDataPicker2 />
+            <MyDataPicker2 onFechaServicioSelected={this.props.onFechaSelected}/>
           </View>
         </View>
+      </View>
       </View>
     );
   }
@@ -87,14 +90,14 @@ class Recurrencia extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    
-    borderRadius: 5,
-    paddingTop: 5,
+    paddingTop: 3,
     paddingLeft: 5,
     paddingRight: 5,
   },
   recurrenciaStl: {
     borderRadius: 25,
+    borderWidth: 5,
+    borderColor: 'white',
     flexDirection: 'row',
     paddingTop: 4,
     paddingLeft: 2,
@@ -131,9 +134,6 @@ const styles = StyleSheet.create({
     width: 145,
     marginLeft: 20,
     marginBottom: 5
-  },
-  stylePickerItem: {
-
   },
   pickerContainer: {
     flexDirection: 'row',

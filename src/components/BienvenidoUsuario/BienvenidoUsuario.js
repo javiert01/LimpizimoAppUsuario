@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#6EBE43",
         flexDirection: 'column',
         alignItems: 'center',
-        marginBottom: 15,
-        paddingTop: 8,
-        paddingBottom: 8
+        marginBottom: 5,
+        paddingTop: 5,
+        paddingBottom: 5
     },
     tituloText: {
         fontWeight: 'bold',

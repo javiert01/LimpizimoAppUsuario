@@ -24,7 +24,7 @@ const botonPedirServicio = (props) => {
 const styles = StyleSheet.create({
     viewContainer: {
         //position: 'absolute', 
-        marginTop: 15,
+        marginTop: 4,
         paddingTop: 5,
         justifyContent: 'center', 
         alignItems: 'center'

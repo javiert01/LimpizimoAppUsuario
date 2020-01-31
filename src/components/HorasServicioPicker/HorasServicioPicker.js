@@ -26,8 +26,10 @@ class HorasServicioPicker extends Component {
             <Picker
             selectedValue={this.state.horasSeleccionadas}
             style={styles.picker}
-            onValueChange={(itemValue, itemIndex) =>
-                this.setState({horasSeleccionadas: itemValue})
+            onValueChange={(itemValue, itemIndex) =>{
+                this.setState({horasSeleccionadas: itemValue});
+                this.props.onNumeroHorasSelected(itemValue)
+                }
             }>
             {this.state.horasDisponibles.map((horas) => {
                 return (<Picker.Item label={'+'+horas + ' horas'} value={horas} key={horas}/>) //if you have a bunch of keys value pair
@@ -51,21 +53,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#63c331',
         flexDirection: 'column',
         borderRadius: 20,
-        height: 43
+        height: 25
     },
     picker: {
         width: 130,
-        height: 40,
+        height: 22,
         color: 'white'
     },
     icono: {
-        marginTop: 10,
+        marginTop: 3,
         marginRight: 8,
         height: 10,
         width: 25,
         borderRadius: 20, 
         backgroundColor: 'white',
-        padding: 15
+        padding: 10
     },
     descripcionDomicilioText: {
         color: 'white'
