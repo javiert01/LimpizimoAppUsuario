@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
@@ -17,6 +17,8 @@ import {
   selectNumeroHoras,
 } from '../../store/actions/index';
 
+import { strings } from '../../i18n';
+
 import styles from './styles';
 
 class Home extends React.Component {
@@ -30,7 +32,7 @@ class Home extends React.Component {
         latitude: 37.78825,
         longitude: -122.4324,
       },
-      title: 'Limpizimo',
+      title: strings('appName'),
       description: 'Usted esta aqui',
     },
     tiempoServicio: 4,
