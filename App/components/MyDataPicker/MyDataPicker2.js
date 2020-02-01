@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    diaServicioSelected: state.servicios.diaServicioSelected,
-    horaServicioSelected: state.servicios.horaServicioSelected
+    diaServicioSelected: state.services.diaServicioSelected,
+    horaServicioSelected: state.services.horaServicioSelected
   };
 };
 

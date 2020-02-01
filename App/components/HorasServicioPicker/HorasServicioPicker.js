@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Picker, View, Image, StyleSheet} from 'react-native';
-import relojPickerImage from '../../../src/assets/icono-reloj-morado.png';
+import relojPickerImage from '../../assets/icono-reloj-morado.png';
 
 
 class HorasServicioPicker extends Component {
