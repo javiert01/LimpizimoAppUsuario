@@ -5,7 +5,6 @@ import AppNavigator from './routes';
 import colors from './constants/colors';
 import styles from './styles';
 
-EStyleSheet.build();
 EStyleSheet.build(colors);
 
 const App = () => {
