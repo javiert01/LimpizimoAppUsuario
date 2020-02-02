@@ -1,5 +1,5 @@
-import test from '../limpieza-normal-circulo.png';
+import logo from './Global/logo.png';
 
 export default {
-  test,
+  logo,
 };
