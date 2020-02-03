@@ -1,12 +1,12 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import SplashScreen from '../screens/Splash';
 import HomeScreen from '../screens/Home';
+import SplashScreen from '../screens/Splash';
 
 const RouteConfigs = {
-  Splash: { screen: SplashScreen },
   Home: { screen: HomeScreen },
+  Splash: { screen: SplashScreen },
 };
 
 const StackNavigatorConfig = {

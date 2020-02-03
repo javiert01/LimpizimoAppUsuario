@@ -5,7 +5,7 @@ export default EStyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '$mainColor',
+    backgroundColor: '$primaryColor',
   },
   logo: {
     width: '85%',
