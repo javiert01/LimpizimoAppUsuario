@@ -1,5 +1,19 @@
 {
   "appName": "Limpizimo",
+  "common": {
+    "greeting": "Buenas tardes {{name}}",
+    "serviceQuestion": "¿Qué servicio necesitas?",
+    "cleaningType": "Elige el tipo de limpieza",
+    "cleaning": {
+      "main": "Limpieza",
+      "normal": "Normal",
+      "deep": "Profunda"
+    },
+    "service": {
+      "once": "Servicio única vez",
+      "frequent": "Servicio frecuente"
+    }
+  },
   "walkthrough": {
     "page1": {
       "title": "Confianza",
