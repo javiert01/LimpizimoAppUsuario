@@ -3,6 +3,8 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
+import { NavigationActions, StackActions } from 'react-navigation';
+
 import TipoServicio from '../../components/TipoServicio/TipoServicio';
 import BienvenidoUsuario from '../../components/BienvenidoUsuario/BienvenidoUsuario';
 import DomicilioPicker from '../../components/DomicilioPicker/DomicilioPicker';
@@ -85,7 +87,7 @@ class Home extends React.Component {
       habilidades: '5e1c834fb329ab00047108b9',
       usuario: '5e1cf0a2e4c4270004381ac7',
       estado: 'Pendiente',
-      fechaInicio: '2020,01,28',
+      fechaInicio: '2020,02,04',
       aux_id_domicilio: '5e10a2b818b18900044de346',
       duracion: this.props.numeroHorasSelected,
       costo: 100,
@@ -100,7 +102,13 @@ class Home extends React.Component {
       .catch(err => console.log(err))
       .then(res => res.json())
       .then(parsedRes => {
+        console.log('servicio enviado')
         console.log(parsedRes);
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'ServiceStandby', key: 'ServiceStandby' })],
+        });
+        this.props.navigation.dispatch(resetAction);
       });
   };
 
