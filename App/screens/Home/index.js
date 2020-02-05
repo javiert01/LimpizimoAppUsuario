@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { Image, StatusBar, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, Picker, Platform, StatusBar, Text, View } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
-// import { connect } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { DateTime } from 'luxon';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { getPlaces } from '../../store/actions/places';
+// import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 // import TipoServicio from '../../components/TipoServicio/TipoServicio';
 // import BienvenidoUsuario from '../../components/BienvenidoUsuario/BienvenidoUsuario';
@@ -193,6 +196,17 @@ const Home = () => {
   const [isDeepCleaningOptionSelected, setIsDeepCleaningOptionSelected] = useState(false);
   const [isOnceOptionSelected, setIsOnceOptionSelected] = useState(true);
   const [isFrequentOptionSelected, setIsFrequentOptionSelected] = useState(false);
+  const [recurrenceOption, setRecurrenceOption] = useState(1);
+  const [showDatepicker, setShowDatepicker] = useState(false);
+  const [date, setDate] = useState(DateTime.local());
+  const [showTimepicker, setShowTimepicker] = useState(false);
+  const [time, setTime] = useState(DateTime.local());
+  const places = useSelector(state => state.places.places);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPlaces(1));
+  }, []);
 
   const _renderNormalCleaningImage = () => (
     <Image
@@ -235,6 +249,7 @@ const Home = () => {
   );
 
   const _toggleCleaningOption = option => {
+    console.log('xxxPlaces', places);
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
@@ -252,6 +267,33 @@ const Home = () => {
       setIsFrequentOptionSelected(true);
       setIsOnceOptionSelected(false);
     }
+  };
+
+  const _renderRecurrenceOption = () => {
+    if (isFrequentOptionSelected)
+      return (
+        <View style={styles.frequencyOptionContainer}>
+          <Text style={styles.frequencyOptionText}>{strings('common.frequency.recurrence')}</Text>
+          <View style={styles.recurrencePickerContainer}>
+            <Picker selectedValue={recurrenceOption} style={styles.recurrencePicker} onValueChange={itemValue => setRecurrenceOption(itemValue)}>
+              <Picker.Item label={strings('common.frequency.recurrenceOption1')} value={1} />
+              <Picker.Item label={strings('common.frequency.recurrenceOption2')} value={3} />
+            </Picker>
+          </View>
+        </View>
+      );
+  };
+
+  const _setDate = newDate => {
+    newDate = newDate || date.toJSDate();
+    setShowDatepicker(Platform.OS === 'ios' ? true : false);
+    setDate(DateTime.fromJSDate(newDate));
+  };
+
+  const _setTime = newDate => {
+    newDate = newDate || time.toJSDate();
+    setShowTimepicker(Platform.OS === 'ios' ? true : false);
+    setTime(DateTime.fromJSDate(newDate));
   };
 
   return (
@@ -281,20 +323,43 @@ const Home = () => {
           {_renderOnceOption()}
           {_renderFrequentOption()}
         </View>
-        {/* <View style={styles.frecuencyInfoContainer}>
+        <View style={styles.frecuencyInfoContainer}>
+          {_renderRecurrenceOption()}
+          <View style={{ ...styles.frequencyOptionContainer, marginTop: isFrequentOptionSelected ? 10 : 0 }}>
+            <Text style={styles.frequencyOptionText}>{strings('common.frequency.dayOfService')}</Text>
+            <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowDatepicker(true)}>
+              <View style={styles.dateTimePickerContainer}>
+                <Image style={styles.dateTimePickerImage} source={Images.calendar} resizeMode="contain" />
+                <Text style={styles.dateTimePickerText}>{date.toFormat(isFrequentOptionSelected ? 'EEEE' : 'dd/MM/yyyy')}</Text>
+                {showDatepicker && (
+                  <DateTimePicker
+                    value={date.toJSDate()}
+                    mode="date"
+                    minimumDate={new Date()}
+                    maximumDate={DateTime.local()
+                      .plus({ days: 15 })
+                      .toJSDate()}
+                    onChange={(event, date) => _setDate(date)}
+                  />
+                )}
+              </View>
+            </Touchable>
+          </View>
+          <View style={{ ...styles.frequencyOptionContainer, marginTop: 10 }}>
+            <Text style={styles.frequencyOptionText}>{strings('common.frequency.startOfService')}</Text>
+            <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowTimepicker(true)}>
+              <View style={styles.dateTimePickerContainer}>
+                <Image style={styles.dateTimePickerImage} source={Images.clock} resizeMode="contain" />
+                <Text style={styles.dateTimePickerText}>{time.toFormat('HH:mm')}</Text>
+                {showTimepicker && <DateTimePicker value={time.toJSDate()} mode="time" onChange={(event, date) => _setTime(date)} />}
+              </View>
+            </Touchable>
+          </View>
+          <Text style={styles.placeQuestion}>{strings('common.service.placeQuestion')}</Text>
+          <View>
 
-        </View> */}
-        <View style={styles.mapContainer}>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            region={{
-              latitude: -0.1832607,
-              longitude: -78.4792473,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.0121,
-            }}
-          />
+          </View>
+          <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
         </View>
       </View>
     </View>

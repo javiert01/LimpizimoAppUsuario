@@ -104,7 +104,7 @@ export default EStyleSheet.create({
     borderWidth: 3,
     borderColor: '$mainColorLight',
     borderRadius: 25,
-    zIndex: 2,
+    zIndex: 1,
   },
   optionContainer: {
     height: '100%',
@@ -119,10 +119,66 @@ export default EStyleSheet.create({
   frecuencyInfoContainer: {
     marginTop: -40,
     marginHorizontal: 20,
-    height: 300,
     backgroundColor: '$mainColorLight',
     borderRadius: 30,
-    zIndex: 1,
+    paddingTop: 45,
+    paddingBottom: 10,
+    paddingHorizontal: 30,
+  },
+  frequencyOptionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  frequencyOptionText: {
+    fontSize: 16,
+    color: '$grayText',
+    fontWeight: 'bold',
+  },
+  recurrencePickerContainer: {
+    marginLeft: 'auto',
+    borderWidth: 2,
+    borderColor: '$primaryColor',
+    height: 26,
+    width: 150,
+    borderRadius: 13,
+  },
+  recurrencePicker: {
+    height: '100%',
+    marginLeft: -25,
+    marginRight: -37,
+    transform: [{ scale: 0.7 }],
+    borderWidth: 1,
+    borderColor: 'black',
+  },
+  dateTimePickerTouchableArea: {
+    marginLeft: 'auto',
+    width: 150,
+  },
+  dateTimePickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dateTimePickerImage: {
+    height: 24,
+    width: 24,
+  },
+  dateTimePickerText: {
+    marginLeft: 10,
+    color: '$grayText',
+  },
+  placeQuestion: {
+    marginTop: 20,
+    fontSize: 20,
+    textAlign: 'center',
+    color: '$grayText',
+    fontWeight: 'bold',
+  },
+  serviceHours: {
+    marginTop: 10,
+    fontSize: 16,
+    textAlign: 'center',
+    color: '$grayText',
+    fontWeight: 'bold',
   },
   mapContainer: {
     height: '100%',
