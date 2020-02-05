@@ -12,6 +12,11 @@ import normalCleaning from './Global/normalCleaning.png';
 import deepCleaning from './Global/deepCleaning.png';
 import selectedNormalCleaning from './Global/selectedNormalCleaning.png';
 import selectedDeepCleaning from './Global/selectedDeepCleaning.png';
+import calendar from './Global/calendar.png';
+import clock from './Global/clock.png';
+import house from './Global/house.png';
+import office from './Global/office.png';
+import otherPlace from './Global/otherPlace.png';
 
 export default {
   logo,
@@ -28,4 +33,9 @@ export default {
   deepCleaning,
   selectedNormalCleaning,
   selectedDeepCleaning,
+  calendar,
+  clock,
+  house,
+  office,
+  otherPlace,
 };
