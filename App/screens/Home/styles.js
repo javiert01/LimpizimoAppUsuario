@@ -74,9 +74,6 @@ export default EStyleSheet.create({
   cleaningOption: {
     alignItems: 'center',
   },
-  cleaningImageContanier: {
-    height: 95,
-  },
   cleaningImage: {
     height: 75,
     width: 75,
@@ -92,7 +89,8 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
   },
   bottomView: {
-    height: '100%',
+    position: 'relative',
+    height: 600,
   },
   frequency: {
     flexDirection: 'row',
@@ -104,7 +102,7 @@ export default EStyleSheet.create({
     borderWidth: 3,
     borderColor: '$mainColorLight',
     borderRadius: 25,
-    zIndex: 1,
+    zIndex: 2,
   },
   optionContainer: {
     height: '100%',
@@ -116,7 +114,7 @@ export default EStyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-  frecuencyInfoContainer: {
+  frequencyInfoContainer: {
     marginTop: -40,
     marginHorizontal: 20,
     backgroundColor: '$mainColorLight',
@@ -124,6 +122,7 @@ export default EStyleSheet.create({
     paddingTop: 45,
     paddingBottom: 10,
     paddingHorizontal: 30,
+    zIndex: 1,
   },
   frequencyOptionContainer: {
     flexDirection: 'row',
@@ -147,8 +146,6 @@ export default EStyleSheet.create({
     marginLeft: -25,
     marginRight: -37,
     transform: [{ scale: 0.7 }],
-    borderWidth: 1,
-    borderColor: 'black',
   },
   dateTimePickerTouchableArea: {
     marginLeft: 'auto',
@@ -173,6 +170,40 @@ export default EStyleSheet.create({
     color: '$greyText',
     fontWeight: 'bold',
   },
+  placeOptionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '$primaryColor',
+    padding: 4,
+    marginHorizontal: 26,
+    borderRadius: 22,
+    marginTop: 10,
+  },
+  placeOptionImageContainer: {
+    backgroundColor: '$mainColorLight',
+    borderRadius: 18,
+    height: 36,
+    width: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  placeOptionImage: {
+    height: 28,
+    width: 28,
+  },
+  placePickerInfoContainer: {
+    marginLeft: 10,
+    width: 220,
+  },
+  placePicker: {
+    height: 20,
+    marginLeft: -7,
+    color: '$mainColorLight',
+  },
+  placeAddress: {
+    color: '$mainColorLight',
+    fontSize: 10,
+  },
   serviceHours: {
     marginTop: 10,
     fontSize: 16,
@@ -180,12 +211,111 @@ export default EStyleSheet.create({
     color: '$greyText',
     fontWeight: 'bold',
   },
+  serviceHoursOptionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '$secondaryColor',
+    padding: 4,
+    marginHorizontal: 70,
+    borderRadius: 17,
+  },
+  serviceHoursOptionImageContainer: {
+    backgroundColor: '$mainColorLight',
+    borderRadius: 13,
+    height: 26,
+    width: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  serviceHoursOptionImage: {
+    height: 18,
+    width: 18,
+  },
+  serviceHoursPickerContainer: {
+    marginLeft: 'auto',
+    marginRight: -10,
+    width: 132,
+  },
+  serviceHoursPicker: {
+    height: 22,
+    color: '$mainColorLight',
+  },
+  cardOptionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 186,
+    alignSelf: 'center',
+    marginTop: 5,
+  },
+  cardOptionImage: {
+    height: 18,
+    width: 18,
+  },
+  cardPickerContainer: {
+    height: 22,
+    width: '100%',
+  },
+  cardPicker: {
+    height: '100%',
+    transform: [{ scale: 0.7 }],
+    color: '$greyTextLight',
+    marginLeft: -39,
+    marginRight: -28,
+  },
+  askForButton: {
+    height: 140,
+    width: 140,
+    backgroundColor: '$primaryColor',
+    zIndex: 1,
+    marginTop: 'auto',
+    alignSelf: 'center',
+    marginBottom: 20,
+    borderRadius: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  askForButtonPartsContainer: {
+    height: 120,
+    width: 120,
+    borderRadius: 60,
+    overflow: 'hidden',
+  },
+  askForButtonTopPart: {
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  askForText: {
+    color: '$mainColorLight',
+    fontSize: 20,
+  },
+  now: {
+    color: '$mainColorLight',
+    fontSize: 20,
+    fontWeight: 'bold',
+    lineHeight: 20,
+  },
+  askForButtonBottomPart: {
+    height: '50%',
+    backgroundColor: '$secondaryColor',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  calculatedPrice: {
+    color: '$mainColorLight',
+    fontSize: 40,
+    fontWeight: 'bold',
+    lineHeight: 42,
+  },
   mapContainer: {
     height: '100%',
-    marginTop: -20,
+    width: '100%',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     overflow: 'hidden',
+    position: 'absolute',
+    top: 60,
+    right: 0,
   },
   map: {
     height: '100%',
