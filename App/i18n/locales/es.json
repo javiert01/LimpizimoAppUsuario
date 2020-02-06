@@ -4,6 +4,7 @@
     "greeting": "Buenas tardes {{name}}",
     "serviceQuestion": "¿Qué servicio necesitas?",
     "cleaningType": "Elige el tipo de limpieza",
+    "now": "Ahora",
     "cleaning": {
       "main": "Limpieza",
       "normal": "Normal",
@@ -11,7 +12,19 @@
     },
     "service": {
       "once": "Servicio única vez",
-      "frequent": "Servicio frecuente"
+      "frequent": "Servicio frecuente",
+      "placeQuestion": "¿Dónde lo quieres?",
+      "hours": "Horas del servicio",
+      "selectedHours": "+{{hour}} horas",
+      "cardEnd": "La tarjeta termina en {{cardNumber}}",
+      "askFor": "Pedir"
+    },
+    "frequency": {
+      "recurrence": "Recurrencia",
+      "dayOfService": "Día del servicio",
+      "startOfService": "Inicio del servicio",
+      "recurrenceOption1": "1 vez a la semana",
+      "recurrenceOption2": "3 veces a la semana"
     }
   },
   "walkthrough": {
