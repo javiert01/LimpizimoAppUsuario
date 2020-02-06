@@ -5,6 +5,7 @@ import {
   SELECT_DIA_SERVICIO,
   SELECT_HORA_SERVICIO,
   SELECT_NUMERO_HORAS,
+  ASK_FOR_SERVICE,
 } from '../actions/actionTypes';
 import edificioPickerImage from '../../assets/icono-edificio-morado.png';
 import casaPickerImage from '../../assets/icono-casa-morado.png';
@@ -72,6 +73,7 @@ const initialState = {
   diaServicioSelected: null,
   horaServicioSelected: null,
   numeroHorasSelected: null,
+  askForService: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -111,6 +113,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         numeroHorasSelected: action.numeroHoras,
       };
+    case ASK_FOR_SERVICE:
+      return { ...state, askForService: action.payload };
     default:
       return state;
   }
