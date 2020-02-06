@@ -193,7 +193,7 @@ import styles from './styles';
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
-const Home = () => {
+const Home = props => {
   const [isNormalCleaningOptionSelected, setIsNormalCleaningOptionSelected] = useState(false);
   const [isDeepCleaningOptionSelected, setIsDeepCleaningOptionSelected] = useState(false);
   const [isOnceOptionSelected, setIsOnceOptionSelected] = useState(true);
@@ -217,8 +217,7 @@ const Home = () => {
 
   useEffect(() => {
     setSelectedPlaceId(places.length ? places[0].id : 0);
-    console.log('xxxPlacesHasChanged');
-  }, [places]);
+  }, [props.places]);
 
   const _renderNormalCleaningImage = () => (
     <Image
