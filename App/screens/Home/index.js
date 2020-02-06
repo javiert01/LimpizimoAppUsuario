@@ -82,7 +82,6 @@ const Home = props => {
   );
 
   const _toggleCleaningOption = option => {
-    console.log('xxxPlaces', places);
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
