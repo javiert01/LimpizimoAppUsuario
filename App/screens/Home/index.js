@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-
+import  CONSTANTS  from '../../constants/index'
 import { NavigationActions, StackActions } from 'react-navigation';
 
 import TipoServicio from '../../components/TipoServicio/TipoServicio';
@@ -17,6 +17,9 @@ import {
   selectTipoServicio,
   selectRecurrencia,
   selectNumeroHoras,
+  connectToRoom,
+  sendMessageToRoom,
+  listenMessage
 } from '../../store/actions/index';
 
 import { strings } from '../../i18n';
@@ -40,6 +43,24 @@ class Home extends React.Component {
     tiempoServicio: 4,
     costoServicio: 26,
   };
+
+
+  componentDidMount() {
+
+  }
+
+  conectarSala = () => {
+   this.props.onConnectToRoom(CONSTANTS.HOST);
+  }
+
+  sendMessageToRoom = () => {
+    this.props.onSendMessageToRoom('sala1', 'prueba desde app');
+  }
+
+  listenMessage = () => {
+    this.props.onListenMessage();
+  }
+
 
   domicilioSelectedHandler = (value, id) => {
     this.props.onSelectDomicilio(value, id);
@@ -71,6 +92,9 @@ class Home extends React.Component {
 
   onEnviarServicio = () => {
     console.log('enviando servicio...');
+    this.conectarSala();
+    // this.sendMessageToRoom();
+    this.listenMessage();
     console.log(
       'Tipo de servicio seleccionado:',
       this.props.tipoServicioSelected,
@@ -104,7 +128,7 @@ class Home extends React.Component {
       .then(parsedRes => {
         console.log('servicio enviado')
         console.log(parsedRes);
-        const resetAction = StackActions.reset({
+       const resetAction = StackActions.reset({
           index: 0,
           actions: [NavigationActions.navigate({ routeName: 'ServiceStandby', key: 'ServiceStandby' })],
         });
@@ -164,6 +188,8 @@ class Home extends React.Component {
   }
 }
 
+
+
 const mapStateToProps = state => {
   return {
     domicilios: state.services.domicilios,
@@ -188,6 +214,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(selectRecurrencia(tipoRecurrencia)),
     onSelectNumeroHoras: numeroHoras =>
       dispatch(selectNumeroHoras(numeroHoras)),
+    onConnectToRoom: host => dispatch(connectToRoom(host)),
+    onSendMessageToRoom: (message, roomName) => dispatch(sendMessageToRoom(roomName, message)),
+    onListenMessage: () => dispatch(listenMessage())
   };
 };
 

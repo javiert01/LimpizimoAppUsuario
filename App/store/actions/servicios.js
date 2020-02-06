@@ -1,6 +1,6 @@
 import {SELECT_DOMICILIO, SELECT_TIPO_SERVICIO, 
         SELECT_HORA_SERVICIO, SELECT_NUMERO_HORAS, 
-        SELECT_DIA_SERVICIO, SELECT_RECURRENCIA} from './actionTypes';
+        SELECT_DIA_SERVICIO, SELECT_RECURRENCIA, SET_IS_SERVICE_ASSIGNED} from './actionTypes';
 
 export const selectDomicilio = (value, id) => {
     return {
@@ -42,5 +42,13 @@ export const selectNumeroHoras = (numeroHoras) => {
     return {
         type: SELECT_NUMERO_HORAS,
         numeroHoras: numeroHoras
+    }
+}
+
+export const setIsServiceAssigned = (isServiceAssigned) => {
+    console.log('seteando servicio asignado', isServiceAssigned);
+    return {
+        type: SET_IS_SERVICE_ASSIGNED,
+        isServiceAssigned: isServiceAssigned
     }
 }

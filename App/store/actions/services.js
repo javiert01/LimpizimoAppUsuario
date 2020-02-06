@@ -1,6 +1,6 @@
 import api from '../../api';
 
-export const createServie = service => {
+export const createService = service => {
   return dispatch => {
     api
       .post('servicio/crear', service)
