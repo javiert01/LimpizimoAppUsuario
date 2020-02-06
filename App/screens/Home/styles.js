@@ -131,7 +131,7 @@ export default EStyleSheet.create({
   },
   frequencyOptionText: {
     fontSize: 16,
-    color: '$grayText',
+    color: '$greyText',
     fontWeight: 'bold',
   },
   recurrencePickerContainer: {
@@ -164,20 +164,20 @@ export default EStyleSheet.create({
   },
   dateTimePickerText: {
     marginLeft: 10,
-    color: '$grayText',
+    color: '$greyText',
   },
   placeQuestion: {
     marginTop: 20,
     fontSize: 20,
     textAlign: 'center',
-    color: '$grayText',
+    color: '$greyText',
     fontWeight: 'bold',
   },
   serviceHours: {
     marginTop: 10,
     fontSize: 16,
     textAlign: 'center',
-    color: '$grayText',
+    color: '$greyText',
     fontWeight: 'bold',
   },
   mapContainer: {

@@ -4,5 +4,6 @@ export default {
   $tertiaryColor: '#3eaee7',
   $mainColorLight: '#fff',
   $mainColorDark: '#000',
-  $grayText: '#464648',
+  $greyText: '#464648',
+  $greyTextLight: '#939393',
 };
