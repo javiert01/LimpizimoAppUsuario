@@ -4,9 +4,13 @@ import CONSTANTS from '../../../constants/index'
 const socketMidleware = () => {
     
     let socket = null;
+    let roomNames = [];
     const socketIOClient = require("socket.io-client");
     const sailsIOClient = require("sails.io.js");
     const io = sailsIOClient(socketIOClient);
+    io.sails.useCORSRouteToGetCookie = false;
+    io.sails.url = CONSTANTS.HOST;
+    socket = io.sails.connect(CONSTANTS.HOST);
     
     const onSetServiceAssigned = store => () => {
         console.log('seteando el servicio');
@@ -16,15 +20,16 @@ const socketMidleware = () => {
     return store => next => action => {
         switch(action.type) {
             case 'CONNECT_TO_ROOM':
-                if(socket !== null) {
-                    //socket.close();
-                    return;
+                if(roomNames.length > 0){
+                    for(let i = 0; i< roomNames.length; i++) {
+                        if(roomNames[i] === action.roomName) {
+                            return;
+                        }
+                    }
                 }
+                roomNames.push(action.roomName)
                 console.log('conectar a sala');
-                io.sails.useCORSRouteToGetCookie = false;
-                io.sails.url = CONSTANTS.HOST;
-                socket = io.sails.connect(action.host);
-                nombreSala = 'sala1';
+                nombreSala = action.roomName;
                 socket.get(CONSTANTS.HOST + '/empresa/subscribe?nombreSala=' + nombreSala, (resData) => {
                     console.log('uniendo sala', resData);
                   });
@@ -44,8 +49,10 @@ const socketMidleware = () => {
                   );
             case 'LISTEN_MESSAGE':
                 console.log('listening for messages');
-                socket.on("msm", data => {
-                    console.log(data);
+                console.log(action.eventName);
+                event = action.eventName;
+                socket.on(event, data => {
+                    console.log('me llega info desde evento servicio asignado', data);
                     next(setIsServiceAssigned(true));
                     //onSetServiceAssigned(store);
                 });

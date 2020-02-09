@@ -16,5 +16,9 @@
   },
   "serviceStandby": {
     "message": "Buscando la mejor colaboradora para tu zona. Te notificaremos enseguida."
+  },
+  "employeeFound": {
+    "message": "Encontramos la colaboradora para ti",
+    "numberServices": "servicios realizados"
   }
 }

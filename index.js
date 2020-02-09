@@ -8,6 +8,6 @@ import store from './App/store';
 const limpizimo = () => (
   <Provider store={store}>
     <App />
-  </Provider>
+  </Provider >
 );
 AppRegistry.registerComponent(appName, () => limpizimo);

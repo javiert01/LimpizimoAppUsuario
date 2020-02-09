@@ -1,9 +1,9 @@
 import { CONNECT_TO_ROOM, SEND_MESSAGE_TO_ROOM, LISTEN_MESSAGE } from './actionTypes';
 
-export const connectToRoom = host => {
+export const connectToRoom = roomName => {
   return {
     type: CONNECT_TO_ROOM,
-    host
+    roomName: roomName
   };
 };
 
@@ -15,8 +15,9 @@ export const sendMessageToRoom = (roomName, message) => {
   };
 };
 
-export const listenMessage = () => {
+export const listenMessage = eventName => {
   return {
-    type: LISTEN_MESSAGE
+    type: LISTEN_MESSAGE,
+    eventName: eventName
   };
 };

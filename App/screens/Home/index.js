@@ -45,20 +45,16 @@ class Home extends React.Component {
   };
 
 
-  componentDidMount() {
-
-  }
-
-  conectarSala = () => {
-   this.props.onConnectToRoom(CONSTANTS.HOST);
+  conectarSala = (nombreSala) => {
+   this.props.onConnectToRoom(nombreSala);
   }
 
   sendMessageToRoom = () => {
     this.props.onSendMessageToRoom('sala1', 'prueba desde app');
   }
 
-  listenMessage = () => {
-    this.props.onListenMessage();
+  listenMessage = (eventName) => {
+    this.props.onListenMessage(eventName);
   }
 
 
@@ -92,9 +88,10 @@ class Home extends React.Component {
 
   onEnviarServicio = () => {
     console.log('enviando servicio...');
-    this.conectarSala();
+    this.conectarSala('sala1');
+    this.conectarSala('Armando');
     // this.sendMessageToRoom();
-    this.listenMessage();
+    this.listenMessage('servicio-asignado');
     console.log(
       'Tipo de servicio seleccionado:',
       this.props.tipoServicioSelected,
@@ -214,9 +211,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(selectRecurrencia(tipoRecurrencia)),
     onSelectNumeroHoras: numeroHoras =>
       dispatch(selectNumeroHoras(numeroHoras)),
-    onConnectToRoom: host => dispatch(connectToRoom(host)),
+    onConnectToRoom: roomName => dispatch(connectToRoom(roomName)),
     onSendMessageToRoom: (message, roomName) => dispatch(sendMessageToRoom(roomName, message)),
-    onListenMessage: () => dispatch(listenMessage())
+    onListenMessage: (eventName) => dispatch(listenMessage(eventName))
   };
 };
 
