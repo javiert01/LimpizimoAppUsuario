@@ -10,6 +10,15 @@ import walkthroughRightArrow3 from './Walkthrough/Page3/walkthroughRightArrow3.p
 import walkthroughPageIndicator3 from './Walkthrough/Page3/walkthroughPageIndicator3.png';
 import normalCleaning from './Global/normalCleaning.png';
 import assignedBorder from './Global/assignedBorder.png';
+import deepCleaning from './Global/deepCleaning.png';
+import selectedNormalCleaning from './Global/selectedNormalCleaning.png';
+import selectedDeepCleaning from './Global/selectedDeepCleaning.png';
+import calendar from './Global/calendar.png';
+import clock from './Global/clock.png';
+import house from './Global/house.png';
+import office from './Global/office.png';
+import otherPlace from './Global/otherPlace.png';
+import card from './Global/card.png';
 
 export default {
   logo,
@@ -24,4 +33,13 @@ export default {
   walkthroughPageIndicator3,
   normalCleaning,
   assignedBorder,
+  deepCleaning,
+  selectedNormalCleaning,
+  selectedDeepCleaning,
+  calendar,
+  clock,
+  house,
+  office,
+  otherPlace,
+  card,
 };

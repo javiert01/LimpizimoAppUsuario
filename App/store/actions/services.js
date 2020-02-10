@@ -1,14 +1,14 @@
 import api from '../../api';
+import { ASK_FOR_SERVICE } from './actionTypes';
 
-export const createService = service => {
-  return dispatch => {
-    api
-      .post('servicio/crear', service)
-      .then(res => {
-        console.log('xxxRes', res);
-      })
-      .catch(err => {
-        console.log('xxxErr', err);
-      });
-  };
+export const askForService = service => dispatch => {
+  api
+    .post('servicio/crear', service)
+    .then(res => {
+      console.log('xxxRes', res);
+      dispatch({ type: ASK_FOR_SERVICE, payload: res });
+    })
+    .catch(err => {
+      console.log('xxxErr', err);
+    });
 };
