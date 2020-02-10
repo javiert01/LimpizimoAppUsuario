@@ -18,6 +18,9 @@ import house from './Global/house.png';
 import office from './Global/office.png';
 import otherPlace from './Global/otherPlace.png';
 import card from './Global/card.png';
+import purpleLogo from './Global/purpleLogo.png';
+import whiteUpArrow from './Icons/whiteUpArrow.png';
+import whiteDownArrowV2 from './Icons/whiteDownArrowV2.png';
 
 export default {
   logo,
@@ -40,4 +43,7 @@ export default {
   office,
   otherPlace,
   card,
+  purpleLogo,
+  whiteUpArrow,
+  whiteDownArrowV2,
 };

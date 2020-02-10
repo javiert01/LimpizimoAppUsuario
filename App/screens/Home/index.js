@@ -123,8 +123,8 @@ const Home = props => {
 
   const _askForService = () => {
     const service = {
-      habilidades: '5e1c834fb329ab00047108b9',
-      usuario: '5e1cf0a2e4c4270004381ac7',
+      habilidades: '5e39af19d570ae0004200587',
+      usuario: '5e39b065d570ae00042005ac',
       estado: 'Pendiente',
       fechaInicio: date.toFormat('yyyy,MM,dd'),
       aux_id_domicilio: '5e10a2b818b18900044de346',
@@ -134,6 +134,10 @@ const Home = props => {
       nombreSala: 'sala1',
       horaInicio: time.toFormat('H:mm'),
     };
+    props.navigation.navigate({
+      routeName: 'ServiceAccepted',
+      key: 'ServiceAccepted',
+    });
     dispatch(askForService(service));
   };
 
@@ -219,9 +223,9 @@ const Home = props => {
                     <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
                   ))}
                 </Picker>
-                {!!places.length && (
+                {/* {!!places.length && (
                   <Text style={styles.placeAddress}>{`${places[selectedPlaceId].callePrincipal}, ${places[selectedPlaceId].ciudad}`}</Text>
-                )}
+                )} */}
               </View>
             </View>
             <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
@@ -248,7 +252,7 @@ const Home = props => {
               </View>
             </View>
           </View>
-          <Touchable style={styles.askForButton} onPress={() => _askForService()}>
+          <Touchable style={styles.askForButton} onPress={ _askForService}>
             <View style={styles.askForButtonPartsContainer}>
               <View style={styles.askForButtonTopPart}>
                 <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>

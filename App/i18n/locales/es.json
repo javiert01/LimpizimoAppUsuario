@@ -40,5 +40,10 @@
       "title": "Servicios de Calidad",
       "description": "Ofrecemos un excelente servicio de calidad, todas las colaboradoras son capacitadas con los más altos estándares, para que el cliente este totalmente satisfecho con el servicio."
     }
+  },
+  "serviceAccepted": {
+    "service": "Servicio",
+    "accepted": "Aceptado",
+    "serviceDetails": "Detalles del servicio"
   }
 }
