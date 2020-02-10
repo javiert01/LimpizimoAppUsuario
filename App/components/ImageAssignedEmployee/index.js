@@ -1,30 +1,21 @@
-import React, { Component } from "react";
-import { View, Image, Text} from "react-native";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Image, Text } from 'react-native';
 import Images from '../../assets/images';
 import styles from './styles';
 
-class ImageAssignedEmployee extends Component {
-  state = {
-    image: Images.assignedBorder,
-    imageUrl: "https://limpizimov1.s3.amazonaws.com/NoBorrar/empleada1.jpg"
-  };
+const ImageAssignedEmployee = props => {
+  const imageUrlTest = 'https://limpizimov1.s3.amazonaws.com/NoBorrar/empleada1.jpg';
+  //const imageUrl = useSelector(state => state.employee.imageUrl);
 
-  _setImgSource = () => {
-    
-  }
-
-  render() {
-    console.log('image employee asigned');
-    return (
-      <View style={styles.inputContainer}>
-          <View style={styles.backgroundContainer}>
-          <Image source={{ uri: this.state.imageUrl }} style={styles.imageUrl}></Image>
-          </View>
-          <Image source={this.state.image} style={styles.image}></Image>
+  return (
+    <View style={styles.inputContainer}>
+      <View style={styles.backgroundContainer}>
+        <Image source={{ uri: imageUrlTest }} style={styles.imageUrl}></Image>
       </View>
-    );
-  }
-}
-
+      <Image source={Images.assignedBorder} style={styles.image}></Image>
+    </View>
+  );
+};
 
 export default ImageAssignedEmployee;

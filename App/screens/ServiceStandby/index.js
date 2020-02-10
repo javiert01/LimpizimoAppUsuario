@@ -1,34 +1,22 @@
-import React, { useState }from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
 import { View, Image, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 import Images from '../../assets/images';
 import styles from './styles';
 import { strings } from '../../i18n';
 
-class ServiceStandby extends React.Component {
-    state = {
-        title: strings('serviceStandby.message')
-    }
-    render() {
-        if(this.props.isServiceAssigned) {
-            console.log('servicio asignado');
-            alert('servicios asignado!');
-        }
-        return(
-        <View style={styles.container}>
-            <Text style={styles.text}>{this.state.title}</Text>
-            <Image style={styles.logo} source={Images.normalCleaning} resizeMode="contain" />
-        </View>
-        );
-    };
-    
+const ServiceStandby = props => {
+  const isServiceAssigned = useSelector(state => state.services.isServiceAssigned);
+  useEffect(() => {
+    isServiceAssigned && alert('servicios asignado!');
+  }, [props.isServiceAssigned]);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{strings('serviceStandby.message')}</Text>
+      <Image style={styles.logo} source={Images.normalCleaning} resizeMode="contain" />
+    </View>
+  );
 };
 
-const mapStateToProps = state => {
-    return {
-      isServiceAssigned: state.services.isServiceAssigned
-    };
-};
-
-
-export default connect(mapStateToProps)(ServiceStandby);
+export default ServiceStandby;

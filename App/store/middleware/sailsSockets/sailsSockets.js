@@ -1,4 +1,4 @@
-import {connectToRoom, sendMessageToRoom, setIsServiceAssigned} from '../../actions/index'
+import {setIsServiceAssigned} from '../../actions/services'
 import CONSTANTS from '../../../constants/index'
 
 const socketMidleware = () => {
@@ -11,11 +11,6 @@ const socketMidleware = () => {
     io.sails.useCORSRouteToGetCookie = false;
     io.sails.url = CONSTANTS.HOST;
     socket = io.sails.connect(CONSTANTS.HOST);
-    
-    const onSetServiceAssigned = store => () => {
-        console.log('seteando el servicio');
-        store.dispatch(setIsServiceAssigned(true));
-    }
 
     return store => next => action => {
         switch(action.type) {
