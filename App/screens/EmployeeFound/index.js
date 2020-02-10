@@ -19,8 +19,8 @@ const EmployeeFound = props => {
       <Text style={styles.titleText}>Nombre empleada</Text>
       <Text style={styles.text}>34 {strings('employeeFound.numberServices')}</Text>
       <View style={styles.buttonContainer}>
-        <Touchable style={styles.textContainer} onPress={() => _navigateToServiceDetail()}>
-          <Text style={styles.buttonText}>OK</Text>
+        <Touchable style={styles.textContainer} onPress={_navigateToServiceDetail()}>
+          <Text style={styles.buttonText}>{strings('common.ok')}</Text>
         </Touchable>
       </View>
     </View>

@@ -5,6 +5,7 @@
     "serviceQuestion": "¿Qué servicio necesitas?",
     "cleaningType": "Elige el tipo de limpieza",
     "now": "Ahora",
+    "ok": "OK",
     "cleaning": {
       "main": "Limpieza",
       "normal": "Normal",

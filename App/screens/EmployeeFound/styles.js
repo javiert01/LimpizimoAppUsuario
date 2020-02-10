@@ -16,7 +16,6 @@ export default EStyleSheet.create({
     padding: 3,
     backgroundColor: '$secondaryColor',
     borderRadius: 25,
-    zIndex: 2,
   },
   textContainer: {
     height: '100%',
