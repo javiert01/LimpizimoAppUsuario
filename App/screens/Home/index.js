@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 
 import { getPlaces } from '../../store/actions/places';
 import { askForService } from '../../store/actions/services';
+import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
@@ -123,8 +124,8 @@ const Home = props => {
 
   const _askForService = () => {
     const service = {
-      habilidades: '5e1c834fb329ab00047108b9',
-      usuario: '5e1cf0a2e4c4270004381ac7',
+      habilidades: '5e39af19d570ae0004200587',
+      usuario: '5e39b065d570ae00042005ac',
       estado: 'Pendiente',
       fechaInicio: date.toFormat('yyyy,MM,dd'),
       aux_id_domicilio: '5e10a2b818b18900044de346',
@@ -134,7 +135,14 @@ const Home = props => {
       nombreSala: 'sala1',
       horaInicio: time.toFormat('H:mm'),
     };
+    dispatch(connectToRoom('sala1'));
+    dispatch(connectToRoom('Armando'));
+    dispatch(listenMessage('servicio-asignado'));
     dispatch(askForService(service));
+    props.navigation.navigate({
+      routeName: 'ServiceStandby',
+      key: 'ServiceStandby', 
+    });
   };
 
   return (

@@ -5,6 +5,7 @@
     "serviceQuestion": "¿Qué servicio necesitas?",
     "cleaningType": "Elige el tipo de limpieza",
     "now": "Ahora",
+    "ok": "OK",
     "cleaning": {
       "main": "Limpieza",
       "normal": "Normal",
@@ -40,5 +41,12 @@
       "title": "Servicios de Calidad",
       "description": "Ofrecemos un excelente servicio de calidad, todas las colaboradoras son capacitadas con los más altos estándares, para que el cliente este totalmente satisfecho con el servicio."
     }
+  },
+  "serviceStandby": {
+    "message": "Buscando la mejor colaboradora para tu zona. Te notificaremos enseguida."
+  },
+  "employeeFound": {
+    "message": "Encontramos la colaboradora para ti",
+    "numberServices": "servicios realizados"
   }
 }

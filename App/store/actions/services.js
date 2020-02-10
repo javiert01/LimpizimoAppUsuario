@@ -12,3 +12,11 @@ export const askForService = service => dispatch => {
       console.log('xxxErr', err);
     });
 };
+
+export const setIsServiceAssigned = (isServiceAssigned) => {
+  console.log('seteando servicio asignado', isServiceAssigned);
+  return {
+      type: SET_IS_SERVICE_ASSIGNED,
+      isServiceAssigned: isServiceAssigned
+  }
+}

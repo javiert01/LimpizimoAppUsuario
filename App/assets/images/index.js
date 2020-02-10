@@ -9,6 +9,7 @@ import walkthrough3 from './Walkthrough/Page3/walkthrough3.png';
 import walkthroughRightArrow3 from './Walkthrough/Page3/walkthroughRightArrow3.png';
 import walkthroughPageIndicator3 from './Walkthrough/Page3/walkthroughPageIndicator3.png';
 import normalCleaning from './Global/normalCleaning.png';
+import assignedBorder from './Global/assignedBorder.png';
 import deepCleaning from './Global/deepCleaning.png';
 import selectedNormalCleaning from './Global/selectedNormalCleaning.png';
 import selectedDeepCleaning from './Global/selectedDeepCleaning.png';
@@ -31,6 +32,7 @@ export default {
   walkthroughRightArrow3,
   walkthroughPageIndicator3,
   normalCleaning,
+  assignedBorder,
   deepCleaning,
   selectedNormalCleaning,
   selectedDeepCleaning,
