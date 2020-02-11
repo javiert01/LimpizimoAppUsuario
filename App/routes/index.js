@@ -5,12 +5,17 @@ import HomeScreen from '../screens/Home';
 import ServiceAcceptedScreen from '../screens/ServiceAccepted';
 import SplashScreen from '../screens/Splash';
 import WalkthroughScreen from '../screens/Walkthrough';
+import ServiceStandbyScreen from '../screens/ServiceStandby';
+import EmployeeFoundScreen from '../screens/EmployeeFound';
+
 
 const RouteConfigs = {
   Home: { screen: HomeScreen },
   ServiceAccepted: { screen: ServiceAcceptedScreen },
   Splash: { screen: SplashScreen },
   Walkthrough: { screen: WalkthroughScreen },
+  ServiceStandby: {screen: ServiceStandbyScreen},
+  EmployeeFound: {screen: EmployeeFoundScreen}
 };
 
 const StackNavigatorConfig = {

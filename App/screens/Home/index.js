@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 
 import { getPlaces } from '../../store/actions/places';
 import { askForService } from '../../store/actions/services';
+import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
@@ -134,11 +135,14 @@ const Home = props => {
       nombreSala: 'sala1',
       horaInicio: time.toFormat('H:mm'),
     };
-    props.navigation.navigate({
-      routeName: 'ServiceAccepted',
-      key: 'ServiceAccepted',
-    });
+    dispatch(connectToRoom('sala1'));
+    dispatch(connectToRoom('Armando'));
+    dispatch(listenMessage('servicio-asignado'));
     dispatch(askForService(service));
+    props.navigation.navigate({
+      routeName: 'ServiceStandby',
+      key: 'ServiceStandby', 
+    });
   };
 
   return (
