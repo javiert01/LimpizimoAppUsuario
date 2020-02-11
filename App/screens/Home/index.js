@@ -223,9 +223,9 @@ const Home = props => {
                     <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
                   ))}
                 </Picker>
-                {/* {!!places.length && (
+                {!!places.length && (
                   <Text style={styles.placeAddress}>{`${places[selectedPlaceId].callePrincipal}, ${places[selectedPlaceId].ciudad}`}</Text>
-                )} */}
+                )}
               </View>
             </View>
             <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
