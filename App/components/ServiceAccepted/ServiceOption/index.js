@@ -15,9 +15,11 @@ const ServiceOption = props => {
         <Image style={styles.icon} source={props.icon} resizeMode="contain" />
       )}
       <Text style={{ ...styles.text, marginLeft: props.containedIcon ? 8 : 16 }}>{props.text}</Text>
-      {props.onButtonPress && <Touchable style={styles.button} onPress={props.onButtonPress}>
-        <Text style={styles.text}>{props.buttonText}</Text>
-      </Touchable>}
+      {props.onButtonPress && (
+        <Touchable style={styles.button} onPress={props.onButtonPress}>
+          <Text style={styles.text}>{props.buttonText}</Text>
+        </Touchable>
+      )}
     </View>
   );
 };
