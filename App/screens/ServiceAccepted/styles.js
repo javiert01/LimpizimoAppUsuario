@@ -45,8 +45,9 @@ export default EStyleSheet.create({
     marginTop: -56,
     backgroundColor: '$primaryColor',
     borderRadius: 40,
-    height: '85%',
+    flex: 1,
     width: '100%',
+    overflow: 'hidden',
   },
   upArrowContainer: {
     marginTop: 20,
@@ -72,6 +73,25 @@ export default EStyleSheet.create({
   },
   lineSeparator: {
     height: 1,
-    backgroundColor: '$greyTextLight',
+    backgroundColor: '$mainColorLight',
+  },
+  bottomButtonsContainer: {
+    backgroundColor: '$mainColorLight',
+    height: 40,
+    width: '100%',
+    marginTop: 'auto',
+    flexDirection: 'row',
+  },
+  button: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cancelButtonText: {
+    color: 'red',
+    fontSize: 16,
+  },
+  okButtonText: {
+    fontSize: 16,
   },
 });

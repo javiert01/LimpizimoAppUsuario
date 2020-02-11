@@ -19,10 +19,6 @@ const ServiceAccepted = props => {
     console.log('xxxUpArrowPressed');
   };
 
-  const _onOptionButtonPress = () => {
-
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -41,7 +37,24 @@ const ServiceAccepted = props => {
         <Text style={styles.serviceDetailsText}>{strings('serviceAccepted.serviceDetails')}</Text>
         <Image style={styles.downArrowV2} source={Images.whiteDownArrowV2} resizeMode="contain" />
         <View style={styles.lineSeparator} />
-        <ServiceOption style={{borderColor: 'black', borderWidth: 1}} containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <View style={styles.lineSeparator} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} icon2={Images.clock} text2={'iojonjionknk'} />
+        <View style={styles.lineSeparator} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <View style={styles.lineSeparator} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <View style={styles.lineSeparator} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <View style={styles.lineSeparator} />
+        <View style={styles.bottomButtonsContainer}>
+          <Touchable style={styles.button}>
+            <Text style={styles.cancelButtonText}>Cancelar</Text>
+          </Touchable>
+          <Touchable style={styles.button}>
+            <Text style={styles.okButtonText}>OK</Text>
+          </Touchable>
+        </View>
       </View>
     </View>
   );
