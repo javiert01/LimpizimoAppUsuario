@@ -1,11 +1,11 @@
+import socketIOClient from 'socket.io-client';
+import sailsIOClient from 'sails.io.js';
 import { setIsServiceAssigned } from '../../actions/services';
 import CONSTANTS from '../../../constants/index';
 
 const socketMidleware = () => {
   let socket = null;
   let roomNames = [];
-  const socketIOClient = require('socket.io-client');
-  const sailsIOClient = require('sails.io.js');
   const io = sailsIOClient(socketIOClient);
   io.sails.useCORSRouteToGetCookie = false;
   io.sails.url = CONSTANTS.HOST;
@@ -52,6 +52,7 @@ const socketMidleware = () => {
           //onSetServiceAssigned(store);
         });
       default:
+        next(action);
     }
   };
 };
