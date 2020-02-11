@@ -23,7 +23,7 @@ const App = () => {
   const _startApp = () => {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'EmployeeFound', key: 'EmployeeFound' })],
+      actions: [NavigationActions.navigate({ routeName: 'Walkthrough', key: 'Walkthrough' })],
     });
     appNavigator.current.dispatch(resetAction);
   };
