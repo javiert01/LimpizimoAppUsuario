@@ -6,7 +6,7 @@ export const askForService = service => dispatch => {
     .post('servicio/crear', service)
     .then(res => {
       console.log('xxxRes', res);
-      dispatch({ type: ASK_FOR_SERVICE, payload: res });
+      dispatch({ type: ASK_FOR_SERVICE, payload: res.data });
     })
     .catch(err => {
       console.log('xxxErr', err);
