@@ -8,9 +8,14 @@ import { strings } from '../../i18n';
 const ServiceStandby = props => {
   const isServiceAssigned = useSelector(state => state.services.isServiceAssigned);
   useEffect(() => {
-    isServiceAssigned && alert('servicios asignado!');
-  }, [props.isServiceAssigned]);
-
+    if(isServiceAssigned) {
+      props.navigation.navigate({
+        routeName: 'EmployeeFound',
+        key: 'EmployeeFound', 
+      });
+    }
+  }, [isServiceAssigned]);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{strings('serviceStandby.message')}</Text>
@@ -18,5 +23,7 @@ const ServiceStandby = props => {
     </View>
   );
 };
+
+
 
 export default ServiceStandby;
