@@ -9,10 +9,10 @@ const ServiceOption = props => {
     <View style={{ ...styles.container, ...props.style }}>
       {props.containedIcon ? (
         <View style={styles.iconContainer}>
-          <Image style={styles.icon} source={props.icon} resizeMode="contain" />
+          <Image style={{ ...styles.icon, ...props.iconStyle }} source={props.icon} resizeMode="contain" />
         </View>
       ) : (
-        <Image style={styles.icon} source={props.icon} resizeMode="contain" />
+        <Image style={{ ...styles.icon, ...props.iconStyle }} source={props.icon} resizeMode="contain" />
       )}
       <Text style={{ ...styles.text, marginLeft: props.containedIcon ? 8 : 16 }}>{props.text}</Text>
       {props.icon2 && props.text2 && (
