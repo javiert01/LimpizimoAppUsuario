@@ -265,9 +265,9 @@ export default EStyleSheet.create({
   },
   calculatedPrice: {
     color: '$mainColorLight',
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: 'bold',
-    lineHeight: 42,
+    lineHeight: 32,
   },
   mapContainer: {
     height: '100%',

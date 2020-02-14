@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DateTime } from 'luxon';
 
 import { getPlaces } from '../../store/actions/places';
-import { askForService } from '../../store/actions/services';
+import { askForService, getServiceCostList } from '../../store/actions/services';
 import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
@@ -27,6 +27,7 @@ const Home = props => {
   const [showTimepicker, setShowTimepicker] = useState(false);
   const [time, setTime] = useState(DateTime.local());
   const places = useSelector(state => state.places.places);
+  const serviceCostList = useSelector(state => state.services.serviceCostList);
   const [selectedPlaceId, setSelectedPlaceId] = useState();
   const dispatch = useDispatch();
   const [selectedHour, setSelectedHour] = useState(CONSTANTS.AVAILABLE_HOURS[0]);
@@ -36,6 +37,7 @@ const Home = props => {
 
   useEffect(() => {
     dispatch(getPlaces(1));
+    dispatch(getServiceCostList('normal','mediumHouse'));
   }, []);
 
   useEffect(() => {
@@ -86,9 +88,11 @@ const Home = props => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
+      dispatch(getServiceCostList('normal', 'mediumHouse'));
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
+      dispatch(getServiceCostList('deep', 'mediumHouse'));
     }
   };
 
@@ -106,13 +110,30 @@ const Home = props => {
     newDate = newDate || date.toJSDate();
     setShowDatepicker(Platform.OS === 'ios' ? true : false);
     setDate(DateTime.fromJSDate(newDate));
+    if(DateTime.fromJSDate(newDate) > DateTime.local()) {
+      _setCalculatedPrice('futureService', selectedHour);
+    }else{
+      _setCalculatedPrice('todayService', selectedHour);
+    }
   };
 
   const _setTime = newDate => {
     newDate = newDate || time.toJSDate();
     setShowTimepicker(Platform.OS === 'ios' ? true : false);
     setTime(DateTime.fromJSDate(newDate));
+    //_setCalculatedPrice(date, selectedHour);
   };
+
+  const _setCalculatedPrice = (serviceDay, selectedHour) => {
+    console.log('selectedHour', selectedHour);
+    for(let i = 0; i < serviceCostList.length; i++) {
+      if(serviceCostList[i].hours === selectedHour.toString()) {
+        setCalculatedPrice(serviceCostList[i][serviceDay]);
+        break;
+      }
+    }
+  }
+
 
   const _renderPlaceImage = () => (
     <Image
