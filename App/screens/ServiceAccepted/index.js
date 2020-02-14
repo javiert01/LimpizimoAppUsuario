@@ -15,8 +15,18 @@ import CONSTANTS from '../../constants';
 import styles from './styles';
 
 const ServiceAccepted = props => {
+  const service = useSelector(state => state.services.requestedService);
+
   const _onUpArrowPress = () => {
     console.log('xxxUpArrowPressed');
+  };
+
+  const _onCancelButtonPress = () => {
+    props.navigation.popToTop();
+  };
+
+  const _onOKButtonPress = () => {
+    props.navigation.popToTop();
   };
 
   return (
@@ -37,22 +47,30 @@ const ServiceAccepted = props => {
         <Text style={styles.serviceDetailsText}>{strings('serviceAccepted.serviceDetails')}</Text>
         <Image style={styles.downArrowV2} source={Images.whiteDownArrowV2} resizeMode="contain" />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={service.selectedPlace.callePrincipal} />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} icon2={Images.clock} text2={'iojonjionknk'} />
+        <ServiceOption
+          icon={Images.calendar}
+          iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }}
+          text={service.date} icon2={Images.clock}
+          text2={service.time}
+        />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <ServiceOption
+          icon={service.cleaningOption === strings('common.cleaning.normal') ? Images.normalCleaning : Images.deepCleaning}
+          text={`${strings('common.cleaning.main')} ${service.cleaningOption.toLowerCase()}`}
+        />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={service.frequency} />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={'dasdasds'} />
+        <ServiceOption containedIcon={true} icon={Images.office} text={`$ ${service.calculatedPrice}`} />
         <View style={styles.lineSeparator} />
         <View style={styles.bottomButtonsContainer}>
-          <Touchable style={styles.button}>
-            <Text style={styles.cancelButtonText}>Cancelar</Text>
+          <Touchable style={styles.button} onPress={_onCancelButtonPress}>
+            <Text style={styles.cancelButtonText}>{strings('common.cancel')}</Text>
           </Touchable>
-          <Touchable style={styles.button}>
-            <Text style={styles.okButtonText}>OK</Text>
+          <Touchable style={styles.button} onPress={_onOKButtonPress}>
+            <Text style={styles.okButtonText}>{strings('common.ok')}</Text>
           </Touchable>
         </View>
       </View>

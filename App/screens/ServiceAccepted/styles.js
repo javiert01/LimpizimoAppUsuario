@@ -23,13 +23,13 @@ export default EStyleSheet.create({
   title: {
     marginTop: 16,
     color: '$mainColorLight',
-    fontSize: 22,
+    fontSize: 20,
   },
   subtitle: {
     color: '$mainColorLight',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
-    lineHeight: 22,
+    lineHeight: 20,
   },
   titleBottomPart: {
     height: '40%',
@@ -62,7 +62,7 @@ export default EStyleSheet.create({
   serviceDetailsText: {
     marginTop: 12,
     color: '$mainColorLight',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -89,9 +89,9 @@ export default EStyleSheet.create({
   },
   cancelButtonText: {
     color: 'red',
-    fontSize: 16,
+    fontSize: 12,
   },
   okButtonText: {
-    fontSize: 16,
+    fontSize: 12,
   },
 });

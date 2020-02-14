@@ -6,6 +6,7 @@
     "cleaningType": "Elige el tipo de limpieza",
     "now": "Ahora",
     "ok": "OK",
+    "cancel": "Cancelar",
     "cleaning": {
       "main": "Limpieza",
       "normal": "Normal",
