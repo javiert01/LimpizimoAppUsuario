@@ -1,5 +1,5 @@
 import api from '../../api';
-import { ASK_FOR_SERVICE } from './actionTypes';
+import { ASK_FOR_SERVICE, SET_IS_SERVICE_ASSIGNED, SET_REQUESTED_SERVICE } from './actionTypes';
 
 export const askForService = service => dispatch => {
   api
@@ -12,10 +12,14 @@ export const askForService = service => dispatch => {
     });
 };
 
-export const setIsServiceAssigned = (isServiceAssigned) => {
+export const setIsServiceAssigned = isServiceAssigned => {
   console.log('seteando servicio asignado', isServiceAssigned);
   return {
-      type: SET_IS_SERVICE_ASSIGNED,
-      isServiceAssigned: isServiceAssigned
-  }
-}
+    type: SET_IS_SERVICE_ASSIGNED,
+    isServiceAssigned: isServiceAssigned,
+  };
+};
+
+export const setRequestedService = service => dispatch => {
+  dispatch({ type: SET_REQUESTED_SERVICE, payload: service });
+};
