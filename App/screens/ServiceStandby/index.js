@@ -9,7 +9,7 @@ const ServiceStandby = props => {
   const isServiceAssigned = useSelector(state => state.services.isServiceAssigned);
   useEffect(() => {
     isServiceAssigned && alert('servicios asignado!');
-  }, [props.isServiceAssigned]);
+  }, [isServiceAssigned]);
 
   return (
     <View style={styles.container}>

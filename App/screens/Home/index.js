@@ -43,19 +43,25 @@ const Home = props => {
   }, [props.places]);
 
   const _renderNormalCleaningImage = () => (
-    <Image
-      style={{ ...styles.cleaningImage, transform: [{ scale: isNormalCleaningOptionSelected ? 1.3 : 1 }] }}
-      source={isNormalCleaningOptionSelected ? Images.selectedNormalCleaning : Images.normalCleaning}
-      resizeMode="contain"
-    />
+    <View
+      style={{
+        ...styles.cleaningImageContainer,
+        backgroundColor: isNormalCleaningOptionSelected ? EStyleSheet.value('$secondaryColor') : 'transparent',
+        transform: [...styles.cleaningImageContainer.transform, { scale: isNormalCleaningOptionSelected ? 1.3 : 1 }],
+      }}>
+      <Image style={styles.cleaningImage} source={Images.normalCleaning} resizeMode="contain" />
+    </View>
   );
 
   const _renderDeepCleaningImage = () => (
-    <Image
-      style={{ ...styles.cleaningImage, transform: [{ scale: isDeepCleaningOptionSelected ? 1.3 : 1 }] }}
-      source={isDeepCleaningOptionSelected ? Images.selectedDeepCleaning : Images.deepCleaning}
-      resizeMode="contain"
-    />
+    <View
+      style={{
+        ...styles.cleaningImageContainer,
+        backgroundColor: isDeepCleaningOptionSelected ? EStyleSheet.value('$secondaryColor') : 'transparent',
+        transform: [...styles.cleaningImageContainer.transform, { scale: isDeepCleaningOptionSelected ? 1.3 : 1 }],
+      }}>
+      <Image style={styles.cleaningImage} source={Images.deepCleaning} resizeMode="contain" />
+    </View>
   );
 
   const _renderOnceOption = () => (
