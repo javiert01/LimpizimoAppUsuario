@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DateTime } from 'luxon';
 
 import { getPlaces } from '../../store/actions/places';
+import { setRequestedService } from '../../store/actions/services';
 import { askForService } from '../../store/actions/services';
 import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
@@ -33,6 +34,12 @@ const Home = props => {
   const availableCards = ['4111111111111111'];
   const [selectedCard, setSelectedCard] = useState(availableCards[0]);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
+  const [service, setService] = useState({
+    frequency: strings('common.service.once'),
+    date: date.toFormat('EEEE d MMM. yyyy'),
+    time: `${time.toFormat('h:mma')} a ${time.plus({ hours: selectedHour }).toFormat('h:mma')}`,
+    calculatedPrice,
+  });
 
   useEffect(() => {
     dispatch(getPlaces(1));
@@ -40,7 +47,12 @@ const Home = props => {
 
   useEffect(() => {
     setSelectedPlaceId(places.length ? places[0].id : 0);
-  }, [props.places]);
+    setService({ ...service, selectedPlace: places.find(place => place.id === (places.length ? places[0].id : 0)) });
+  }, [places]);
+
+  useEffect(() => {
+    service && dispatch(setRequestedService(service));
+  }, [service]);
 
   const _renderNormalCleaningImage = () => (
     <View
@@ -92,9 +104,11 @@ const Home = props => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
+      setService({ ...service, cleaningOption: isNormalCleaningOptionSelected ? null : strings('common.cleaning.normal') });
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
+      setService({ ...service, cleaningOption: isDeepCleaningOptionSelected ? null : strings('common.cleaning.deep') });
     }
   };
 
@@ -102,9 +116,11 @@ const Home = props => {
     if (option === 1) {
       setIsOnceOptionSelected(true);
       setIsFrequentOptionSelected(false);
+      setService({ ...service, frequency: strings('common.service.once') });
     } else {
       setIsFrequentOptionSelected(true);
       setIsOnceOptionSelected(false);
+      setService({ ...service, frequency: strings('common.service.frequent') });
     }
   };
 
@@ -112,12 +128,29 @@ const Home = props => {
     newDate = newDate || date.toJSDate();
     setShowDatepicker(Platform.OS === 'ios' ? true : false);
     setDate(DateTime.fromJSDate(newDate));
+    setService({ ...service, date: DateTime.fromJSDate(newDate).toFormat('EEEE d MMM. yyyy') });
   };
 
-  const _setTime = newDate => {
-    newDate = newDate || time.toJSDate();
+  const _setTime = newTime => {
+    newTime = newTime || time.toJSDate();
     setShowTimepicker(Platform.OS === 'ios' ? true : false);
-    setTime(DateTime.fromJSDate(newDate));
+    setTime(DateTime.fromJSDate(newTime));
+    setService({
+      ...service,
+      time: `${DateTime.fromJSDate(newTime).toFormat('h:mma')} a ${DateTime.fromJSDate(newTime)
+        .plus({ hours: selectedHour })
+        .toFormat('h:mma')}`,
+    });
+  };
+
+  const _setSelectedPlace = placeId => {
+    setSelectedPlaceId(placeId);
+    setService({ ...service, selectedPlace: places.find(place => place.id === placeId) });
+  };
+
+  const _setSelectedHour = hours => {
+    setSelectedHour(hours);
+    setService({ ...service, time: `${time.toFormat('h:mma')} a ${time.plus({ hours }).toFormat('h:mma')}` });
   };
 
   const _renderPlaceImage = () => (
@@ -150,6 +183,8 @@ const Home = props => {
       key: 'ServiceStandby', 
     });
   };
+
+  let disabled = !service.cleaningOption;
 
   return (
     <View style={styles.container}>
@@ -228,7 +263,7 @@ const Home = props => {
             <View style={styles.placeOptionContainer}>
               <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
               <View style={styles.placePickerInfoContainer}>
-                <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => setSelectedPlaceId(itemValue)}>
+                <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => _setSelectedPlace(itemValue)}>
                   {places.map(place => (
                     <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
                   ))}
@@ -244,7 +279,7 @@ const Home = props => {
                 <Image style={styles.serviceHoursOptionImage} source={Images.clock} resizeMode="contain" />
               </View>
               <View style={styles.serviceHoursPickerContainer}>
-                <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => setSelectedHour(itemValue)}>
+                <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => _setSelectedHour(itemValue)}>
                   {CONSTANTS.AVAILABLE_HOURS.map((hour, index) => (
                     <Picker.Item key={index} label={strings('common.service.selectedHours', { hour })} value={hour} />
                   ))}
@@ -262,7 +297,7 @@ const Home = props => {
               </View>
             </View>
           </View>
-          <Touchable style={styles.askForButton} onPress={ _askForService}>
+          <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={_askForService} disabled={disabled}>
             <View style={styles.askForButtonPartsContainer}>
               <View style={styles.askForButtonTopPart}>
                 <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>
