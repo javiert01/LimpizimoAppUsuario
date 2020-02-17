@@ -47,12 +47,17 @@ const ServiceAccepted = props => {
         <Text style={styles.serviceDetailsText}>{strings('serviceAccepted.serviceDetails')}</Text>
         <Image style={styles.downArrowV2} source={Images.whiteDownArrowV2} resizeMode="contain" />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={service.selectedPlace.callePrincipal} />
+        <ServiceOption
+          containedIcon={true}
+          icon={service.selectedPlace.id === 0 ? Images.office : service.selectedPlace.id === 1 ? Images.house : Images.otherPlace}
+          text={service.selectedPlace.callePrincipal}
+        />
         <View style={styles.lineSeparator} />
         <ServiceOption
           icon={Images.calendar}
           iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }}
-          text={service.date} icon2={Images.clock}
+          text={service.date}
+          icon2={Images.clock}
           text2={service.time}
         />
         <View style={styles.lineSeparator} />
@@ -61,9 +66,14 @@ const ServiceAccepted = props => {
           text={`${strings('common.cleaning.main')} ${service.cleaningOption.toLowerCase()}`}
         />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={service.frequency} />
+        <ServiceOption icon={Images.service} text={service.frequency} />
         <View style={styles.lineSeparator} />
-        <ServiceOption containedIcon={true} icon={Images.office} text={`$ ${service.calculatedPrice}`} />
+        <ServiceOption
+          creditCard
+          icon={Images.user}
+          text={`$ ${service.calculatedPrice}`}
+          text2={`${service.selectedCard.name} ${service.selectedCard.number.substr(12)}`}
+        />
         <View style={styles.lineSeparator} />
         <View style={styles.bottomButtonsContainer}>
           <Touchable style={styles.button} onPress={_onCancelButtonPress}>

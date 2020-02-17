@@ -31,13 +31,31 @@ const Home = props => {
   const [selectedPlaceId, setSelectedPlaceId] = useState();
   const dispatch = useDispatch();
   const [selectedHour, setSelectedHour] = useState(CONSTANTS.AVAILABLE_HOURS[0]);
-  const availableCards = ['4111111111111111'];
-  const [selectedCard, setSelectedCard] = useState(availableCards[0]);
+  const availableCards = [
+    {
+      id: 1,
+      name: 'Visa',
+      owner: 'John Doe',
+      number: '4111111111111111',
+      expirationDate: '12/2020',
+      cvv: 123,
+    },
+    {
+      id: 2,
+      name: 'Diners',
+      owner: 'Lilian Potter',
+      number: '1234567899859848',
+      expirationDate: '12/2021',
+      cvv: 456,
+    },
+  ];
+  const [selectedCardId, setSelectedCardId] = useState(availableCards[0].id);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const [service, setService] = useState({
     frequency: strings('common.service.once'),
     date: date.toFormat('EEEE d MMM. yyyy'),
     time: `${time.toFormat('h:mma')} a ${time.plus({ hours: selectedHour }).toFormat('h:mma')}`,
+    selectedCard: availableCards[0],
     calculatedPrice,
   });
 
@@ -151,6 +169,11 @@ const Home = props => {
   const _setSelectedHour = hours => {
     setSelectedHour(hours);
     setService({ ...service, time: `${time.toFormat('h:mma')} a ${time.plus({ hours }).toFormat('h:mma')}` });
+  };
+
+  const _setSelectedCard = cardId => {
+    setSelectedCardId(cardId);
+    setService({ ...service, selectedCard: availableCards.find(card => card.id === cardId) });
   };
 
   const _renderPlaceImage = () => (
@@ -289,9 +312,9 @@ const Home = props => {
             <View style={styles.cardOptionContainer}>
               <Image style={styles.cardOptionImage} source={Images.card} resizeMode="contain" />
               <View style={styles.cardPickerContainer}>
-                <Picker selectedValue={selectedCard} style={styles.cardPicker} onValueChange={itemValue => setSelectedCard(itemValue)}>
+                <Picker selectedValue={selectedCardId} style={styles.cardPicker} onValueChange={itemValue => _setSelectedCard(itemValue)}>
                   {availableCards.map((card, index) => (
-                    <Picker.Item key={index} label={strings('common.service.cardEnd', { cardNumber: card.substr(12) })} value={card} />
+                    <Picker.Item key={card.id} label={strings('common.service.cardEnd', { cardNumber: card.number.substr(12) })} value={card.id} />
                   ))}
                 </Picker>
               </View>
