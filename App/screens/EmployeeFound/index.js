@@ -24,7 +24,7 @@ const EmployeeFound = props => {
     <View style={styles.container}>
       <Text style={styles.titleText}>{strings('employeeFound.message')}</Text>
       <ImageAssignedEmployee />
-      <Text style={styles.titleText}>{assignedEmployee.nombre + ' ' + assignedEmployee.apellidos.split(' ')[0]}</Text>
+      <Text style={styles.titleText}>{`${assignedEmployee.nombre} ${assignedEmployee.apellidos.split(' ')[0]}`}</Text>
       <Text style={styles.text}>34 {strings('employeeFound.numberServices')}</Text>
       <View>
         <Text style={styles.text}>
@@ -32,7 +32,7 @@ const EmployeeFound = props => {
         </Text>
       </View>
       <View>
-        <Text style={styles.text}>{strings('employeeFound.id') + ':' + assignedEmployee.cedula}</Text>
+        <Text style={styles.text}>{`${strings('employeeFound.id')}:${assignedEmployee.cedula}`}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Touchable style={styles.textContainer} onPress={_navigateToServiceDetail}>
