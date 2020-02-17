@@ -22,6 +22,8 @@ import whiteUpArrow from './Icons/whiteUpArrow.png';
 import whiteDownArrowV2 from './Icons/whiteDownArrowV2.png';
 import service from './Global/service.png';
 import user from './Global/user.png';
+import phone from './Global/phone.png';
+import whiteRightArrowV2 from './Icons/whiteRightArrowV2.png';
 
 export default {
   logo,
@@ -48,4 +50,6 @@ export default {
   whiteDownArrowV2,
   service,
   user,
+  phone,
+  whiteRightArrowV2,
 };
