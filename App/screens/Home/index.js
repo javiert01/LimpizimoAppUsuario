@@ -88,11 +88,11 @@ const Home = props => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
-      dispatch(getServiceCostList('normal', 'mediumHouse'));
+      dispatch(getServiceCostList('normal', places.filter(place => place.id === selectedPlaceId)[0].tamanioDomicilio));
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
-      dispatch(getServiceCostList('deep', 'mediumHouse'));
+      dispatch(getServiceCostList('deep', places.filter(place => place.id === selectedPlaceId)[0].tamanioDomicilio));
     }
   };
 
@@ -105,6 +105,11 @@ const Home = props => {
       setIsOnceOptionSelected(false);
     }
   };
+
+  const _setSelectedPlaceId = id => {
+    setSelectedPlaceId(id);
+    dispatch(getServiceCostList(isNormalCleaningOptionSelected ? 'normal':'deep', places.filter(place => place.id === selectedPlaceId)[0].tamanioDomicilio));
+  }
 
   const _setDate = newDate => {
     newDate = newDate || date.toJSDate();
@@ -121,11 +126,9 @@ const Home = props => {
     newDate = newDate || time.toJSDate();
     setShowTimepicker(Platform.OS === 'ios' ? true : false);
     setTime(DateTime.fromJSDate(newDate));
-    //_setCalculatedPrice(date, selectedHour);
   };
 
   const _setCalculatedPrice = (serviceDay, selectedHour) => {
-    console.log('selectedHour', selectedHour);
     for(let i = 0; i < serviceCostList.length; i++) {
       if(serviceCostList[i].hours === selectedHour.toString()) {
         setCalculatedPrice(serviceCostList[i][serviceDay]);
@@ -243,7 +246,7 @@ const Home = props => {
             <View style={styles.placeOptionContainer}>
               <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
               <View style={styles.placePickerInfoContainer}>
-                <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => setSelectedPlaceId(itemValue)}>
+                <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => _setSelectedPlaceId(itemValue)}>
                   {places.map(place => (
                     <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
                   ))}
