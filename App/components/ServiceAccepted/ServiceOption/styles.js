@@ -34,4 +34,14 @@ export default EStyleSheet.create({
     width: 22,
     tintColor: '$mainColorLight',
   },
+  cardInfoText: {
+    color: '$mainColorLight',
+    fontSize: 10,
+    marginLeft: 16,
+    lineHeight: 11,
+  },
+  normalInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
