@@ -1,6 +1,7 @@
 import socketIOClient from 'socket.io-client';
 import sailsIOClient from 'sails.io.js';
 import { setIsServiceAssigned } from '../../actions/services';
+import { setAssignedEmployee } from '../../actions/employee';
 import CONSTANTS from '../../../constants/index';
 
 const socketMidleware = () => {
@@ -10,6 +11,14 @@ const socketMidleware = () => {
   io.sails.useCORSRouteToGetCookie = false;
   io.sails.url = CONSTANTS.HOST;
   socket = io.sails.connect(CONSTANTS.HOST);
+
+  const onSetServiceAssigned = store => {
+    store.dispatch(setIsServiceAssigned(true));
+  };
+
+  const onSetAssignedEmployee = (store, data) => {
+    store.dispatch(setAssignedEmployee(data));
+  };
 
   return store => next => action => {
     switch (action.type) {
@@ -22,7 +31,6 @@ const socketMidleware = () => {
           }
         }
         roomNames.push(action.roomName);
-        console.log('conectar a sala');
         nombreSala = action.roomName;
         socket.get(CONSTANTS.HOST + '/empresa/subscribe?nombreSala=' + nombreSala, resData => {
           console.log('uniendo sala', resData);
@@ -33,7 +41,6 @@ const socketMidleware = () => {
           nombreSala: 'sala1',
           data: 'prueba desde app',
         };
-        console.log('enviar mensaje prueba');
         socket.post(
           // /empresa/subscribe?nombreSala=sexSala
           CONSTANTS.HOST + '/socket/enviar-broadcast',
@@ -43,13 +50,10 @@ const socketMidleware = () => {
           },
         );
       case 'LISTEN_MESSAGE':
-        console.log('listening for messages');
-        console.log(action.eventName);
         event = action.eventName;
         socket.on(event, data => {
-          console.log('me llega info desde evento servicio asignado', data);
-          next(setIsServiceAssigned(true));
-          //onSetServiceAssigned(store);
+          onSetServiceAssigned(store);
+          onSetAssignedEmployee(store, data);
         });
       default:
         next(action);

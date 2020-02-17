@@ -8,7 +8,12 @@ import { strings } from '../../i18n';
 const ServiceStandby = props => {
   const isServiceAssigned = useSelector(state => state.services.isServiceAssigned);
   useEffect(() => {
-    isServiceAssigned && alert('servicios asignado!');
+    if (isServiceAssigned) {
+      props.navigation.navigate({
+        routeName: 'EmployeeFound',
+        key: 'EmployeeFound',
+      });
+    }
   }, [isServiceAssigned]);
 
   return (
