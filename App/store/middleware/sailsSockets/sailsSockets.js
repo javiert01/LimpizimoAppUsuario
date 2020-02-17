@@ -1,6 +1,6 @@
 import socketIOClient from 'socket.io-client';
 import sailsIOClient from 'sails.io.js';
-import { setIsServiceAssigned} from '../../actions/services';
+import { setIsServiceAssigned } from '../../actions/services';
 import { setAssignedEmployee } from '../../actions/employee';
 import CONSTANTS from '../../../constants/index';
 
@@ -13,13 +13,12 @@ const socketMidleware = () => {
   socket = io.sails.connect(CONSTANTS.HOST);
 
   const onSetServiceAssigned = store => {
-    console.log('on set service assigned', store);
     store.dispatch(setIsServiceAssigned(true));
   };
 
   const onSetAssignedEmployee = (store, data) => {
     store.dispatch(setAssignedEmployee(data));
-  }
+  };
 
   return store => next => action => {
     switch (action.type) {
@@ -42,7 +41,6 @@ const socketMidleware = () => {
           nombreSala: 'sala1',
           data: 'prueba desde app',
         };
-        console.log('enviar mensaje prueba');
         socket.post(
           // /empresa/subscribe?nombreSala=sexSala
           CONSTANTS.HOST + '/socket/enviar-broadcast',
@@ -52,11 +50,8 @@ const socketMidleware = () => {
           },
         );
       case 'LISTEN_MESSAGE':
-        console.log('listening for messages');
-        console.log(action.eventName);
         event = action.eventName;
         socket.on(event, data => {
-          console.log('info servicio desde socket', data);
           onSetServiceAssigned(store);
           onSetAssignedEmployee(store, data);
         });

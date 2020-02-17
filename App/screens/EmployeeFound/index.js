@@ -32,7 +32,7 @@ const EmployeeFound = props => {
         </Text>
       </View>
       <View>
-        <Text style={styles.text}>{strings('employeeFound.id')+':'+assignedEmployee.cedula}</Text>
+        <Text style={styles.text}>{strings('employeeFound.id') + ':' + assignedEmployee.cedula}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Touchable style={styles.textContainer} onPress={_navigateToServiceDetail}>

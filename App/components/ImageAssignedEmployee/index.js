@@ -5,8 +5,6 @@ import Images from '../../assets/images';
 import styles from './styles';
 
 const ImageAssignedEmployee = props => {
-  // const imageUrlTest = 'https://limpizimov1.s3.amazonaws.com/NoBorrar/empleada1.jpg';
-  //const imageUrl = useSelector(state => state.employee.imageUrl);
   const imageUrl = useSelector(state => state.employee.assignedEmployee.imagenPerfil);
   return (
     <View style={styles.inputContainer}>
