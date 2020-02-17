@@ -1,5 +1,5 @@
 import api from '../../api';
-import { ASK_FOR_SERVICE, SET_IS_SERVICE_ASSIGNED, GET_SERVICE_COST_LIST, } from './actionTypes';
+import { ASK_FOR_SERVICE, SET_IS_SERVICE_ASSIGNED, GET_SERVICE_COST_LIST } from './actionTypes';
 
 export const askForService = service => dispatch => {
   api
