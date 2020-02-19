@@ -17,7 +17,7 @@ import Images from '../../assets/images';
 import styles from './styles';
 
 const Home = props => {
-  const [isNormalCleaningOptionSelected, setIsNormalCleaningOptionSelected] = useState(true);
+  const [isNormalCleaningOptionSelected, setIsNormalCleaningOptionSelected] = useState(false);
   const [isDeepCleaningOptionSelected, setIsDeepCleaningOptionSelected] = useState(false);
   const [isOnceOptionSelected, setIsOnceOptionSelected] = useState(true);
   const [isFrequentOptionSelected, setIsFrequentOptionSelected] = useState(false);
@@ -38,8 +38,7 @@ const Home = props => {
         })
       : [2, 4, 6, 8],
   );
-  const [selectedHour, setSelectedHour] = useState(4);
-  const [selectedCard, setSelectedCard] = useState(availableCards[0]);
+  const [selectedHour, setSelectedHour] = useState();
   const availableCards = [
     {
       id: 1,
@@ -58,6 +57,7 @@ const Home = props => {
       cvv: 456,
     },
   ];
+  const [selectedCard, setSelectedCard] = useState(availableCards[0]);
   const [selectedCardId, setSelectedCardId] = useState(availableCards[0].id);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const [service, setService] = useState({
@@ -78,7 +78,7 @@ const Home = props => {
   }, []);
 
   useEffect(() => {
-    console.log('service cost list changed');
+    serviceCostList && setSelectedHour(parseInt(serviceCostList[0].hours));
     serviceCostList && _setCalculatedPrice(serviceTypeDay, parseInt(serviceCostList[0].hours));
   }, [serviceCostList])
 
