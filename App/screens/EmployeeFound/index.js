@@ -14,8 +14,8 @@ const EmployeeFound = props => {
 
   const _navigateToServiceDetail = () => {
     props.navigation.navigate({
-      routeName: 'Home',
-      key: 'Home',
+      routeName: 'ServiceAccepted',
+      key: 'ServiceAccepted',
     });
     dispatch(setIsServiceAssigned(false));
   };

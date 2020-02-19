@@ -10,15 +10,15 @@ export default EStyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '$mainColorLight',
-    borderRadius: 16,
-    height: 32,
-    width: 32,
+    borderRadius: 12,
+    height: 24,
+    width: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
-    height: 24,
-    width: 24,
+    height: 20,
+    width: 20,
   },
   text: {
     color: '$mainColorLight',
