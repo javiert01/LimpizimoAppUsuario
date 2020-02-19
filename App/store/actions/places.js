@@ -13,7 +13,7 @@ const places = [
   {
     id: 1,
     tipoDomicilio: 'Casa',
-    tamanioDomicilio: 'placeBig',
+    tamanioDomicilio: 'mediumHouse',
     callePrincipal: 'Luis Tufino',
     ciudad: 'Quito',
   },
@@ -26,8 +26,10 @@ const places = [
   },
 ];
 
-export const getPlaces = userId => dispatch => {
-  // request to server to get the user's places
+export const getPlaces = userId => {
+  return async dispatch => {
+  const response = await api.get('usuario/'+userId+'/domicilios');
+  const places = await response.data;
   dispatch({ type: GET_PLACES, payload: places });
-};
-
+  }
+}

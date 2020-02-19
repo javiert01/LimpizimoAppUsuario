@@ -10,11 +10,15 @@ export default EStyleSheet.create({
   },
   text: {
     color: 'white',
-   //marginLeft: 20,
-    fontSize: 28,
-    textAlign: 'center'
+    marginBottom: 0,
+    fontSize: 21,
+    textAlign: 'center',
+    paddingLeft: 45,
+    paddingRight: 45
   }, 
   logo: {
-    width: 170
+    marginTop: 0,
+    width: 170,
+    height: 150
   }
 });

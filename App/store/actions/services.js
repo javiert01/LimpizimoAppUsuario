@@ -20,14 +20,10 @@ export const setIsServiceAssigned = (isServiceAssigned) => {
   }
 }
 
-export const getServiceCostList = (cleaningType, size) => dispatch => {
-  api
-    .get('servicios/precios?cleaningType='+cleaningType+'&size='+size)
-    .then(res => {
-      console.log('xxxRes', res);
-      dispatch({ type: GET_SERVICE_COST_LIST, payload: res.data });
-    })
-    .catch(err => {
-      console.log('xxxErr', err);
-    });
+export const getServiceCostList = (cleaningType, size) => {
+  return async dispatch => {
+  const response = await api.get('servicios/precios?cleaningType='+cleaningType+'&size='+size);
+  const resData = await response.data;
+  dispatch({ type: GET_SERVICE_COST_LIST, payload: resData}); 
+  }
 }

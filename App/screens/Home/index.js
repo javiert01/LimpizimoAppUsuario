@@ -13,36 +13,54 @@ import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
-import CONSTANTS from '../../constants';
 import styles from './styles';
 
 const Home = props => {
-  const [isNormalCleaningOptionSelected, setIsNormalCleaningOptionSelected] = useState(false);
+  const [isNormalCleaningOptionSelected, setIsNormalCleaningOptionSelected] = useState(true);
   const [isDeepCleaningOptionSelected, setIsDeepCleaningOptionSelected] = useState(false);
   const [isOnceOptionSelected, setIsOnceOptionSelected] = useState(true);
   const [isFrequentOptionSelected, setIsFrequentOptionSelected] = useState(false);
   const [recurrenceOption, setRecurrenceOption] = useState(1);
   const [showDatepicker, setShowDatepicker] = useState(false);
   const [date, setDate] = useState(DateTime.local());
+  const [serviceTypeDay, setServiceTypeDay] = useState('todayService');
   const [showTimepicker, setShowTimepicker] = useState(false);
   const [time, setTime] = useState(DateTime.local());
   const places = useSelector(state => state.places.places);
   const serviceCostList = useSelector(state => state.services.serviceCostList);
   const [selectedPlaceId, setSelectedPlaceId] = useState();
   const dispatch = useDispatch();
-  const [selectedHour, setSelectedHour] = useState(CONSTANTS.AVAILABLE_HOURS[0]);
+  const availableHours = useSelector(state =>
+    serviceCostList
+      ? state.services.serviceCostList.map(service => {
+          return parseInt(service.hours);
+        })
+      : [2, 4, 6, 8],
+  );
+  const [selectedHour, setSelectedHour] = useState(4);
   const availableCards = ['4111111111111111'];
   const [selectedCard, setSelectedCard] = useState(availableCards[0]);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
 
   useEffect(() => {
-    dispatch(getPlaces(1));
-    dispatch(getServiceCostList('normal','mediumHouse'));
+    const loadPlaces = async () => {
+        await dispatch(getPlaces('5e39b065d570ae00042005ac'));
+        setSelectedPlaceId(places[0].id);
+        loadServiceCostList('normal', places[0].id)
+    }
+    loadPlaces();
   }, []);
 
   useEffect(() => {
-    setSelectedPlaceId(places.length ? places[0].id : 0);
-  }, [props.places]);
+    console.log('service cost list changed');
+    serviceCostList && _setCalculatedPrice(serviceTypeDay, parseInt(serviceCostList[0].hours));
+  }, [serviceCostList])
+
+  useEffect(() => {
+    if(places.length > 0) {
+      setSelectedPlaceId(places[0].id);
+    }
+  }, [places]);
 
   const _renderNormalCleaningImage = () => (
     <Image
@@ -84,15 +102,19 @@ const Home = props => {
     </Touchable>
   );
 
+  const loadServiceCostList = async (cleaningType, selectedPlaceId) => {
+    await dispatch(getServiceCostList(cleaningType, places.filter(place => place.id === selectedPlaceId)[0].sizePlace));
+  };
+
   const _toggleCleaningOption = option => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
-      dispatch(getServiceCostList('normal', places.filter(place => place.id === selectedPlaceId)[0].tamanioDomicilio));
+      loadServiceCostList('normal', selectedPlaceId);
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
-      dispatch(getServiceCostList('deep', places.filter(place => place.id === selectedPlaceId)[0].tamanioDomicilio));
+      loadServiceCostList('deep', selectedPlaceId);
     }
   };
 
@@ -108,16 +130,18 @@ const Home = props => {
 
   const _setSelectedPlaceId = id => {
     setSelectedPlaceId(id);
-    dispatch(getServiceCostList(isNormalCleaningOptionSelected ? 'normal':'deep', places.filter(place => place.id === selectedPlaceId)[0].tamanioDomicilio));
-  }
+    loadServiceCostList(isNormalCleaningOptionSelected ? 'normal' : 'deep', id);
+  };
 
   const _setDate = newDate => {
     newDate = newDate || date.toJSDate();
     setShowDatepicker(Platform.OS === 'ios' ? true : false);
     setDate(DateTime.fromJSDate(newDate));
-    if(DateTime.fromJSDate(newDate) > DateTime.local()) {
+    if (DateTime.fromJSDate(newDate) > DateTime.local()) {
+      setServiceTypeDay('futureService');
       _setCalculatedPrice('futureService', selectedHour);
-    }else{
+    } else {
+      setServiceTypeDay('todayService');
       _setCalculatedPrice('todayService', selectedHour);
     }
   };
@@ -128,15 +152,25 @@ const Home = props => {
     setTime(DateTime.fromJSDate(newDate));
   };
 
-  const _setCalculatedPrice = (serviceDay, selectedHour) => {
-    for(let i = 0; i < serviceCostList.length; i++) {
-      if(serviceCostList[i].hours === selectedHour.toString()) {
-        setCalculatedPrice(serviceCostList[i][serviceDay]);
+  const _setCalculatedPrice = (serviceDayType, selectedHour) => {
+    for (let i = 0; i < serviceCostList.length; i++) {
+      if (serviceCostList[i].hours === selectedHour.toString()) {
+        console.log('setting price with service Day type:', serviceTypeDay);
+        console.log('setting price with selected hour:', selectedHour);
+        console.log('setting price with cleaning type normal:', isNormalCleaningOptionSelected);
+        console.log('setting price with place type',  places.filter(place => place.id === selectedPlaceId)[0].sizePlace);  
+        console.log('The list of prices is:', serviceCostList);
+        console.log('The price is:', serviceCostList[i][serviceDayType])
+        setCalculatedPrice(serviceCostList[i][serviceDayType]);
         break;
       }
     }
-  }
+  };
 
+  const _setSelectedHour = _selectedHour => {
+    setSelectedHour(_selectedHour);
+    _setCalculatedPrice(serviceTypeDay, _selectedHour);
+  };
 
   const _renderPlaceImage = () => (
     <Image
@@ -146,6 +180,21 @@ const Home = props => {
     />
   );
 
+  const _renderPlacesPicker = () => {
+    if(places.length > 0 && selectedPlaceId !== undefined) {
+      return (
+        <View>
+        <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => _setSelectedPlaceId(itemValue)}>
+                  {places.map(place => (
+                    <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
+                  ))}
+        </Picker>
+        <Text style={styles.placeAddress}>{`${ places.filter(place => place.id === selectedPlaceId)[0].calleSecundaria}, ${places.filter(place => place.id === selectedPlaceId)[0].city}`}</Text>
+        </View>
+      )
+    }
+  }
+
   const _askForService = () => {
     const service = {
       habilidades: '5e39af19d570ae0004200587',
@@ -154,7 +203,7 @@ const Home = props => {
       fechaInicio: date.toFormat('yyyy,MM,dd'),
       aux_id_domicilio: '5e10a2b818b18900044de346',
       duracion: selectedHour,
-      costo: calculatedPrice,
+      costo: parseFloat(calculatedPrice),
       frecuencia: recurrenceOption,
       nombreSala: 'sala1',
       horaInicio: time.toFormat('H:mm'),
@@ -165,7 +214,7 @@ const Home = props => {
     dispatch(askForService(service));
     props.navigation.navigate({
       routeName: 'ServiceStandby',
-      key: 'ServiceStandby', 
+      key: 'ServiceStandby',
     });
   };
 
@@ -246,14 +295,7 @@ const Home = props => {
             <View style={styles.placeOptionContainer}>
               <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
               <View style={styles.placePickerInfoContainer}>
-                <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => _setSelectedPlaceId(itemValue)}>
-                  {places.map(place => (
-                    <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
-                  ))}
-                </Picker>
-                {!!places.length && (
-                  <Text style={styles.placeAddress}>{`${places[selectedPlaceId].callePrincipal}, ${places[selectedPlaceId].ciudad}`}</Text>
-                )}
+                  {_renderPlacesPicker()}
               </View>
             </View>
             <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
@@ -262,8 +304,8 @@ const Home = props => {
                 <Image style={styles.serviceHoursOptionImage} source={Images.clock} resizeMode="contain" />
               </View>
               <View style={styles.serviceHoursPickerContainer}>
-                <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => setSelectedHour(itemValue)}>
-                  {CONSTANTS.AVAILABLE_HOURS.map((hour, index) => (
+                <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => _setSelectedHour(itemValue)}>
+                  {availableHours.map((hour, index) => (
                     <Picker.Item key={index} label={strings('common.service.selectedHours', { hour })} value={hour} />
                   ))}
                 </Picker>
