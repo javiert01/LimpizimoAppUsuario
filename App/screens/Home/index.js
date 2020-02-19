@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 
 import { getPlaces } from '../../store/actions/places';
 import { askForService, getServiceCostList } from '../../store/actions/services';
+import { setRequestedService } from '../../store/actions/services';
 import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
@@ -38,9 +39,34 @@ const Home = props => {
       : [2, 4, 6, 8],
   );
   const [selectedHour, setSelectedHour] = useState(4);
-  const availableCards = ['4111111111111111'];
   const [selectedCard, setSelectedCard] = useState(availableCards[0]);
+  const availableCards = [
+    {
+      id: 1,
+      name: 'Visa',
+      owner: 'John Doe',
+      number: '4111111111111111',
+      expirationDate: '12/2020',
+      cvv: 123,
+    },
+    {
+      id: 2,
+      name: 'Diners',
+      owner: 'Lilian Potter',
+      number: '1234567899859848',
+      expirationDate: '12/2021',
+      cvv: 456,
+    },
+  ];
+  const [selectedCardId, setSelectedCardId] = useState(availableCards[0].id);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
+  const [service, setService] = useState({
+    frequency: strings('common.service.once'),
+    date: date.toFormat('EEEE d MMM. yyyy'),
+    time: `${time.toFormat('h:mma')} a ${time.plus({ hours: selectedHour }).toFormat('h:mma')}`,
+    selectedCard: availableCards[0],
+    calculatedPrice,
+  });
 
   useEffect(() => {
     const loadPlaces = async () => {
@@ -59,23 +85,35 @@ const Home = props => {
   useEffect(() => {
     if(places.length > 0) {
       setSelectedPlaceId(places[0].id);
+      setService({ ...service, selectedPlace: places.find(place => place.id === (places[0].id)) });
     }
   }, [places]);
+    
+
+  useEffect(() => {
+    service && dispatch(setRequestedService(service));
+  }, [service]);
 
   const _renderNormalCleaningImage = () => (
-    <Image
-      style={{ ...styles.cleaningImage, transform: [{ scale: isNormalCleaningOptionSelected ? 1.3 : 1 }] }}
-      source={isNormalCleaningOptionSelected ? Images.selectedNormalCleaning : Images.normalCleaning}
-      resizeMode="contain"
-    />
+    <View
+      style={{
+        ...styles.cleaningImageContainer,
+        backgroundColor: isNormalCleaningOptionSelected ? EStyleSheet.value('$secondaryColor') : 'transparent',
+        transform: [...styles.cleaningImageContainer.transform, { scale: isNormalCleaningOptionSelected ? 1.3 : 1 }],
+      }}>
+      <Image style={styles.cleaningImage} source={Images.normalCleaning} resizeMode="contain" />
+    </View>
   );
 
   const _renderDeepCleaningImage = () => (
-    <Image
-      style={{ ...styles.cleaningImage, transform: [{ scale: isDeepCleaningOptionSelected ? 1.3 : 1 }] }}
-      source={isDeepCleaningOptionSelected ? Images.selectedDeepCleaning : Images.deepCleaning}
-      resizeMode="contain"
-    />
+    <View
+      style={{
+        ...styles.cleaningImageContainer,
+        backgroundColor: isDeepCleaningOptionSelected ? EStyleSheet.value('$secondaryColor') : 'transparent',
+        transform: [...styles.cleaningImageContainer.transform, { scale: isDeepCleaningOptionSelected ? 1.3 : 1 }],
+      }}>
+      <Image style={styles.cleaningImage} source={Images.deepCleaning} resizeMode="contain" />
+    </View>
   );
 
   const _renderOnceOption = () => (
@@ -111,20 +149,24 @@ const Home = props => {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
       loadServiceCostList('normal', selectedPlaceId);
+      setService({ ...service, cleaningOption: isNormalCleaningOptionSelected ? null : strings('common.cleaning.normal') });
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
       loadServiceCostList('deep', selectedPlaceId);
-    }
+      setService({ ...service, cleaningOption: isDeepCleaningOptionSelected ? null : strings('common.cleaning.deep') });
+    } 
   };
 
   const _toggleFrequencyOption = option => {
     if (option === 1) {
       setIsOnceOptionSelected(true);
       setIsFrequentOptionSelected(false);
+      setService({ ...service, frequency: strings('common.service.once') });
     } else {
       setIsFrequentOptionSelected(true);
       setIsOnceOptionSelected(false);
+      setService({ ...service, frequency: strings('common.service.frequent') });
     }
   };
 
@@ -144,12 +186,35 @@ const Home = props => {
       setServiceTypeDay('todayService');
       _setCalculatedPrice('todayService', selectedHour);
     }
+    setService({ ...service, date: DateTime.fromJSDate(newDate).toFormat('EEEE d MMM. yyyy') });
   };
 
-  const _setTime = newDate => {
-    newDate = newDate || time.toJSDate();
+  const _setTime = newTime => {
+    newTime = newTime || time.toJSDate();
     setShowTimepicker(Platform.OS === 'ios' ? true : false);
-    setTime(DateTime.fromJSDate(newDate));
+    setTime(DateTime.fromJSDate(newTime));
+    setService({
+      ...service,
+      time: `${DateTime.fromJSDate(newTime).toFormat('h:mma')} a ${DateTime.fromJSDate(newTime)
+        .plus({ hours: selectedHour })
+        .toFormat('h:mma')}`,
+    });
+  };
+
+  const _setSelectedPlace = placeId => {
+    setSelectedPlaceId(placeId);
+    setService({ ...service, selectedPlace: places.find(place => place.id === placeId) });
+  };
+
+  const _setSelectedHour = hours => {
+    setSelectedHour(hours);
+    _setCalculatedPrice(serviceTypeDay, hours);
+    setService({ ...service, time: `${time.toFormat('h:mma')} a ${time.plus({ hours }).toFormat('h:mma')}` });
+  };
+
+  const _setSelectedCard = cardId => {
+    setSelectedCardId(cardId);
+    setService({ ...service, selectedCard: availableCards.find(card => card.id === cardId) });
   };
 
   const _setCalculatedPrice = (serviceDayType, selectedHour) => {
@@ -165,11 +230,6 @@ const Home = props => {
         break;
       }
     }
-  };
-
-  const _setSelectedHour = _selectedHour => {
-    setSelectedHour(_selectedHour);
-    _setCalculatedPrice(serviceTypeDay, _selectedHour);
   };
 
   const _renderPlaceImage = () => (
@@ -217,6 +277,8 @@ const Home = props => {
       key: 'ServiceStandby',
     });
   };
+
+  let disabled = !service.cleaningOption;
 
   return (
     <View style={styles.container}>
@@ -314,15 +376,15 @@ const Home = props => {
             <View style={styles.cardOptionContainer}>
               <Image style={styles.cardOptionImage} source={Images.card} resizeMode="contain" />
               <View style={styles.cardPickerContainer}>
-                <Picker selectedValue={selectedCard} style={styles.cardPicker} onValueChange={itemValue => setSelectedCard(itemValue)}>
+                <Picker selectedValue={selectedCardId} style={styles.cardPicker} onValueChange={itemValue => _setSelectedCard(itemValue)}>
                   {availableCards.map((card, index) => (
-                    <Picker.Item key={index} label={strings('common.service.cardEnd', { cardNumber: card.substr(12) })} value={card} />
+                    <Picker.Item key={card.id} label={strings('common.service.cardEnd', { cardNumber: card.number.substr(12) })} value={card.id} />
                   ))}
                 </Picker>
               </View>
             </View>
           </View>
-          <Touchable style={styles.askForButton} onPress={() => _askForService()}>
+          <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={_askForService} disabled={disabled}>
             <View style={styles.askForButtonPartsContainer}>
               <View style={styles.askForButtonTopPart}>
                 <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>

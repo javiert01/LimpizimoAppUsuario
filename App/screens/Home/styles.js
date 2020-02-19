@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default EStyleSheet.create({
@@ -31,14 +30,25 @@ export default EStyleSheet.create({
     flexDirection: 'row',
     marginTop: 30,
     justifyContent: 'space-between',
-    marginHorizontal: 110,
+    alignSelf: 'center',
+    width: 200,
   },
   cleaningOption: {
     alignItems: 'center',
   },
+  cleaningImageContainer: {
+    height: 76,
+    width: 76,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 38,
+    borderColor: '$mainColorLight',
+    borderWidth: 3,
+    transform: [{ perspective: 1000 }],
+  },
   cleaningImage: {
-    height: 75,
-    width: 75,
+    height: 40,
+    width: 40,
   },
   cleaningMainText: {
     color: '$mainColorLight',

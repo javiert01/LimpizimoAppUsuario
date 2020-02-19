@@ -1,11 +1,10 @@
 import api from '../../api';
-import { ASK_FOR_SERVICE, SET_IS_SERVICE_ASSIGNED, GET_SERVICE_COST_LIST } from './actionTypes';
+import { ASK_FOR_SERVICE, SET_IS_SERVICE_ASSIGNED, GET_SERVICE_COST_LIST, SET_REQUESTED_SERVICE } from './actionTypes';
 
 export const askForService = service => dispatch => {
   api
     .post('servicio/crear', service)
     .then(res => {
-      console.log('xxxRes', res);
       dispatch({ type: ASK_FOR_SERVICE, payload: res.data });
     })
     .catch(err => {
@@ -13,7 +12,7 @@ export const askForService = service => dispatch => {
     });
 };
 
-export const setIsServiceAssigned = (isServiceAssigned) => {
+export const setIsServiceAssigned = isServiceAssigned => {
   return {
       type: SET_IS_SERVICE_ASSIGNED,
       isServiceAssigned: isServiceAssigned
@@ -27,3 +26,7 @@ export const getServiceCostList = (cleaningType, size) => {
   dispatch({ type: GET_SERVICE_COST_LIST, payload: resData}); 
   }
 }
+
+export const setRequestedService = service => dispatch => {
+  dispatch({ type: SET_REQUESTED_SERVICE, payload: service });
+};

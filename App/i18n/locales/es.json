@@ -6,6 +6,7 @@
     "cleaningType": "Elige el tipo de limpieza",
     "now": "Ahora",
     "ok": "OK",
+    "cancel": "Cancelar",
     "cleaning": {
       "main": "Limpieza",
       "normal": "Normal",
@@ -41,6 +42,13 @@
       "title": "Servicios de Calidad",
       "description": "Ofrecemos un excelente servicio de calidad, todas las colaboradoras son capacitadas con los más altos estándares, para que el cliente este totalmente satisfecho con el servicio."
     }
+  },
+  "serviceAccepted": {
+    "service": "Servicio",
+    "accepted": "Aceptado",
+    "serviceDetails": "Detalles del servicio",
+    "servicesPerformed": "{{amount}} servicios realizados",
+    "seeProfile": "Ver perfil"
   },
   "serviceStandby": {
     "message": "Buscando la mejor colaboradora para tu zona. Te notificaremos enseguida."
