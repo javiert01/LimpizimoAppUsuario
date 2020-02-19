@@ -11,14 +11,19 @@ import walkthroughPageIndicator3 from './Walkthrough/Page3/walkthroughPageIndica
 import normalCleaning from './Global/normalCleaning.png';
 import assignedBorder from './Global/assignedBorder.png';
 import deepCleaning from './Global/deepCleaning.png';
-import selectedNormalCleaning from './Global/selectedNormalCleaning.png';
-import selectedDeepCleaning from './Global/selectedDeepCleaning.png';
 import calendar from './Global/calendar.png';
 import clock from './Global/clock.png';
 import house from './Global/house.png';
 import office from './Global/office.png';
 import otherPlace from './Global/otherPlace.png';
 import card from './Global/card.png';
+import purpleLogo from './Global/purpleLogo.png';
+import whiteUpArrow from './Icons/whiteUpArrow.png';
+import whiteDownArrowV2 from './Icons/whiteDownArrowV2.png';
+import service from './Global/service.png';
+import user from './Global/user.png';
+import phone from './Global/phone.png';
+import whiteRightArrowV2 from './Icons/whiteRightArrowV2.png';
 
 export default {
   logo,
@@ -34,12 +39,17 @@ export default {
   normalCleaning,
   assignedBorder,
   deepCleaning,
-  selectedNormalCleaning,
-  selectedDeepCleaning,
   calendar,
   clock,
   house,
   office,
   otherPlace,
   card,
+  purpleLogo,
+  whiteUpArrow,
+  whiteDownArrowV2,
+  service,
+  user,
+  phone,
+  whiteRightArrowV2,
 };
