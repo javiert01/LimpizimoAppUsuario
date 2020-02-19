@@ -1,21 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { BackHandler, Image, Text, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { useSelector, useDispatch } from 'react-redux';
-import { DateTime } from 'luxon';
+import { useSelector } from 'react-redux';
 
 import ServiceOption from '../../components/ServiceAccepted/ServiceOption';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
-import CONSTANTS from '../../constants';
 import styles from './styles';
 
 const ServiceAccepted = props => {
   const service = useSelector(state => state.services.requestedService);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', _handleBackButton);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', _handleBackButton);
+    };
+  }, []);
+
+  const _handleBackButton = () => {
+    console.log('xxx', 'Back button is pressed');
+    return true;
+  };
+
+  const employee = {
+    name: 'Sarah Potter',
+    servicesAmount: 55,
+    imageURL: 'https://en.mzadqatar.com/uploads/images/2019/11/07/316400-1kkccwg4skampy4.jpg',
+    rating: 4.89,
+    phoneNumber: '+593997740959',
+  };
 
   const _onUpArrowPress = () => {
     console.log('xxxUpArrowPressed');
@@ -27,6 +44,14 @@ const ServiceAccepted = props => {
 
   const _onOKButtonPress = () => {
     props.navigation.popToTop();
+  };
+
+  const _onPhoneImagePress = () => {
+    console.log('xxxOnPhoneImagePressed');
+  };
+
+  const _onSeeProfilePress = () => {
+    console.log('xxxSeeProfilePressed');
   };
 
   return (
@@ -75,6 +100,31 @@ const ServiceAccepted = props => {
           text2={`${service.selectedCard.name} ${service.selectedCard.number.substr(12)}`}
         />
         <View style={styles.lineSeparator} />
+        <View style={styles.employee}>
+          <View style={styles.employeeImageContainer}>
+            <Image style={styles.employeeBorderImage} source={Images.assignedBorder} resizeMode="contain" />
+            <FastImage style={styles.employeeImage} source={{ uri: employee.imageURL }} resizeMode={FastImage.resizeMode.contain} />
+          </View>
+          <View style={styles.employeeInfoContainer}>
+            <View>
+              <Text style={styles.employeeName}>{employee.name}</Text>
+              <Text style={styles.employeeServicesAmount}>{strings('serviceAccepted.servicesPerformed', { amount: employee.servicesAmount })}</Text>
+            </View>
+            <Text style={styles.employeeRating}>
+              {`(${employee.rating} `}
+              <Text style={styles.star}>{'\u2605'}</Text>)
+            </Text>
+          </View>
+          <Touchable style={styles.phoneImageContainer} onPress={_onPhoneImagePress}>
+            <Image style={styles.phoneImage} source={Images.phone} resizeMode="contain" />
+          </Touchable>
+        </View>
+        <Touchable onPress={_onSeeProfilePress}>
+          <View style={styles.seeProfileContainer}>
+            <Text style={styles.seeProfileText}>{strings('serviceAccepted.seeProfile')}</Text>
+            <Image style={styles.seeProfileImage} source={Images.whiteRightArrowV2} resizeMode="contain" />
+          </View>
+        </Touchable>
         <View style={styles.bottomButtonsContainer}>
           <Touchable style={styles.button} onPress={_onCancelButtonPress}>
             <Text style={styles.cancelButtonText}>{strings('common.cancel')}</Text>
