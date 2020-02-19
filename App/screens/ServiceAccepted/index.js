@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BackHandler, Image, Text, View } from 'react-native';
+import { BackHandler, Image, Linking, Platform, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -47,7 +47,8 @@ const ServiceAccepted = props => {
   };
 
   const _onPhoneImagePress = () => {
-    console.log('xxxOnPhoneImagePressed');
+    const phoneNumber = Platform.OS === 'ios' ? `telprompt:\${${employee.phoneNumber}}` : `tel:\${${employee.phoneNumber}}`;
+    Linking.openURL(phoneNumber);
   };
 
   const _onSeeProfilePress = () => {
