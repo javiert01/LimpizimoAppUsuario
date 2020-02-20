@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BackHandler, Image, Linking, Platform, Text, View } from 'react-native';
-import { ImageAssignedEmployee } from '../../components/ImageAssignedEmployee';
+import CancelService  from '../../modals/CancelService';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -15,6 +15,7 @@ import styles from './styles';
 const ServiceAccepted = props => {
   const service = useSelector(state => state.services.requestedService);
   const assignedEmployee = useSelector(state => state.employee.assignedEmployee);
+  const [isCancelingService, setIsCancelingService] = useState(false);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', _handleBackButton);
@@ -41,8 +42,12 @@ const ServiceAccepted = props => {
   };
 
   const _onCancelButtonPress = () => {
-    props.navigation.popToTop();
+    setIsCancelingService(true);
   };
+
+  const _onCloseModal = () => {
+    setIsCancelingService(false);
+  }
 
   const _onOKButtonPress = () => {
     props.navigation.popToTop();
@@ -59,6 +64,7 @@ const ServiceAccepted = props => {
 
   return (
     <View style={styles.bigContainer}>
+      <CancelService visible={isCancelingService} onCloseModal={_onCloseModal} onCancelServicePressed={_onOKButtonPress}/>
       <View style={styles.mapContainer}>
         <MapView
           provider={PROVIDER_GOOGLE}

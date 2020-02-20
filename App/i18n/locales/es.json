@@ -6,6 +6,7 @@
     "cleaningType": "Elige el tipo de limpieza",
     "now": "Ahora",
     "ok": "OK",
+    "alert": "alerta!",
     "cancel": "Cancelar",
     "cleaning": {
       "main": "Limpieza",
@@ -57,5 +58,11 @@
     "message": "Encontramos la colaboradora para ti",
     "numberServices": "servicios realizados",
     "id": "CI"
+  },
+  "cancelService": {
+    "question": "¿Seguro quieres cancelar el servicio solicitado?",
+    "message": "Cancelar ahora puede tener un costo asociado",
+    "keepService": "Mantener Servicio",
+    "cancelService": "Cancelar Servicio"
   }
 }
