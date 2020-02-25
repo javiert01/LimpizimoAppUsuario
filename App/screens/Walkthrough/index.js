@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StatusBar, View, Image, Text, TouchableOpacity } from 'react-native';
+import { Image, StatusBar, Text, View } from 'react-native';
+import Touchable from 'react-native-platform-touchable';
 import { NavigationActions, StackActions } from 'react-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -56,10 +57,12 @@ const Walkthrough = props => {
       <View style={{ ...styles.infoContainer, backgroundColor: EStyleSheet.value(backgroundColor) }}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{description}</Text>
-        <TouchableOpacity style={styles.pageAndArrowContainer} onPress={() => _setInfo()}>
+        <View style={styles.pageAndArrowContainer}>
           <Image style={styles.pageIndicator} source={pageIndicatorImage} resizeMode="contain" />
-          <Image style={styles.arrowImage} source={arrowImage} resizeMode="contain" />
-        </TouchableOpacity>
+          <Touchable style={styles.arrowImageContainer} onPress={_setInfo}>
+            <Image style={styles.arrowImage} source={arrowImage} resizeMode="contain" />
+          </Touchable>
+        </View>
       </View>
     </View>
   );
