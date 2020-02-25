@@ -21,11 +21,11 @@ const ServiceOption = props => {
         </View>
       ) : (
         <View style={styles.normalInfo}>
-          <Text style={{ ...styles.text, marginLeft: props.containedIcon ? 8 : 16 }}>{props.text}</Text>
+          <Text style={{ ...styles.text, marginLeft: props.containedIcon ? 6 : 12 }}>{props.text}</Text>
           {props.icon2 && props.text2 && (
             <View style={styles.secondTextContainer}>
               <Image style={styles.icon2} source={props.icon2} resizeMode="contain" />
-              <Text style={{ ...styles.text, marginLeft: 8 }}>{props.text2}</Text>
+              <Text style={{ ...styles.text, marginLeft: 6 }}>{props.text2}</Text>
             </View>
           )}
         </View>
