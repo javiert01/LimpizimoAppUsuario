@@ -4,9 +4,10 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { NavigationActions, StackActions } from 'react-navigation';
 import AppNavigator from './routes';
 import colors from './constants/colors';
+import fontSizes from './constants/fontSizes';
 import styles from './styles';
 
-EStyleSheet.build(colors);
+EStyleSheet.build({ ...colors, ...fontSizes });
 
 const App = () => {
   const appNavigator = useRef(null);
