@@ -1,4 +1,5 @@
 export default {
+  $xxxSmall: 8,
   $xxSmall: 10,
   $xSmall: 12,
   $small: 14,
