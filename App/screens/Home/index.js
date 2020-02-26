@@ -8,13 +8,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DateTime } from 'luxon';
 
 import { getPlaces } from '../../store/actions/places';
+import { askForService, getServiceCostList } from '../../store/actions/services';
 import { setRequestedService } from '../../store/actions/services';
-import { askForService } from '../../store/actions/services';
 import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
-import CONSTANTS from '../../constants';
 import styles from './styles';
 
 const Home = props => {
@@ -25,12 +24,21 @@ const Home = props => {
   const [recurrenceOption, setRecurrenceOption] = useState(1);
   const [showDatepicker, setShowDatepicker] = useState(false);
   const [date, setDate] = useState(DateTime.local());
+  const [serviceTypeDay, setServiceTypeDay] = useState('todayService');
   const [showTimepicker, setShowTimepicker] = useState(false);
   const [time, setTime] = useState(DateTime.local());
   const places = useSelector(state => state.places.places);
+  const serviceCostList = useSelector(state => state.services.serviceCostList);
   const [selectedPlaceId, setSelectedPlaceId] = useState();
   const dispatch = useDispatch();
-  const [selectedHour, setSelectedHour] = useState(CONSTANTS.AVAILABLE_HOURS[0]);
+  const availableHours = useSelector(state =>
+    serviceCostList
+      ? state.services.serviceCostList.map(service => {
+          return parseInt(service.hours);
+        })
+      : [2, 4, 6, 8],
+  );
+  const [selectedHour, setSelectedHour] = useState();
   const availableCards = [
     {
       id: 1,
@@ -60,13 +68,25 @@ const Home = props => {
   });
 
   useEffect(() => {
-    dispatch(getPlaces(1));
+    dispatch(getPlaces('5e39b065d570ae00042005ac'));
   }, []);
 
   useEffect(() => {
-    setSelectedPlaceId(places.length ? places[0].id : 0);
-    setService({ ...service, selectedPlace: places.find(place => place.id === (places.length ? places[0].id : 0)) });
+    if (places.length > 0) {
+      setSelectedPlaceId(places[0].id);
+      setService({ ...service, selectedPlace: places.find(place => place.id === places[0].id) });
+    }
   }, [places]);
+
+  useEffect(() => {
+    serviceCostList && setSelectedHour(parseInt(serviceCostList[0].hours));
+    serviceCostList && _setCalculatedPrice(serviceTypeDay, parseInt(serviceCostList[0].hours));
+  }, [serviceCostList]);
+
+  useEffect(() => {
+    selectedPlaceId &&
+      dispatch(getServiceCostList(isNormalCleaningOptionSelected ? 'normal' : 'deep', places.find(place => place.id === selectedPlaceId).sizePlace));
+  }, [selectedPlaceId]);
 
   useEffect(() => {
     service && dispatch(setRequestedService(service));
@@ -122,10 +142,12 @@ const Home = props => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
+      dispatch(getServiceCostList('normal', places.find(place => place.id === selectedPlaceId).sizePlace));
       setService({ ...service, cleaningOption: isNormalCleaningOptionSelected ? null : strings('common.cleaning.normal') });
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
+      dispatch(getServiceCostList('deep', places.find(place => place.id === selectedPlaceId).sizePlace));
       setService({ ...service, cleaningOption: isDeepCleaningOptionSelected ? null : strings('common.cleaning.deep') });
     }
   };
@@ -146,6 +168,13 @@ const Home = props => {
     newDate = newDate || date.toJSDate();
     setShowDatepicker(Platform.OS === 'ios' ? true : false);
     setDate(DateTime.fromJSDate(newDate));
+    if (DateTime.fromJSDate(newDate) > DateTime.local()) {
+      setServiceTypeDay('futureService');
+      _setCalculatedPrice('futureService', selectedHour);
+    } else {
+      setServiceTypeDay('todayService');
+      _setCalculatedPrice('todayService', selectedHour);
+    }
     setService({ ...service, date: DateTime.fromJSDate(newDate).toFormat('EEEE d MMM. yyyy') });
   };
 
@@ -161,19 +190,24 @@ const Home = props => {
     });
   };
 
-  const _setSelectedPlace = placeId => {
-    setSelectedPlaceId(placeId);
-    setService({ ...service, selectedPlace: places.find(place => place.id === placeId) });
-  };
-
   const _setSelectedHour = hours => {
     setSelectedHour(hours);
+    _setCalculatedPrice(serviceTypeDay, hours);
     setService({ ...service, time: `${time.toFormat('h:mma')} a ${time.plus({ hours }).toFormat('h:mma')}` });
   };
 
   const _setSelectedCard = cardId => {
     setSelectedCardId(cardId);
     setService({ ...service, selectedCard: availableCards.find(card => card.id === cardId) });
+  };
+
+  const _setCalculatedPrice = (serviceDayType, selectedHour) => {
+    for (let i = 0; i < serviceCostList.length; i++) {
+      if (serviceCostList[i].hours === selectedHour.toString()) {
+        setCalculatedPrice(serviceCostList[i][serviceDayType]);
+        break;
+      }
+    }
   };
 
   const _renderPlaceImage = () => (
@@ -184,6 +218,23 @@ const Home = props => {
     />
   );
 
+  const _renderPlacesPicker = () => {
+    if (places.length > 0 && selectedPlaceId) {
+      return (
+        <View style={styles.placePickerInfoContainer}>
+          <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => setSelectedPlaceId(itemValue)}>
+            {places.map(place => (
+              <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
+            ))}
+          </Picker>
+          <Text style={styles.placeAddress}>{`${places.filter(place => place.id === selectedPlaceId)[0].calleSecundaria}, ${
+            places.filter(place => place.id === selectedPlaceId)[0].city
+          }`}</Text>
+        </View>
+      );
+    }
+  };
+
   const _askForService = () => {
     const service = {
       habilidades: '5e39af19d570ae0004200587',
@@ -192,7 +243,7 @@ const Home = props => {
       fechaInicio: date.toFormat('yyyy,MM,dd'),
       aux_id_domicilio: '5e10a2b818b18900044de346',
       duracion: selectedHour,
-      costo: calculatedPrice,
+      costo: parseFloat(calculatedPrice),
       frecuencia: recurrenceOption,
       nombreSala: 'sala1',
       horaInicio: time.toFormat('H:mm'),
@@ -203,7 +254,7 @@ const Home = props => {
     dispatch(askForService(service));
     props.navigation.navigate({
       routeName: 'ServiceStandby',
-      key: 'ServiceStandby', 
+      key: 'ServiceStandby',
     });
   };
 
@@ -281,16 +332,7 @@ const Home = props => {
           <Text style={styles.placeQuestion}>{strings('common.service.placeQuestion')}</Text>
           <View style={styles.placeOptionContainer}>
             <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
-            <View style={styles.placePickerInfoContainer}>
-              <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => _setSelectedPlace(itemValue)}>
-                {places.map(place => (
-                  <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
-                ))}
-              </Picker>
-              {!!places.length && (
-                <Text style={styles.placeAddress}>{`${places[selectedPlaceId].callePrincipal}, ${places[selectedPlaceId].ciudad}`}</Text>
-              )}
-            </View>
+            {_renderPlacesPicker()}
           </View>
           <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
           <View style={styles.serviceHoursOptionContainer}>
@@ -299,7 +341,7 @@ const Home = props => {
             </View>
             <View style={styles.serviceHoursPickerContainer}>
               <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => _setSelectedHour(itemValue)}>
-                {CONSTANTS.AVAILABLE_HOURS.map((hour, index) => (
+                {availableHours.map((hour, index) => (
                   <Picker.Item key={index} label={strings('common.service.selectedHours', { hour })} value={hour} />
                 ))}
               </Picker>
