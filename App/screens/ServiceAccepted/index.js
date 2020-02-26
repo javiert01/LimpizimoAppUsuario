@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BackHandler, Image, Linking, Platform, Text, View } from 'react-native';
+import { Animated, BackHandler, Image, Linking, Platform, Text, View } from 'react-native';
 import CancelService  from '../../modals/CancelService';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
@@ -19,7 +19,24 @@ const ServiceAccepted = props => {
   const service = useSelector(state => state.services.requestedService);
   const assignedEmployee = useSelector(state => state.employee.assignedEmployee);
   const [isCancelingService, setIsCancelingService] = useState(false);
+  const [purpleLogoHeight] = useState(new Animated.Value(28));
+  const [purpleLogoWidth] = useState(new Animated.Value(28));
   const dispatch = useDispatch();
+
+  const runAnimation = () => {
+    purpleLogoWidth.setValue(28);
+    purpleLogoHeight.setValue(28);
+    Animated.parallel([
+      Animated.timing(purpleLogoWidth, {
+        toValue: 48,
+        duration: 1500
+      }),
+      Animated.timing(purpleLogoHeight, {
+        toValue: 48,
+        duration: 1500
+      })
+    ]).start(() => runAnimation());
+  }
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', _handleBackButton);
@@ -27,6 +44,10 @@ const ServiceAccepted = props => {
       BackHandler.removeEventListener('hardwareBackPress', _handleBackButton);
     };
   }, []);
+
+  useEffect(() => {
+    runAnimation();
+  }, [])
 
   const _handleBackButton = () => {
     console.log('xxx', 'Back button is pressed');
@@ -118,7 +139,7 @@ const ServiceAccepted = props => {
             <Text style={styles.subtitle}>{strings('serviceAccepted.accepted').toUpperCase()}</Text>
           </View>
           <View style={styles.titleBottomPart}>
-            <Image style={styles.logo} source={Images.purpleLogo} resizeMode="contain" />
+            <Animated.Image style={{...styles.logo, width: purpleLogoWidth, height: purpleLogoHeight}} source={Images.purpleLogo} resizeMode="contain" />
           </View>
         </View>
         <View style={styles.serviceDetailsContainer}>
