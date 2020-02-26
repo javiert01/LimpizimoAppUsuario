@@ -4,18 +4,22 @@ import CancelService  from '../../modals/CancelService';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import ServiceOption from '../../components/ServiceAccepted/ServiceOption';
+import { updateServiceStatusSocket } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
 import styles from './styles';
 
+
+
 const ServiceAccepted = props => {
   const service = useSelector(state => state.services.requestedService);
   const assignedEmployee = useSelector(state => state.employee.assignedEmployee);
   const [isCancelingService, setIsCancelingService] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', _handleBackButton);
@@ -53,6 +57,11 @@ const ServiceAccepted = props => {
     props.navigation.popToTop();
   };
 
+  const _onCancelServicePressed = () => {
+    dispatch(updateServiceStatusSocket('sala1', 'update-service', service.id, 'Cancelado' ));
+    props.navigation.popToTop();
+  }
+
   const _onPhoneImagePress = () => {
     const phoneNumber = Platform.OS === 'ios' ? `telprompt:\${${assignedEmployee.telefono}}` : `tel:\${${assignedEmployee.telefono}}`;
     Linking.openURL(phoneNumber);
@@ -64,7 +73,7 @@ const ServiceAccepted = props => {
 
   return (
     <View style={styles.bigContainer}>
-      <CancelService visible={isCancelingService} onCloseModal={_onCloseModal} onCancelServicePressed={_onOKButtonPress}/>
+      <CancelService visible={isCancelingService} onCloseModal={_onCloseModal} onCancelServicePressed={_onCancelServicePressed}/>
       <View style={styles.mapContainer}>
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -87,12 +96,12 @@ const ServiceAccepted = props => {
                   style={{ marginLeft: 0, marginVertical: 2 }}
                   iconStyle = {{width: 15, height: 15}}
                   icon={Images.clock}
-                  text={service.time}
+                  text={service.horaInicio}
                   textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: 9 }}
                 />
                 <ServiceOption
                   icon={Images.calendar}
-                  text={service.date}
+                  text={service.fechaInicio}
                   style={{ marginLeft: 0, marginVertical: 2 }}
                   iconStyle = {{width: 15, height: 15}}
                   textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: 9  }}
@@ -119,28 +128,41 @@ const ServiceAccepted = props => {
           <Text style={styles.serviceDetailsText}>{strings('serviceAccepted.serviceDetails')}</Text>
           {/* <Image style={styles.downArrowV2} source={Images.whiteDownArrowV2} resizeMode="contain" /> */}
           <View style={styles.lineSeparator} />
-          <ServiceOption
+          {/* <ServiceOption
             containedIcon={true}
             icon={service.selectedPlace.id === 0 ? Images.office : service.selectedPlace.id === 1 ? Images.house : Images.otherPlace}
             text={service.selectedPlace.callePrincipal}
+          /> */}
+          <ServiceOption
+            containedIcon={true}
+            icon={Images.office}
           />
           <View style={styles.lineSeparator} />
-          <ServiceOption icon={Images.calendar} iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }} text={service.date} />
+          <ServiceOption icon={Images.calendar} iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }} text={service.fechaInicio} />
           <View style={styles.lineSeparator} />
-          <ServiceOption containedIcon={true} icon={Images.clock} text={service.time} />
+          <ServiceOption containedIcon={true} icon={Images.clock} text={service.horaInicio} />
           <View style={styles.lineSeparator} />
-          <ServiceOption
+          {/* <ServiceOption
             icon={service.cleaningOption === strings('common.cleaning.normal') ? Images.normalCleaning : Images.deepCleaning}
             text={`${strings('common.cleaning.main')} ${service.cleaningOption.toLowerCase()}`}
+          /> */}
+           <ServiceOption
+            icon={Images.normalCleaning}
+            text={strings('common.cleaning.main')}
           />
           <View style={styles.lineSeparator} />
           <ServiceOption icon={Images.service} text={service.frequency} />
           <View style={styles.lineSeparator} />
+          {/* <ServiceOption
+            creditCard
+            icon={Images.user}
+            text={`$ ${service.costo}`}
+            text2={`${service.selectedCard.name} ${service.selectedCard.number.substr(12)}`}
+          /> */}
           <ServiceOption
             creditCard
             icon={Images.user}
-            text={`$ ${service.calculatedPrice}`}
-            text2={`${service.selectedCard.name} ${service.selectedCard.number.substr(12)}`}
+            text={`$ ${service.costo}`}
           />
           <View style={styles.lineSeparator} />
           <View style={styles.employee}>

@@ -13,15 +13,10 @@ export default EStyleSheet.create({
     paddingVertical: 15,
   },
   image: {
-    marginTop: 80,
+    marginTop: 60,
     width: 120,
     height: 120,
-  },
-  textAlert: {
-    marginBottom: 60,
-    color: 'red',
-    fontSize: 20,
-    fontWeight: 'bold',
+    marginBottom: 80
   },
   textMessage: {
     color: '$greyText',

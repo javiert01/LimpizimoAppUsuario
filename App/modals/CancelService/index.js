@@ -10,7 +10,6 @@ const CancelService = props => {
     props.onCloseModal();
   };
   const _onCancelButtonPress = () => {
-    console.log('SERVICIO CANCELADO!');
     props.onCancelServicePressed();
   };
 
@@ -18,7 +17,6 @@ const CancelService = props => {
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.container}>
         <Image source={Images.alertIcon} style={styles.image}></Image>
-        <Text style={styles.textAlert}>{strings('common.alert').toUpperCase()}</Text>
         <Text style={styles.textQuestion}>{strings('cancelService.question')}</Text>
         <Text style={styles.textMessage}>{strings('cancelService.message')}</Text>
         <Touchable style={styles.messageBorder} onPress={_onCloseModal}>
