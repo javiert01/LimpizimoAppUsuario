@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector} from 'react-redux';
-import { View, Image} from 'react-native';
+import { useSelector } from 'react-redux';
+import { View, Image } from 'react-native';
 import Images from '../../assets/images';
 import styles from './styles';
 

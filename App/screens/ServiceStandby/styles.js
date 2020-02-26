@@ -14,11 +14,11 @@ export default EStyleSheet.create({
     fontSize: 21,
     textAlign: 'center',
     paddingLeft: 45,
-    paddingRight: 45
-  }, 
+    paddingRight: 45,
+  },
   logo: {
     marginTop: 0,
     width: 170,
-    height: 150
-  }
+    height: 150,
+  },
 });

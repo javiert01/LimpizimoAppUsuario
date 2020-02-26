@@ -57,7 +57,6 @@ const Home = props => {
       cvv: 456,
     },
   ];
-  const [selectedCard, setSelectedCard] = useState(availableCards[0]);
   const [selectedCardId, setSelectedCardId] = useState(availableCards[0].id);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const [service, setService] = useState({
@@ -69,18 +68,9 @@ const Home = props => {
   });
 
   useEffect(() => {
-    const loadPlaces = async () => {
-      await dispatch(getPlaces('5e39b065d570ae00042005ac'));
-      setSelectedPlaceId(places[0].id);
-      loadServiceCostList('normal', places[0].id);
-    };
-    loadPlaces();
+    dispatch(getPlaces('5e39b065d570ae00042005ac'));
+    //loadPlaces();
   }, []);
-
-  useEffect(() => {
-    serviceCostList && setSelectedHour(parseInt(serviceCostList[0].hours));
-    serviceCostList && _setCalculatedPrice(serviceTypeDay, parseInt(serviceCostList[0].hours));
-  }, [serviceCostList]);
 
   useEffect(() => {
     if (places.length > 0) {
@@ -88,6 +78,15 @@ const Home = props => {
       setService({ ...service, selectedPlace: places.find(place => place.id === places[0].id) });
     }
   }, [places]);
+
+  useEffect(() => {
+    serviceCostList && setSelectedHour(parseInt(serviceCostList[0].hours));
+    serviceCostList && _setCalculatedPrice(serviceTypeDay, parseInt(serviceCostList[0].hours));
+  }, [serviceCostList]);
+
+  useEffect(() => {
+    selectedPlaceId && dispatch(getServiceCostList(isNormalCleaningOptionSelected ? 'normal': 'deep', places.find(place => place.id === selectedPlaceId).sizePlace));
+  },[selectedPlaceId])
 
   useEffect(() => {
     service && dispatch(setRequestedService(service));
@@ -139,20 +138,17 @@ const Home = props => {
     </Touchable>
   );
 
-  const loadServiceCostList = async (cleaningType, selectedPlaceId) => {
-    await dispatch(getServiceCostList(cleaningType, places.filter(place => place.id === selectedPlaceId)[0].sizePlace));
-  };
 
   const _toggleCleaningOption = option => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
-      loadServiceCostList('normal', selectedPlaceId);
+      dispatch(getServiceCostList('normal', places.find(place => place.id === selectedPlaceId).sizePlace))
       setService({ ...service, cleaningOption: isNormalCleaningOptionSelected ? null : strings('common.cleaning.normal') });
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
       setIsNormalCleaningOptionSelected(false);
-      loadServiceCostList('deep', selectedPlaceId);
+      dispatch(getServiceCostList('deep', places.find(place => place.id === selectedPlaceId).sizePlace));
       setService({ ...service, cleaningOption: isDeepCleaningOptionSelected ? null : strings('common.cleaning.deep') });
     }
   };
@@ -167,11 +163,6 @@ const Home = props => {
       setIsOnceOptionSelected(false);
       setService({ ...service, frequency: strings('common.service.frequent') });
     }
-  };
-
-  const _setSelectedPlaceId = id => {
-    setSelectedPlaceId(id);
-    loadServiceCostList(isNormalCleaningOptionSelected ? 'normal' : 'deep', id);
   };
 
   const _setDate = newDate => {
@@ -200,11 +191,6 @@ const Home = props => {
     });
   };
 
-  const _setSelectedPlace = placeId => {
-    setSelectedPlaceId(placeId);
-    setService({ ...service, selectedPlace: places.find(place => place.id === placeId) });
-  };
-
   const _setSelectedHour = hours => {
     setSelectedHour(hours);
     _setCalculatedPrice(serviceTypeDay, hours);
@@ -219,12 +205,6 @@ const Home = props => {
   const _setCalculatedPrice = (serviceDayType, selectedHour) => {
     for (let i = 0; i < serviceCostList.length; i++) {
       if (serviceCostList[i].hours === selectedHour.toString()) {
-        console.log('setting price with service Day type:', serviceTypeDay);
-        console.log('setting price with selected hour:', selectedHour);
-        console.log('setting price with cleaning type normal:', isNormalCleaningOptionSelected);
-        console.log('setting price with place type', places.filter(place => place.id === selectedPlaceId)[0].sizePlace);
-        console.log('The list of prices is:', serviceCostList);
-        console.log('The price is:', serviceCostList[i][serviceDayType]);
         setCalculatedPrice(serviceCostList[i][serviceDayType]);
         break;
       }
@@ -242,8 +222,8 @@ const Home = props => {
   const _renderPlacesPicker = () => {
     if (places.length > 0 && selectedPlaceId) {
       return (
-        <View>
-          <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => _setSelectedPlaceId(itemValue)}>
+        <View style={styles.placePickerInfoContainer}>
+          <Picker selectedValue={selectedPlaceId} style={styles.placePicker} onValueChange={itemValue => setSelectedPlaceId(itemValue)}>
             {places.map(place => (
               <Picker.Item key={place.id} label={place.tipoDomicilio} value={place.id} />
             ))}
@@ -353,7 +333,7 @@ const Home = props => {
           <Text style={styles.placeQuestion}>{strings('common.service.placeQuestion')}</Text>
           <View style={styles.placeOptionContainer}>
             <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
-            <View style={styles.placePickerInfoContainer}>{_renderPlacesPicker()}</View>
+            {_renderPlacesPicker()}
           </View>
           <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
           <View style={styles.serviceHoursOptionContainer}>
