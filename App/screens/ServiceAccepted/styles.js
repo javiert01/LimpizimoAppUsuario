@@ -8,9 +8,9 @@ export default EStyleSheet.create({
     padding: 24,
   },
   titleContainer: {
-    height: 140,
-    width: 140,
-    borderRadius: 70,
+    height: 120,
+    width: 120,
+    borderRadius: 60,
     overflow: 'hidden',
     zIndex: 1,
   },
@@ -23,13 +23,13 @@ export default EStyleSheet.create({
   title: {
     marginTop: 16,
     color: '$mainColorLight',
-    fontSize: 20,
+    fontSize: '$big',
   },
   subtitle: {
     color: '$mainColorLight',
-    fontSize: 20,
+    fontSize: '$big',
     fontWeight: 'bold',
-    lineHeight: 20,
+    lineHeight: '$big',
   },
   titleBottomPart: {
     height: '40%',
@@ -38,11 +38,11 @@ export default EStyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    height: 28,
-    width: 28,
+    height: 26,
+    width: 26,
   },
   serviceDetailsContainer: {
-    marginTop: -56,
+    marginTop: -48,
     backgroundColor: '$primaryColor',
     borderRadius: 40,
     width: '100%',
@@ -61,7 +61,7 @@ export default EStyleSheet.create({
   serviceDetailsText: {
     marginTop: 12,
     color: '$mainColorLight',
-    fontSize: 16,
+    fontSize: '$medium',
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -76,7 +76,7 @@ export default EStyleSheet.create({
   },
   employee: {
     flexDirection: 'row',
-    marginLeft: 18,
+    marginLeft: 12,
     paddingVertical: 10,
   },
   employeeImageContainer: {
@@ -105,16 +105,16 @@ export default EStyleSheet.create({
   employeeName: {
     color: '$mainColorLight',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: '$small',
   },
   employeeServicesAmount: {
     color: '$mainColorLight',
-    fontSize: 10,
+    fontSize: '$xxSmall',
   },
   employeeRating: {
     marginLeft: 4,
     color: '$mainColorLight',
-    fontSize: 12,
+    fontSize: '$xSmall',
   },
   star: {
     color: '$secondaryColor',
@@ -136,7 +136,7 @@ export default EStyleSheet.create({
   },
   seeProfileText: {
     color: '$mainColorLight',
-    fontSize: 12,
+    fontSize: '$xSmall',
   },
   seeProfileImage: {
     width: 11,
@@ -156,9 +156,9 @@ export default EStyleSheet.create({
   },
   cancelButtonText: {
     color: 'red',
-    fontSize: 12,
+    fontSize: '$xSmall',
   },
   okButtonText: {
-    fontSize: 12,
+    fontSize: '$xSmall',
   },
 });
