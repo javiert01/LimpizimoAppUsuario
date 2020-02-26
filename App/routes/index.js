@@ -7,6 +7,7 @@ import SplashScreen from '../screens/Splash';
 import WalkthroughScreen from '../screens/Walkthrough';
 import ServiceStandbyScreen from '../screens/ServiceStandby';
 import EmployeeFoundScreen from '../screens/EmployeeFound';
+import EmployeeProfileScreen from '../screens/EmployeeProfile';
 
 
 const RouteConfigs = {
@@ -15,7 +16,8 @@ const RouteConfigs = {
   Splash: { screen: SplashScreen },
   Walkthrough: { screen: WalkthroughScreen },
   ServiceStandby: {screen: ServiceStandbyScreen},
-  EmployeeFound: {screen: EmployeeFoundScreen}
+  EmployeeFound: {screen: EmployeeFoundScreen},
+  EmployeeProfile: {screen: EmployeeProfileScreen}
 };
 
 const StackNavigatorConfig = {

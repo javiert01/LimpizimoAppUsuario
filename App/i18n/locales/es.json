@@ -4,6 +4,7 @@
     "greeting": "Buenas tardes {{name}}",
     "serviceQuestion": "¿Qué servicio necesitas?",
     "cleaningType": "Elige el tipo de limpieza",
+    "back": "atrás",
     "now": "Ahora",
     "ok": "OK",
     "cancel": "Cancelar",
@@ -12,6 +13,9 @@
       "normal": "Normal",
       "deep": "Profunda"
     },
+    "services": "servicios",
+    "rating": "Calificacion",
+    "months": "Meses",
     "service": {
       "once": "Servicio única vez",
       "frequent": "Servicio frecuente",
@@ -57,5 +61,10 @@
     "message": "Encontramos la colaboradora para ti",
     "numberServices": "servicios realizados",
     "id": "CI"
+  },
+  "employeeProfile": {
+    "verifiedData": "Datos verificados",
+    "verifiedAddress": "Dirección verificada",
+    "historyRevision": "Revisión de antecedentes"
   }
 }

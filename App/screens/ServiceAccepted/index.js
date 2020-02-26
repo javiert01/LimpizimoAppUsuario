@@ -52,7 +52,10 @@ const ServiceAccepted = props => {
   };
 
   const _onSeeProfilePress = () => {
-    console.log('xxxSeeProfilePressed');
+    props.navigation.navigate({
+      routeName: 'EmployeeProfile',
+      key: 'EmployeeProfile',
+    });
   };
 
   return (
