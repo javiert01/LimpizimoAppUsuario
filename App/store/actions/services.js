@@ -14,21 +14,21 @@ export const askForService = service => dispatch => {
 
 export const setIsServiceAssigned = isServiceAssigned => {
   return {
-      type: SET_IS_SERVICE_ASSIGNED,
-      isServiceAssigned: isServiceAssigned
-  }
-}
+    type: SET_IS_SERVICE_ASSIGNED,
+    isServiceAssigned: isServiceAssigned,
+  };
+};
 
 export const getServiceCostList = (cleaningType, size) => dispatch => {
   api
     .get(`servicios/precios?cleaningType=${cleaningType}&size=${size}`)
     .then(res => {
-      dispatch({ type: GET_SERVICE_COST_LIST, payload: res.data}); 
+      dispatch({ type: GET_SERVICE_COST_LIST, payload: res.data });
     })
     .catch(err => {
       console.log('xxxErr', err);
     });
-}
+};
 
 export const setRequestedService = service => dispatch => {
   dispatch({ type: SET_REQUESTED_SERVICE, payload: service });

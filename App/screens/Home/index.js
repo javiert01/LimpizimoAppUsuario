@@ -69,7 +69,6 @@ const Home = props => {
 
   useEffect(() => {
     dispatch(getPlaces('5e39b065d570ae00042005ac'));
-    //loadPlaces();
   }, []);
 
   useEffect(() => {
@@ -85,8 +84,9 @@ const Home = props => {
   }, [serviceCostList]);
 
   useEffect(() => {
-    selectedPlaceId && dispatch(getServiceCostList(isNormalCleaningOptionSelected ? 'normal': 'deep', places.find(place => place.id === selectedPlaceId).sizePlace));
-  },[selectedPlaceId])
+    selectedPlaceId &&
+      dispatch(getServiceCostList(isNormalCleaningOptionSelected ? 'normal' : 'deep', places.find(place => place.id === selectedPlaceId).sizePlace));
+  }, [selectedPlaceId]);
 
   useEffect(() => {
     service && dispatch(setRequestedService(service));
@@ -138,12 +138,11 @@ const Home = props => {
     </Touchable>
   );
 
-
   const _toggleCleaningOption = option => {
     if (option === 1) {
       setIsNormalCleaningOptionSelected(!isNormalCleaningOptionSelected);
       setIsDeepCleaningOptionSelected(false);
-      dispatch(getServiceCostList('normal', places.find(place => place.id === selectedPlaceId).sizePlace))
+      dispatch(getServiceCostList('normal', places.find(place => place.id === selectedPlaceId).sizePlace));
       setService({ ...service, cleaningOption: isNormalCleaningOptionSelected ? null : strings('common.cleaning.normal') });
     } else {
       setIsDeepCleaningOptionSelected(!isDeepCleaningOptionSelected);
