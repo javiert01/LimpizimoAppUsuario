@@ -25,6 +25,7 @@ import user from './Global/user.png';
 import phone from './Global/phone.png';
 import whiteRightArrowV2 from './Icons/whiteRightArrowV2.png';
 import animatedBroom from './Global/escoba2.gif';
+import cleaningLady from './Global/cleaningLady.png'
 
 export default {
   logo,
@@ -54,4 +55,5 @@ export default {
   phone,
   whiteRightArrowV2,
   animatedBroom,
+  cleaningLady
 };

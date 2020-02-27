@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
+import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -27,6 +28,7 @@ const Home = props => {
   const [serviceTypeDay, setServiceTypeDay] = useState('todayService');
   const [showTimepicker, setShowTimepicker] = useState(false);
   const [time, setTime] = useState(DateTime.local());
+  const [visible, setVisible] = useState(false);
   const places = useSelector(state => state.places.places);
   const serviceCostList = useSelector(state => state.services.serviceCostList);
   const [selectedPlaceId, setSelectedPlaceId] = useState();
@@ -202,7 +204,7 @@ const Home = props => {
   };
 
   const _setCalculatedPrice = (serviceDayType, selectedHour) => {
-    if(isDeepCleaningOptionSelected || isNormalCleaningOptionSelected) {
+    if (isDeepCleaningOptionSelected || isNormalCleaningOptionSelected) {
       for (let i = 0; i < serviceCostList.length; i++) {
         if (serviceCostList[i].hours === selectedHour.toString()) {
           setCalculatedPrice(serviceCostList[i][serviceDayType]);
@@ -212,7 +214,6 @@ const Home = props => {
     } else {
       setCalculatedPrice(0);
     }
-    
   };
 
   const _renderPlaceImage = () => (
@@ -239,6 +240,14 @@ const Home = props => {
       );
     }
   };
+
+  const _openPopup = () => {
+    setVisible(true);
+  };
+
+  const _closePopup = () => {
+    setVisible(false);
+  }
 
   const _askForService = () => {
     const service = {
@@ -267,6 +276,23 @@ const Home = props => {
 
   return (
     <View style={styles.container}>
+      <Dialog
+        visible={visible}
+        onTouchOutside={_closePopup}>
+        <DialogContent>
+          <View style={styles.popupContainer}>
+            <View style={styles.popupImgContainer}>
+              <Image source={Images.cleaningLady} style={styles.popupImg} />
+              <Text style={styles.messagePopupText}>{strings('common.selectCleaningType')}</Text>
+            </View>
+            <Touchable style={styles.popupTouchable} onPress={_closePopup}>
+              <View style={styles.popupTextContainer}>
+                <Text style={styles.okPopupText}>{strings('common.understood').toUpperCase()}</Text>
+              </View>
+            </Touchable>
+          </View>
+        </DialogContent>
+      </Dialog>
       <StatusBar backgroundColor={EStyleSheet.value('$primaryColor')} barStyle="light-content" />
       <Text style={styles.greeting}>{strings('common.greeting', { name: 'Daniel' })}</Text>
       <Text style={styles.serviceQuestion}>{strings('common.serviceQuestion')}</Text>
@@ -370,7 +396,7 @@ const Home = props => {
             </View>
           </View>
         )}
-        <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={_askForService} disabled={disabled}>
+        <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={disabled ? _openPopup : _askForService}>
           <View style={styles.askForButtonPartsContainer}>
             <View style={styles.askForButtonTopPart}>
               <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>

@@ -287,6 +287,39 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     lineHeight: '$huge',
   },
+  popupContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  popupImgContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 20,
+    width: '90%'
+  },
+  popupTouchable: {
+    width: '112%',
+  },
+  popupTextContainer: {
+    paddingVertical: 20,
+    borderTopWidth: 1,
+  },
+  popupImg: {
+    width: 130,
+    height: 200
+  },
+  messagePopupText: {
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  okPopupText: {
+    color: '$secondaryColor',
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 15
+  },
   mapContainer: {
     height: '100%',
     width: '100%',
