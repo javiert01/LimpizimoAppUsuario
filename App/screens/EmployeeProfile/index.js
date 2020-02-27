@@ -36,12 +36,12 @@ const EmployeeProfile = props => {
             ({assignedEmployee.calificacionPro}
             <Icon name="md-star" size={22} color="#5f2490" />)
           </Text>
-          <Text style={{ ...styles.employeeDetailsText, marginRight: 55 }}>3</Text>
+          <Text style={{ ...styles.employeeDetailsText, marginRight: 20 }}>3</Text>
         </View>
         <View style={styles.employeeDataContainer3}>
           <Text style={styles.infoText}>{strings('common.services')}</Text>
           <Text style={styles.infoText}>{strings('common.rating')}</Text>
-          <Text style={{ ...styles.infoText, marginRight: 40 }}>{strings('common.months')}</Text>
+          <Text style={{ ...styles.infoText, marginRight: 1 }}>{strings('common.months')}</Text>
         </View>
         <View style={styles.listContainer}>
           <View style={styles.listItemContainer}>
