@@ -4,7 +4,7 @@
     "greeting": "Buenas tardes {{name}}",
     "serviceQuestion": "¿Qué servicio necesitas?",
     "cleaningType": "Elige el tipo de limpieza",
-    "back": "atrás",
+    "back": "Atrás",
     "now": "Ahora",
     "ok": "OK",
     "cancel": "Cancelar",
@@ -13,7 +13,7 @@
       "normal": "Normal",
       "deep": "Profunda"
     },
-    "services": "servicios",
+    "services": "Servicios",
     "rating": "Calificacion",
     "months": "Meses",
     "service": {

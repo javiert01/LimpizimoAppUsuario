@@ -9,15 +9,14 @@ import ServiceStandbyScreen from '../screens/ServiceStandby';
 import EmployeeFoundScreen from '../screens/EmployeeFound';
 import EmployeeProfileScreen from '../screens/EmployeeProfile';
 
-
 const RouteConfigs = {
   Home: { screen: HomeScreen },
   ServiceAccepted: { screen: ServiceAcceptedScreen },
   Splash: { screen: SplashScreen },
   Walkthrough: { screen: WalkthroughScreen },
-  ServiceStandby: {screen: ServiceStandbyScreen},
-  EmployeeFound: {screen: EmployeeFoundScreen},
-  EmployeeProfile: {screen: EmployeeProfileScreen}
+  ServiceStandby: { screen: ServiceStandbyScreen },
+  EmployeeFound: { screen: EmployeeFoundScreen },
+  EmployeeProfile: { screen: EmployeeProfileScreen },
 };
 
 const StackNavigatorConfig = {

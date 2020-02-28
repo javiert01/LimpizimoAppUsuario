@@ -25,14 +25,12 @@ export default EStyleSheet.create({
   employeeDataContainer2: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    //alignSelf: 'center',
     marginLeft: 15,
     marginRight: 25,
   },
   employeeDataContainer3: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    //alignSelf: 'center',
     marginLeft: 15,
     marginRight: 25,
     marginBottom: 4,
@@ -46,12 +44,12 @@ export default EStyleSheet.create({
     flexDirection: 'row',
   },
   backImage: {
-      width: 25,
-      height: 25
+    width: 25,
+    height: 25,
   },
   backText: {
-      color: '$mainColorLight',
-      paddingLeft: 5
+    color: '$mainColorLight',
+    paddingLeft: 5,
   },
   listContainer: {
     marginTop: 40,
@@ -82,13 +80,6 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  employeeNameText: {
-    marginTop: 12,
-    color: '$primaryColor',
-    fontSize: '$xxBig',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   employeeIdText: {
     marginTop: 4,
     color: '$primaryColor',
@@ -97,7 +88,7 @@ export default EStyleSheet.create({
     textAlign: 'center',
   },
   infoText: {
-    color: '#606161',
+    color: '$greyText2',
   },
   employeeDetailsText: {
     marginTop: 2,
@@ -107,7 +98,7 @@ export default EStyleSheet.create({
     textAlign: 'center',
   },
   listDataText: {
-    color: '#858485',
+    color: '$greyTextLight1',
     marginLeft: 5,
     marginTop: 10,
     fontSize: '$medium',
