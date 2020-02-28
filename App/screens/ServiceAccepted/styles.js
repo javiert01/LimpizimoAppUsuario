@@ -3,8 +3,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 export default EStyleSheet.create({
   bigContainer: {
     flex: 1,
-    padding: 0,
-    height: '100%'
   },
   container: {
     flex: 1,
@@ -106,7 +104,7 @@ export default EStyleSheet.create({
   employeeInfoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 4
+    marginLeft: 4,
   },
   employeeName: {
     color: '$mainColorLight',
@@ -138,7 +136,7 @@ export default EStyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 5
+    marginBottom: 5,
   },
   seeProfileText: {
     color: '$mainColorLight',
@@ -159,18 +157,18 @@ export default EStyleSheet.create({
     width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '$secondaryColor'
+    backgroundColor: '$secondaryColor',
   },
   cancelButton: {
     width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   buttonText: {
     color: '$mainColorLight',
     fontSize: '$xSmall',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   mapContainer: {
     height: '100%',

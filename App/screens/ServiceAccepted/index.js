@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Animated, BackHandler, Image, Linking, Platform, Text, View } from 'react-native';
-import CancelService  from '../../modals/CancelService';
+import CancelService from '../../modals/CancelService';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -12,8 +12,6 @@ import { updateServiceStatusSocket } from '../../store/actions/webSockets';
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
 import styles from './styles';
-
-
 
 const ServiceAccepted = props => {
   const service = useSelector(state => state.services.requestedService);
@@ -29,25 +27,22 @@ const ServiceAccepted = props => {
     Animated.parallel([
       Animated.timing(purpleLogoWidth, {
         toValue: 48,
-        duration: 1500
+        duration: 1500,
       }),
       Animated.timing(purpleLogoHeight, {
         toValue: 48,
-        duration: 1500
-      })
+        duration: 1500,
+      }),
     ]).start(() => runAnimation());
-  }
+  };
 
   useEffect(() => {
+    runAnimation();
     BackHandler.addEventListener('hardwareBackPress', _handleBackButton);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', _handleBackButton);
     };
   }, []);
-
-  useEffect(() => {
-    runAnimation();
-  }, [])
 
   const _handleBackButton = () => {
     console.log('xxx', 'Back button is pressed');
@@ -72,16 +67,16 @@ const ServiceAccepted = props => {
 
   const _onCloseModal = () => {
     setIsCancelingService(false);
-  }
+  };
 
   const _onOKButtonPress = () => {
     props.navigation.popToTop();
   };
 
   const _onCancelServicePressed = () => {
-    dispatch(updateServiceStatusSocket('sala1', 'update-service', service.id, 'Cancelado' ));
+    dispatch(updateServiceStatusSocket('sala1', 'update-service', service.id, 'Cancelado'));
     props.navigation.popToTop();
-  }
+  };
 
   const _onPhoneImagePress = () => {
     const phoneNumber = Platform.OS === 'ios' ? `telprompt:\${${assignedEmployee.telefono}}` : `tel:\${${assignedEmployee.telefono}}`;
@@ -94,7 +89,7 @@ const ServiceAccepted = props => {
 
   return (
     <View style={styles.bigContainer}>
-      <CancelService visible={isCancelingService} onCloseModal={_onCloseModal} onCancelServicePressed={_onCancelServicePressed}/>
+      <CancelService visible={isCancelingService} onCloseModal={_onCloseModal} onCancelServicePressed={_onCancelServicePressed} />
       <View style={styles.mapContainer}>
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -115,17 +110,17 @@ const ServiceAccepted = props => {
                 <ServiceOption
                   containedIcon={true}
                   style={{ marginLeft: 0, marginVertical: 2 }}
-                  iconStyle = {{width: 15, height: 15}}
+                  iconStyle={{ width: 15, height: 15 }}
                   icon={Images.clock}
                   text={service.horaInicio}
-                  textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: 9 }}
+                  textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: EStyleSheet.value('$xxSmall') }}
                 />
                 <ServiceOption
                   icon={Images.calendar}
                   text={service.fechaInicio}
                   style={{ marginLeft: 0, marginVertical: 2 }}
-                  iconStyle = {{width: 15, height: 15}}
-                  textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: 9  }}
+                  iconStyle={{ width: 15, height: 15 }}
+                  textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: EStyleSheet.value('$xxSmall') }}
                 />
               </View>
             </Callout>
@@ -139,7 +134,11 @@ const ServiceAccepted = props => {
             <Text style={styles.subtitle}>{strings('serviceAccepted.accepted').toUpperCase()}</Text>
           </View>
           <View style={styles.titleBottomPart}>
-            <Animated.Image style={{...styles.logo, width: purpleLogoWidth, height: purpleLogoHeight}} source={Images.purpleLogo} resizeMode="contain" />
+            <Animated.Image
+              style={{ ...styles.logo, width: purpleLogoWidth, height: purpleLogoHeight }}
+              source={Images.purpleLogo}
+              resizeMode="contain"
+            />
           </View>
         </View>
         <View style={styles.serviceDetailsContainer}>
@@ -147,17 +146,13 @@ const ServiceAccepted = props => {
             <View></View>
           </Touchable>
           <Text style={styles.serviceDetailsText}>{strings('serviceAccepted.serviceDetails')}</Text>
-          {/* <Image style={styles.downArrowV2} source={Images.whiteDownArrowV2} resizeMode="contain" /> */}
           <View style={styles.lineSeparator} />
           {/* <ServiceOption
             containedIcon={true}
             icon={service.selectedPlace.id === 0 ? Images.office : service.selectedPlace.id === 1 ? Images.house : Images.otherPlace}
             text={service.selectedPlace.callePrincipal}
           /> */}
-          <ServiceOption
-            containedIcon={true}
-            icon={Images.office}
-          />
+          <ServiceOption containedIcon={true} icon={Images.office} />
           <View style={styles.lineSeparator} />
           <ServiceOption icon={Images.calendar} iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }} text={service.fechaInicio} />
           <View style={styles.lineSeparator} />
@@ -167,10 +162,7 @@ const ServiceAccepted = props => {
             icon={service.cleaningOption === strings('common.cleaning.normal') ? Images.normalCleaning : Images.deepCleaning}
             text={`${strings('common.cleaning.main')} ${service.cleaningOption.toLowerCase()}`}
           /> */}
-           <ServiceOption
-            icon={Images.normalCleaning}
-            text={strings('common.cleaning.main')}
-          />
+          <ServiceOption icon={Images.normalCleaning} text={strings('common.cleaning.main')} />
           <View style={styles.lineSeparator} />
           <ServiceOption icon={Images.service} text={service.frequency} />
           <View style={styles.lineSeparator} />
@@ -180,11 +172,7 @@ const ServiceAccepted = props => {
             text={`$ ${service.costo}`}
             text2={`${service.selectedCard.name} ${service.selectedCard.number.substr(12)}`}
           /> */}
-          <ServiceOption
-            creditCard
-            icon={Images.user}
-            text={`$ ${service.costo}`}
-          />
+          <ServiceOption creditCard icon={Images.user} text={`$ ${service.costo}`} />
           <View style={styles.lineSeparator} />
           <View style={styles.employee}>
             <View style={styles.employeeImageContainer}>

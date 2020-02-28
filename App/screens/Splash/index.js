@@ -6,7 +6,7 @@ import styles from './styles';
 const Splash = () => (
   <View style={styles.container}>
     <StatusBar hidden={true} />
-    <Image style={styles.logo} source={require('../../assets/images/Global/splashlogo.gif')}  resizeMode="contain" />
+    <Image style={styles.logo} source={Images.animatedLogo} resizeMode="contain" />
   </View>
 );
 

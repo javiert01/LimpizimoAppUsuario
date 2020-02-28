@@ -16,7 +16,7 @@ const CancelService = props => {
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.container}>
-        <Image source={Images.alertIcon} style={styles.image}></Image>
+        <Image source={Images.alertIcon} style={styles.image} resizeMode="contain"></Image>
         <Text style={styles.textQuestion}>{strings('cancelService.question')}</Text>
         <Text style={styles.textMessage}>{strings('cancelService.message')}</Text>
         <Touchable style={styles.messageBorder} onPress={_onCloseModal}>

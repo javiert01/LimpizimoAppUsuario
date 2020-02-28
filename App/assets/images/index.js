@@ -26,6 +26,7 @@ import phone from './Global/phone.png';
 import whiteRightArrowV2 from './Icons/whiteRightArrowV2.png';
 import alertIcon from './Global/alertIcon.png';
 import animatedBroom from './Global/escoba2.gif';
+import animatedLogo from './Global/splashlogo.gif';
 
 export default {
   logo,
@@ -56,4 +57,5 @@ export default {
   whiteRightArrowV2,
   alertIcon,
   animatedBroom,
+  animatedLogo,
 };

@@ -8,8 +8,5 @@ export const listenMessage = eventName => ({ type: LISTEN_MESSAGE, eventName: ev
 
 export const updateServiceStatusSocket = (roomName, eventName, idService, state) => ({
   type: UPDATE_SERVICE_STATUS_SOCKET,
-  roomName: roomName,
-  eventName: eventName,
-  idService: idService,
-  state: state,
+  payload: { roomName, eventName, idService, state },
 });

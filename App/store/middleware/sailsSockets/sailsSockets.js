@@ -21,8 +21,7 @@ const socketMidleware = () => {
   };
 
   const onSetRequestedService = (store, data) => {
-    let service = data.servicioUpdate[0];
-    store.dispatch(setRequestedService(service));
+    store.dispatch(setRequestedService(data.servicioUpdate[0]));
   };
 
   return store => next => action => {
@@ -55,16 +54,10 @@ const socketMidleware = () => {
           },
         );
       case 'UPDATE_SERVICE_STATUS_SOCKET':
-        const auxDataUpdate = {
-          idService: action.idService,
-          state: action.state,
-          roomName: action.roomName,
-          eventName: action.eventName,
-          data: '',
-        };
+        const auxDataUpdate = { ...action.payload, data: '' };
         socket.patch(
           // /empresa/subscribe?nombreSala=sexSala
-          CONSTANTS.HOST + '/servicio/cancel',
+          `${CONSTANTS.HOST}/servicio/cancel`,
           auxDataUpdate,
           resData => {
             console.log('actualizando el estatus del servicio a cancelado', resData);
