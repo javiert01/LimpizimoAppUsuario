@@ -5,5 +5,7 @@ export default {
   $mainColorLight: '#fff',
   $mainColorDark: '#000',
   $greyText: '#464648',
+  $greyText2: '#606161',
+  $greyTextLight1: '#858485',
   $greyTextLight: '#939393',
 };

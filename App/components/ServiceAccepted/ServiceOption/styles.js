@@ -10,9 +10,9 @@ export default EStyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '$mainColorLight',
-    borderRadius: 14,
-    height: 28,
-    width: 28,
+    borderRadius: 12,
+    height: 24,
+    width: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },

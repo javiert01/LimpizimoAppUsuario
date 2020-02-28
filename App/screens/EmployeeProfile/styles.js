@@ -1,56 +1,67 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default EStyleSheet.create({
-  bigContainer: {
-    flex: 1,
-  },
   container: {
     flex: 1,
-    marginTop: 45,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  titleContainer: {
-    height: 120,
-    width: 120,
-    borderRadius: 60,
-    overflow: 'hidden',
-    zIndex: 1,
-  },
-  titleTopPart: {
-    height: '60%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '$primaryColor',
+    paddingTop: 150,
   },
-  title: {
-    marginTop: 16,
-    color: '$mainColorLight',
-    fontSize: '$big',
-  },
-  subtitle: {
-    color: '$mainColorLight',
-    fontSize: '$big',
-    fontWeight: 'bold',
-    lineHeight: '$big',
-  },
-  titleBottomPart: {
-    height: '40%',
-    backgroundColor: '$secondaryColor',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    height: 26,
-    width: 26,
-  },
-  serviceDetailsContainer: {
-    marginTop: -48,
-    backgroundColor: '$primaryColor',
-    borderRadius: 40,
+  employeeDetailsContainer: {
+    backgroundColor: '$mainColorLight',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     width: '100%',
-    overflow: 'hidden',
+    height: '100%',
+    paddingTop: 70,
+  },
+  employeeDataContainer1: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: 4,
+  },
+  employeeDataContainer2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: 15,
+    marginRight: 25,
+  },
+  employeeDataContainer3: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: 15,
+    marginRight: 25,
+    marginBottom: 4,
+  },
+  touchableContainer: {
+    position: 'absolute',
+    top: 5,
+    left: 15,
+  },
+  backContainer: {
+    flexDirection: 'row',
+  },
+  backImage: {
+    width: 25,
+    height: 25,
+  },
+  backText: {
+    color: '$mainColorLight',
+    paddingLeft: 5,
+  },
+  listContainer: {
+    marginTop: 40,
+  },
+  listItemContainer: {
+    flexDirection: 'row',
+    paddingLeft: 20,
+  },
+  imageEmployeeContainer: {
+    position: 'absolute',
+    top: 55,
+    zIndex: 1,
   },
   upArrowContainer: {
     marginTop: 20,
@@ -62,12 +73,35 @@ export default EStyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  serviceDetailsText: {
+  employeeNameText: {
     marginTop: 12,
-    color: '$mainColorLight',
+    color: '$primaryColor',
+    fontSize: '$xxBig',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  employeeIdText: {
+    marginTop: 4,
+    color: '$primaryColor',
     fontSize: '$medium',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  infoText: {
+    color: '$greyText2',
+  },
+  employeeDetailsText: {
+    marginTop: 2,
+    color: '$primaryColor',
+    fontSize: '$big',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  listDataText: {
+    color: '$greyTextLight1',
+    marginLeft: 5,
+    marginTop: 10,
+    fontSize: '$medium',
   },
   downArrowV2: {
     alignSelf: 'center',
@@ -85,21 +119,33 @@ export default EStyleSheet.create({
   },
   employeeImageContainer: {
     position: 'relative',
-    width: 70,
-    height: 70,
+    width: 75,
+    height: 75,
+  },
+  checkImage: {
+    position: 'absolute',
+    top: 10,
+    left: 27,
+    width: 27,
+    height: 22,
+    zIndex: 1,
+  },
+  purpleCircleImage: {
+    width: 40,
+    height: 40,
   },
   employeeBorderImage: {
-    width: 70,
-    height: 70,
+    width: 75,
+    height: 75,
     zIndex: 1,
   },
   employeeImage: {
     position: 'absolute',
     top: 5,
     left: 2,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 65,
+    height: 65,
+    borderRadius: 32.5,
   },
   employeeInfoContainer: {
     flexDirection: 'row',
@@ -136,7 +182,7 @@ export default EStyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 5,
+    marginBottom: 4,
   },
   seeProfileText: {
     color: '$mainColorLight',
@@ -153,33 +199,16 @@ export default EStyleSheet.create({
     marginTop: 'auto',
     flexDirection: 'row',
   },
-  okButton: {
+  button: {
     width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '$secondaryColor',
   },
-  cancelButton: {
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red',
-  },
-  buttonText: {
-    color: '$mainColorLight',
+  cancelButtonText: {
+    color: 'red',
     fontSize: '$xSmall',
-    fontWeight: 'bold',
   },
-  mapContainer: {
-    height: '100%',
-    width: '100%',
-    overflow: 'hidden',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-  },
-  map: {
-    height: '100%',
+  okButtonText: {
+    fontSize: '$xSmall',
   },
 });

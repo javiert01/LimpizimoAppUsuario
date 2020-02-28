@@ -6,6 +6,7 @@
     "cleaningType": "Selecciona el tipo de limpieza",
     "selectCleaningType": "Selecciona el tipo de limpieza para comenzar",
     "understood": "Entendido",
+    "back": "Atrás",
     "now": "Ahora",
     "ok": "OK",
     "cancel": "Cancelar",
@@ -14,6 +15,9 @@
       "normal": "Normal",
       "deep": "Profunda"
     },
+    "services": "Servicios",
+    "rating": "Calificacion",
+    "months": "Meses",
     "service": {
       "once": "Servicio única vez",
       "frequent": "Servicio frecuente",
@@ -59,5 +63,16 @@
     "message": "Encontramos la colaboradora para ti",
     "numberServices": "servicios realizados",
     "id": "CI"
+  },
+  "employeeProfile": {
+    "verifiedData": "Datos verificados",
+    "verifiedAddress": "Dirección verificada",
+    "historyRevision": "Revisión de antecedentes"
+  },
+  "cancelService": {
+    "question": "¿Seguro quieres cancelar el servicio solicitado?",
+    "message": "Cancelar ahora puede tener un costo asociado",
+    "keepService": "Mantener Servicio",
+    "cancelService": "Cancelar Servicio"
   }
 }
