@@ -287,38 +287,44 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     lineHeight: '$huge',
   },
+  dialogContent: {
+    padding: 0,
+  },
   popupContainer: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   popupImgContainer: {
     flexDirection: 'column',
     alignItems: 'center',
     padding: 10,
     marginBottom: 20,
-    width: '90%'
+    width: '90%',
   },
   popupTouchable: {
-    width: '112%',
+    width: '100%',
   },
   popupTextContainer: {
     paddingVertical: 20,
-    borderTopWidth: 1,
   },
   popupImg: {
     width: 130,
-    height: 200
+    height: 200,
   },
   messagePopupText: {
-    fontSize: 16,
-    textAlign: 'center'
+    fontSize: '$mediom',
+    textAlign: 'center',
   },
   okPopupText: {
     color: '$secondaryColor',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: '$xBig',
     textAlign: 'center',
-    marginTop: 15
+    marginTop: 15,
+  },
+  lineSeparator: {
+    height: 1,
+    backgroundColor: '$mainColorDark',
   },
   mapContainer: {
     height: '100%',

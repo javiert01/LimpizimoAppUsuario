@@ -19,16 +19,6 @@ const RouteConfigs = {
   EmployeeProfile: { screen: EmployeeProfileScreen },
 };
 
-const HomeNavigator = createStackNavigator(
-  {
-    Home: HomeScreen
-  },
-  {
-    defaultNavigationOptions: {
-      header: null
-    }
-  }
-);
 
 const StackNavigatorConfig = {
   initialRouteName: 'Splash',
@@ -37,10 +27,5 @@ const StackNavigatorConfig = {
 };
 
 const AppNavigator = createStackNavigator(RouteConfigs, StackNavigatorConfig);
-
-const MainNavigator = createDrawerNavigator({
-  Home: HomeNavigator
-})
-
 
 export default createAppContainer(AppNavigator);

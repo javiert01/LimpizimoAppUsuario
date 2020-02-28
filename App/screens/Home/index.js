@@ -28,7 +28,7 @@ const Home = props => {
   const [serviceTypeDay, setServiceTypeDay] = useState('todayService');
   const [showTimepicker, setShowTimepicker] = useState(false);
   const [time, setTime] = useState(DateTime.local());
-  const [visible, setVisible] = useState(false);
+  const [dialogVisible, setDialogVisible] = useState(false);
   const places = useSelector(state => state.places.places);
   const serviceCostList = useSelector(state => state.services.serviceCostList);
   const [selectedPlaceId, setSelectedPlaceId] = useState();
@@ -242,11 +242,11 @@ const Home = props => {
   };
 
   const _openPopup = () => {
-    setVisible(true);
+    setDialogVisible(true);
   };
 
   const _closePopup = () => {
-    setVisible(false);
+    setDialogVisible(false);
   }
 
   const _askForService = () => {
@@ -279,14 +279,15 @@ const Home = props => {
   return (
     <View style={styles.container}>
       <Dialog
-        visible={visible}
+        visible={dialogVisible}
         onTouchOutside={_closePopup}>
-        <DialogContent>
+        <DialogContent style={styles.dialogContent}>
           <View style={styles.popupContainer}>
             <View style={styles.popupImgContainer}>
-              <Image source={Images.cleaningLady} style={styles.popupImg} />
+              <Image source={Images.cleaningLady} style={styles.popupImg} resizeMode="contain"/>
               <Text style={styles.messagePopupText}>{strings('common.selectCleaningType')}</Text>
             </View>
+            <View style={styles.lineSeparator} />
             <Touchable style={styles.popupTouchable} onPress={_closePopup}>
               <View style={styles.popupTextContainer}>
                 <Text style={styles.okPopupText}>{strings('common.understood').toUpperCase()}</Text>
