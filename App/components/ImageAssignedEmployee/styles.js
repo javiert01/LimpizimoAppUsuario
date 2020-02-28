@@ -13,12 +13,12 @@ export default styles = StyleSheet.create({
     right: 0,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 185,
+    height: 170,
   },
   imageUrl: {
-    marginTop: 20,
-    marginLeft: 13,
+    marginTop: 6,
+    marginLeft: 7,
     width: 160,
     height: 160,
     borderRadius: 80,

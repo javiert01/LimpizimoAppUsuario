@@ -6,7 +6,7 @@ export default EStyleSheet.create({
     backgroundColor: '$mainColorLight',
   },
   imageContainer: {
-    height: '60%',
+    height: '55%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -14,8 +14,8 @@ export default EStyleSheet.create({
     height: '60%',
   },
   infoContainer: {
-    height: '40%',
-    paddingHorizontal: 25,
+    height: '45%',
+    paddingHorizontal: 16,
     paddingVertical: 40,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
@@ -23,13 +23,13 @@ export default EStyleSheet.create({
   title: {
     color: '$mainColorLight',
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: '$xxHuge',
   },
   description: {
     marginTop: 10,
     color: '$mainColorLight',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: '$small',
   },
   pageAndArrowContainer: {
     flexDirection: 'row',
@@ -40,9 +40,15 @@ export default EStyleSheet.create({
     marginLeft: 20,
     width: 45,
   },
-  arrowImage: {
+  arrowImageContainer: {
     height: 60,
     width: 60,
+    marginLeft: 'auto',
+    marginRight: 16,
+  },
+  arrowImage: {
+    height: '100%',
+    width: '100%',
     marginLeft: 'auto',
   },
 });

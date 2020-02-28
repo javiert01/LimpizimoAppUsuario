@@ -4,8 +4,8 @@ export default EStyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 8,
-    marginLeft: 18,
+    marginVertical: 6,
+    marginLeft: 12,
     marginRight: 9,
   },
   iconContainer: {
@@ -22,7 +22,7 @@ export default EStyleSheet.create({
   },
   text: {
     color: '$mainColorLight',
-    fontSize: 12,
+    fontSize: '$xSmall',
   },
   secondTextContainer: {
     marginLeft: 8,
@@ -30,15 +30,15 @@ export default EStyleSheet.create({
     alignItems: 'center',
   },
   icon2: {
-    height: 22,
-    width: 22,
+    height: 20,
+    width: 20,
     tintColor: '$mainColorLight',
   },
   cardInfoText: {
     color: '$mainColorLight',
-    fontSize: 10,
-    marginLeft: 16,
-    lineHeight: 11,
+    fontSize: '$xxxSmall',
+    marginLeft: 12,
+    lineHeight: '$xxSmall',
   },
   normalInfo: {
     flexDirection: 'row',
