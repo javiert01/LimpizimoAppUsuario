@@ -287,12 +287,10 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     lineHeight: '$huge',
   },
-  dialogContent: {
-    padding: 0,
-  },
   popupContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1
   },
   popupImgContainer: {
     flexDirection: 'column',
@@ -312,7 +310,7 @@ export default EStyleSheet.create({
     height: 200,
   },
   messagePopupText: {
-    fontSize: '$mediom',
+    fontSize: '$medium',
     textAlign: 'center',
   },
   okPopupText: {
@@ -324,6 +322,7 @@ export default EStyleSheet.create({
   },
   lineSeparator: {
     height: 1,
+    width: '112%',
     backgroundColor: '$mainColorDark',
   },
   mapContainer: {

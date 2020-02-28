@@ -247,7 +247,7 @@ const Home = props => {
 
   const _closePopup = () => {
     setDialogVisible(false);
-  }
+  };
 
   const _askForService = () => {
     const service = {
@@ -262,7 +262,7 @@ const Home = props => {
       tipoFrecuencia: isOnceOptionSelected ? strings('common.service.once') : strings('common.service.frequent'),
       nombreSala: 'sala1',
       horaInicio: time.toFormat('HH:mm'),
-      horaFin: time.plus({ hours: selectedHour }).toFormat('HH:mm')
+      horaFin: time.plus({ hours: selectedHour }).toFormat('HH:mm'),
     };
     dispatch(connectToRoom('sala1'));
     dispatch(connectToRoom('Armando'));
@@ -278,22 +278,18 @@ const Home = props => {
 
   return (
     <View style={styles.container}>
-      <Dialog
-        visible={dialogVisible}
-        onTouchOutside={_closePopup}>
-        <DialogContent style={styles.dialogContent}>
-          <View style={styles.popupContainer}>
-            <View style={styles.popupImgContainer}>
-              <Image source={Images.cleaningLady} style={styles.popupImg} resizeMode="contain"/>
-              <Text style={styles.messagePopupText}>{strings('common.selectCleaningType')}</Text>
-            </View>
-            <View style={styles.lineSeparator} />
-            <Touchable style={styles.popupTouchable} onPress={_closePopup}>
-              <View style={styles.popupTextContainer}>
-                <Text style={styles.okPopupText}>{strings('common.understood').toUpperCase()}</Text>
-              </View>
-            </Touchable>
+      <Dialog visible={dialogVisible} onTouchOutside={_closePopup}>
+        <DialogContent style={styles.popupContainer}>
+          <View style={styles.popupImgContainer}>
+            <Image source={Images.cleaningLady} style={styles.popupImg} resizeMode="contain" />
+            <Text style={styles.messagePopupText}>{strings('common.selectCleaningType')}</Text>
           </View>
+          <View style={styles.lineSeparator} />
+          <Touchable style={styles.popupTouchable} onPress={_closePopup}>
+            <View style={styles.popupTextContainer}>
+              <Text style={styles.okPopupText}>{strings('common.understood').toUpperCase()}</Text>
+            </View>
+          </Touchable>
         </DialogContent>
       </Dialog>
       <StatusBar backgroundColor={EStyleSheet.value('$primaryColor')} barStyle="light-content" />
