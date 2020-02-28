@@ -1,8 +1,12 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default EStyleSheet.create({
+  bigContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
+    marginTop: 45,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
@@ -81,21 +85,21 @@ export default EStyleSheet.create({
   },
   employeeImageContainer: {
     position: 'relative',
-    width: 75,
-    height: 75,
+    width: 70,
+    height: 70,
   },
   employeeBorderImage: {
-    width: 75,
-    height: 75,
+    width: 70,
+    height: 70,
     zIndex: 1,
   },
   employeeImage: {
     position: 'absolute',
     top: 5,
     left: 2,
-    width: 65,
-    height: 65,
-    borderRadius: 32.5,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   employeeInfoContainer: {
     flexDirection: 'row',
@@ -132,7 +136,7 @@ export default EStyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 4,
+    marginBottom: 5,
   },
   seeProfileText: {
     color: '$mainColorLight',
@@ -149,16 +153,33 @@ export default EStyleSheet.create({
     marginTop: 'auto',
     flexDirection: 'row',
   },
-  button: {
+  okButton: {
     width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '$secondaryColor',
   },
-  cancelButtonText: {
-    color: 'red',
-    fontSize: '$xSmall',
+  cancelButton: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'red',
   },
-  okButtonText: {
+  buttonText: {
+    color: '$mainColorLight',
     fontSize: '$xSmall',
+    fontWeight: 'bold',
+  },
+  mapContainer: {
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+  },
+  map: {
+    height: '100%',
   },
 });
