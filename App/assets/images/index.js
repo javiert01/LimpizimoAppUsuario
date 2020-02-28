@@ -26,6 +26,7 @@ import phone from './Global/phone.png';
 import whiteRightArrowV2 from './Icons/whiteRightArrowV2.png';
 import alertIcon from './Global/alertIcon.png';
 import animatedBroom from './Global/escoba2.gif';
+import cleaningLady from './Global/cleaningLady.png'
 import purpleCircle from './Global/purpleCircle.png';
 import greenCheck from './Global/greenCheck.png';
 import whiteLeftArrow from './Icons/whiteLeftArrow.png';
@@ -60,6 +61,7 @@ export default {
   whiteRightArrowV2,
   alertIcon,
   animatedBroom,
+  cleaningLady,
   purpleCircle,
   greenCheck,
   whiteLeftArrow,

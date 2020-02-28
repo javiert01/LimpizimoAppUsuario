@@ -3,7 +3,9 @@
   "common": {
     "greeting": "Buenas tardes {{name}}",
     "serviceQuestion": "¿Qué servicio necesitas?",
-    "cleaningType": "Elige el tipo de limpieza",
+    "cleaningType": "Selecciona el tipo de limpieza",
+    "selectCleaningType": "Selecciona el tipo de limpieza para comenzar",
+    "understood": "Entendido",
     "back": "Atrás",
     "now": "Ahora",
     "ok": "OK",
