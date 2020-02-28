@@ -66,5 +66,11 @@
     "verifiedData": "Datos verificados",
     "verifiedAddress": "Dirección verificada",
     "historyRevision": "Revisión de antecedentes"
+  },
+  "cancelService": {
+    "question": "¿Seguro quieres cancelar el servicio solicitado?",
+    "message": "Cancelar ahora puede tener un costo asociado",
+    "keepService": "Mantener Servicio",
+    "cancelService": "Cancelar Servicio"
   }
 }

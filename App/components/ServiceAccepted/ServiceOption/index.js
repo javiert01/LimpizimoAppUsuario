@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
-import Touchable from 'react-native-platform-touchable';
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 
 import styles from './styles';
 
@@ -21,7 +20,7 @@ const ServiceOption = props => {
         </View>
       ) : (
         <View style={styles.normalInfo}>
-          <Text style={{ ...styles.text, marginLeft: props.containedIcon ? 6 : 12 }}>{props.text}</Text>
+          <Text style={{ ...styles.text, ...props.textStyle, marginLeft: props.containedIcon ? 6 : 12 }}>{props.text}</Text>
           {props.icon2 && props.text2 && (
             <View style={styles.secondTextContainer}>
               <Image style={styles.icon2} source={props.icon2} resizeMode="contain" />

@@ -24,10 +24,12 @@ import service from './Global/service.png';
 import user from './Global/user.png';
 import phone from './Global/phone.png';
 import whiteRightArrowV2 from './Icons/whiteRightArrowV2.png';
+import alertIcon from './Global/alertIcon.png';
 import animatedBroom from './Global/escoba2.gif';
 import purpleCircle from './Global/purpleCircle.png';
 import greenCheck from './Global/greenCheck.png';
 import whiteLeftArrow from './Icons/whiteLeftArrow.png';
+import animatedLogo from './Global/splashlogo.gif';
 
 export default {
   logo,
@@ -56,8 +58,10 @@ export default {
   user,
   phone,
   whiteRightArrowV2,
+  alertIcon,
   animatedBroom,
   purpleCircle,
   greenCheck,
   whiteLeftArrow,
+  animatedLogo,
 };

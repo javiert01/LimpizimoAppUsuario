@@ -1,6 +1,6 @@
 import socketIOClient from 'socket.io-client';
 import sailsIOClient from 'sails.io.js';
-import { setIsServiceAssigned } from '../../actions/services';
+import { setIsServiceAssigned, setRequestedService } from '../../actions/services';
 import { setAssignedEmployee } from '../../actions/employee';
 import CONSTANTS from '../../../constants/index';
 
@@ -18,6 +18,10 @@ const socketMidleware = () => {
 
   const onSetAssignedEmployee = (store, data) => {
     store.dispatch(setAssignedEmployee(data));
+  };
+
+  const onSetRequestedService = (store, data) => {
+    store.dispatch(setRequestedService(data.servicioUpdate[0]));
   };
 
   return store => next => action => {
@@ -49,11 +53,22 @@ const socketMidleware = () => {
             console.log('enviando mensaje desde app', resData);
           },
         );
+      case 'UPDATE_SERVICE_STATUS_SOCKET':
+        const auxDataUpdate = { ...action.payload, data: '' };
+        socket.patch(
+          // /empresa/subscribe?nombreSala=sexSala
+          `${CONSTANTS.HOST}/servicio/cancel`,
+          auxDataUpdate,
+          resData => {
+            console.log('actualizando el estatus del servicio a cancelado', resData);
+          },
+        );
       case 'LISTEN_MESSAGE':
         event = action.eventName;
         socket.on(event, data => {
           onSetServiceAssigned(store);
           onSetAssignedEmployee(store, data);
+          onSetRequestedService(store, data);
         });
       default:
         next(action);

@@ -247,7 +247,7 @@ const Home = props => {
       frecuencia: recurrenceOption,
       tipoFrecuencia: isOnceOptionSelected ? strings('common.service.once') : strings('common.service.frequent'),
       nombreSala: 'sala1',
-      horaInicio: time.toFormat('H:mm'),
+      horaInicio: time.toFormat('HH:mm'),
       horaFin: time.plus({ hours: selectedHour }).toFormat('HH:mm')
     };
     dispatch(connectToRoom('sala1'));
