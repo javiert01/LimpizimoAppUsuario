@@ -1,6 +1,5 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeScreen from '../screens/Home';
 import ServiceAcceptedScreen from '../screens/ServiceAccepted';
 import SplashScreen from '../screens/Splash';
@@ -18,7 +17,6 @@ const RouteConfigs = {
   EmployeeFound: { screen: EmployeeFoundScreen },
   EmployeeProfile: { screen: EmployeeProfileScreen },
 };
-
 
 const StackNavigatorConfig = {
   initialRouteName: 'Splash',
