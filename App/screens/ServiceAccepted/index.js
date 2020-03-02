@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import ServiceOption from '../../components/ServiceAccepted/ServiceOption';
 import { updateServiceStatusSocket } from '../../store/actions/webSockets';
+import { DateTime } from 'luxon';
 
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
@@ -16,6 +17,7 @@ import styles from './styles';
 const ServiceAccepted = props => {
   const service = useSelector(state => state.services.requestedService);
   const assignedEmployee = useSelector(state => state.employee.assignedEmployee);
+  const selectedPlace = useSelector(state => state.places.selectedPlace);
   const [isCancelingService, setIsCancelingService] = useState(false);
   const [purpleLogoHeight] = useState(new Animated.Value(28));
   const [purpleLogoWidth] = useState(new Animated.Value(28));
@@ -84,10 +86,18 @@ const ServiceAccepted = props => {
   };
 
   const _onSeeProfilePress = () => {
+    console.log(typeof service.fechaInicio);
     props.navigation.navigate({
       routeName: 'EmployeeProfile',
       key: 'EmployeeProfile',
     });
+  };
+
+  const formatDate = date => {
+    let jsDate = new Date(date);
+    let newDate = DateTime.fromJSDate(jsDate);
+    newDate = newDate.toFormat('EEEE d MMM. yyyy');
+    return newDate;
   };
 
   return (
@@ -120,7 +130,7 @@ const ServiceAccepted = props => {
                 />
                 <ServiceOption
                   icon={Images.calendar}
-                  text={service.fechaInicio}
+                  text={formatDate(service.fechaInicio)}
                   style={{ marginLeft: 0, marginVertical: 2 }}
                   iconStyle={{ width: 15, height: 15 }}
                   textStyle={{ color: EStyleSheet.value('$primaryColor'), fontSize: EStyleSheet.value('$xxSmall') }}
@@ -155,19 +165,24 @@ const ServiceAccepted = props => {
             icon={service.selectedPlace.id === 0 ? Images.office : service.selectedPlace.id === 1 ? Images.house : Images.otherPlace}
             text={service.selectedPlace.callePrincipal}
           /> */}
-          <ServiceOption containedIcon={true} icon={Images.office} />
+          <ServiceOption containedIcon={true} icon={Images.office} text={selectedPlace.calleSecundaria} />
           <View style={styles.lineSeparator} />
-          <ServiceOption icon={Images.calendar} iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }} text={service.fechaInicio} />
+          <ServiceOption
+            icon={Images.calendar}
+            iconStyle={{ tintColor: EStyleSheet.value('$mainColorLight') }}
+            text={formatDate(service.fechaInicio)}
+          />
           <View style={styles.lineSeparator} />
-          <ServiceOption containedIcon={true} icon={Images.clock} text={service.horaInicio} />
+          <ServiceOption containedIcon={true} icon={Images.clock} text={`${service.horaInicio} a ${service.horaFin}`} />
           <View style={styles.lineSeparator} />
           {/* <ServiceOption
             icon={service.cleaningOption === strings('common.cleaning.normal') ? Images.normalCleaning : Images.deepCleaning}
             text={`${strings('common.cleaning.main')} ${service.cleaningOption.toLowerCase()}`}
           /> */}
-          <ServiceOption icon={Images.normalCleaning} text={strings('common.cleaning.main')} />
+          <ServiceOption icon={service.tipoLimpieza === `${strings('common.cleaning.main')} ${strings('common.cleaning.normal')}` ? Images.normalCleaning : Images.deepCleaning} 
+          text={service.tipoLimpieza} />
           <View style={styles.lineSeparator} />
-          <ServiceOption icon={Images.service} text={service.frequency} />
+          <ServiceOption icon={Images.service} text={service.tipoFrecuencia} />
           <View style={styles.lineSeparator} />
           {/* <ServiceOption
             creditCard
@@ -178,20 +193,26 @@ const ServiceAccepted = props => {
           <ServiceOption creditCard icon={Images.user} text={`$ ${service.costo}`} />
           <View style={styles.lineSeparator} />
           <View style={styles.employee}>
-            <View style={styles.employeeImageContainer}>
-              <Image style={styles.employeeBorderImage} source={Images.assignedBorder} resizeMode="contain" />
-              <FastImage style={styles.employeeImage} source={{ uri: assignedEmployee.imagenPerfil }} resizeMode={FastImage.resizeMode.cover} />
-            </View>
-            <View style={styles.employeeInfoContainer}>
-              <View>
-                <Text style={styles.employeeName}>{`${assignedEmployee.nombre} ${assignedEmployee.apellidos.split(' ')[0]}`}</Text>
-                <Text style={styles.employeeServicesAmount}>{strings('serviceAccepted.servicesPerformed', { amount: employee.servicesAmount })}</Text>
+            <Touchable onPress={_onSeeProfilePress}>
+              <View style={styles.employeeTouchableContainer}>
+                <View style={styles.employeeImageContainer}>
+                  <Image style={styles.employeeBorderImage} source={Images.assignedBorder} resizeMode="contain" />
+                  <FastImage style={styles.employeeImage} source={{ uri: assignedEmployee.imagenPerfil }} resizeMode={FastImage.resizeMode.cover} />
+                </View>
+                <View style={styles.employeeInfoContainer}>
+                  <View>
+                    <Text style={styles.employeeName}>{`${assignedEmployee.nombre} ${assignedEmployee.apellidos.split(' ')[0]}`}</Text>
+                    <Text style={styles.employeeServicesAmount}>
+                      {strings('serviceAccepted.servicesPerformed', { amount: employee.servicesAmount })}
+                    </Text>
+                  </View>
+                  <Text style={styles.employeeRating}>
+                    {`(${assignedEmployee.calificacionPro} `}
+                    <Text style={styles.star}>{'\u2605'}</Text>)
+                  </Text>
+                </View>
               </View>
-              <Text style={styles.employeeRating}>
-                {`(${assignedEmployee.calificacionPro} `}
-                <Text style={styles.star}>{'\u2605'}</Text>)
-              </Text>
-            </View>
+            </Touchable>
             <Touchable style={styles.phoneImageContainer} onPress={_onPhoneImagePress}>
               <Image style={styles.phoneImage} source={Images.phone} resizeMode="contain" />
             </Touchable>

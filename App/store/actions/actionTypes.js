@@ -5,6 +5,7 @@ export const UPDATE_SERVICE_STATUS_SOCKET = 'UPDATE_SERVICE_STATUS_SOCKET';
 
 // Places
 export const GET_PLACES = 'GET_PLACES';
+export const SET_SELECTED_PLACE = 'SET_SELECTED_PLACE';
 
 // Services
 export const ASK_FOR_SERVICE = 'ASK_FOR_SERVICE';

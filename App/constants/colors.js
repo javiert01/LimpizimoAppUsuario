@@ -4,8 +4,10 @@ export default {
   $tertiaryColor: '#3eaee7',
   $mainColorLight: '#fff',
   $mainColorDark: '#000',
+  $goldColor: '#fcd448',
   $greyText: '#464648',
   $greyText2: '#606161',
   $greyTextLight1: '#858485',
   $greyTextLight: '#939393',
+
 };

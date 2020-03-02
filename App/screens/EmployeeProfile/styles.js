@@ -42,6 +42,7 @@ export default EStyleSheet.create({
   },
   backContainer: {
     flexDirection: 'row',
+    width: 85
   },
   backImage: {
     width: 25,
@@ -126,13 +127,13 @@ export default EStyleSheet.create({
     position: 'absolute',
     top: 10,
     left: 27,
-    width: 27,
-    height: 22,
+    width: 22,
+    height: 20,
     zIndex: 1,
   },
   purpleCircleImage: {
-    width: 40,
-    height: 40,
+    width: 38,
+    height: 38,
   },
   employeeBorderImage: {
     width: 75,
@@ -204,11 +205,18 @@ export default EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  cancelButtonText: {
-    color: 'red',
-    fontSize: '$xSmall',
+  questionIconContainer: {
+    backgroundColor: '$greyTextLight',
+    marginLeft: 8,
+    marginTop: 7,
+    height: 30,
+    width: 30,
+    borderRadius: 30/2
   },
-  okButtonText: {
-    fontSize: '$xSmall',
-  },
+  questionIcon: {
+    marginLeft: 11,
+    marginTop: 8,
+    width: 8,
+    height: 13
+  }
 });

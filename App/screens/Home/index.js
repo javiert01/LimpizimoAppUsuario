@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
+import { Image, Picker, Platform, StatusBar, Text, View } from 'react-native';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -11,6 +11,7 @@ import { DateTime } from 'luxon';
 import { getPlaces } from '../../store/actions/places';
 import { askForService, getServiceCostList } from '../../store/actions/services';
 import { setRequestedService } from '../../store/actions/services';
+import { setSelectedPlace } from '../../store/actions/places';
 import { connectToRoom, listenMessage } from '../../store/actions/webSockets';
 
 import { strings } from '../../i18n';
@@ -219,7 +220,8 @@ const Home = props => {
   const _renderPlaceImage = () => (
     <Image
       style={styles.placeOptionImage}
-      source={selectedPlaceId === 0 ? Images.office : selectedPlaceId === 1 ? Images.house : Images.otherPlace}
+      source={places.find(place => place.id === selectedPlaceId).tipoDomicilio === 'casa' ? Images.house : 
+      places.find(place => place.id === selectedPlaceId).tipoDomicilio === 'oficina' ? Images.office : Images.otherPlace}
       resizeMode="contain"
     />
   );
@@ -255,15 +257,17 @@ const Home = props => {
       usuario: '5e39b065d570ae00042005ac',
       estado: 'Pendiente',
       fechaInicio: date.toFormat('yyyy,MM,dd'),
-      aux_id_domicilio: '5e10a2b818b18900044de346',
+      aux_id_domicilio: selectedPlaceId,
       duracion: selectedHour,
       costo: parseFloat(calculatedPrice),
       frecuencia: recurrenceOption,
       tipoFrecuencia: isOnceOptionSelected ? strings('common.service.once') : strings('common.service.frequent'),
+      tipoLimpieza: isDeepCleaningOptionSelected ? `${strings('common.cleaning.main')} ${strings('common.cleaning.deep')}` : `${strings('common.cleaning.main')} ${strings('common.cleaning.normal')}`,
       nombreSala: 'sala1',
       horaInicio: time.toFormat('HH:mm'),
       horaFin: time.plus({ hours: selectedHour }).toFormat('HH:mm'),
     };
+    dispatch(setSelectedPlace(places.find(place => place.id === selectedPlaceId)));
     dispatch(connectToRoom('sala1'));
     dispatch(connectToRoom('Armando'));
     dispatch(listenMessage('servicio-asignado'));
@@ -384,7 +388,7 @@ const Home = props => {
               </View>
             </View>
             <View style={styles.cardOptionContainer}>
-              <Image style={styles.cardOptionImage} source={Images.card} resizeMode="contain" />
+              <Image style={styles.cardOptionImage} source={Images.card} resizeMode="contain"/>
               <View style={styles.cardPickerContainer}>
                 <Picker selectedValue={selectedCardId} style={styles.cardPicker} onValueChange={itemValue => _setSelectedCard(itemValue)}>
                   {availableCards.map((card, index) => (

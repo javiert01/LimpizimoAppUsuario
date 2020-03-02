@@ -88,6 +88,9 @@ export default EStyleSheet.create({
     width: 70,
     height: 70,
   },
+  employeeTouchableContainer: {
+    flexDirection: 'row'
+  },
   employeeBorderImage: {
     width: 70,
     height: 70,
@@ -121,7 +124,7 @@ export default EStyleSheet.create({
     fontSize: '$xSmall',
   },
   star: {
-    color: '$secondaryColor',
+    color: '$goldColor',
   },
   phoneImageContainer: {
     flex: 1,

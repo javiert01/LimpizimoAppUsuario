@@ -7,6 +7,7 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { strings } from '../../i18n';
 import { setIsServiceAssigned } from '../../store/actions/services';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const EmployeeFound = props => {
   const dispatch = useDispatch();
@@ -28,11 +29,11 @@ const EmployeeFound = props => {
       <Text style={styles.text}>34 {strings('employeeFound.numberServices')}</Text>
       <View>
         <Text style={styles.text}>
-          ({assignedEmployee.calificacionPro} <Icon name="md-star" size={24} color="green" />)
+          ({assignedEmployee.calificacionPro} <Icon name="md-star" size={24}  color={EStyleSheet.value('$goldColor')} />)
         </Text>
       </View>
       <View>
-        <Text style={styles.text}>{`${strings('employeeFound.id')}:${assignedEmployee.cedula}`}</Text>
+        <Text style={styles.text}>{`${strings('employeeFound.id')}:${assignedEmployee.cedula[0]}${assignedEmployee.cedula[1]}xxxxxx${assignedEmployee.cedula[assignedEmployee.cedula.length-2]}${assignedEmployee.cedula[assignedEmployee.cedula.length-1]}`}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Touchable style={styles.textContainer} onPress={_navigateToServiceDetail}>
