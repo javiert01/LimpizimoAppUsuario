@@ -62,6 +62,7 @@ export default EStyleSheet.create({
   },
   bottomView: {
     flex: 1,
+    height: 600,
   },
   frequency: {
     flexDirection: 'row',

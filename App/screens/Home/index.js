@@ -294,134 +294,136 @@ const Home = props => {
       </Dialog>
       <StatusBar backgroundColor={EStyleSheet.value('$primaryColor')} barStyle="light-content" />
       <Text style={styles.greeting}>{strings('common.greeting', { name: 'Daniel' })}</Text>
-      <Text style={styles.serviceQuestion}>{strings('common.serviceQuestion')}</Text>
-      <Text style={styles.cleaningType}>{strings('common.cleaningType')}</Text>
-      <View style={styles.cleaningOptionsContainer}>
-        <Touchable onPress={() => _toggleCleaningOption(1)}>
-          <View style={styles.cleaningOption}>
-            {_renderNormalCleaningImage()}
-            <Text style={styles.cleaningMainText}>{strings('common.cleaning.main').toUpperCase()}</Text>
-            <Text style={styles.cleaningDeepText}>{strings('common.cleaning.normal').toUpperCase()}</Text>
-          </View>
-        </Touchable>
-        <Touchable onPress={() => _toggleCleaningOption(2)}>
-          <View style={styles.cleaningOption}>
-            {_renderDeepCleaningImage()}
-            <Text style={styles.cleaningMainText}>{strings('common.cleaning.main').toUpperCase()}</Text>
-            <Text style={styles.cleaningDeepText}>{strings('common.cleaning.deep').toUpperCase()}</Text>
-          </View>
-        </Touchable>
-      </View>
-      <View style={styles.bottomView}>
-        {!disabled && (
-          <View style={styles.frequency}>
-            {_renderOnceOption()}
-            {_renderFrequentOption()}
-          </View>
-        )}
-        {!disabled && (
-          <View style={styles.frequencyInfoContainer}>
-            {isFrequentOptionSelected && (
-              <View style={styles.frequencyOptionContainer}>
-                <Text style={styles.frequencyOptionText}>{strings('common.frequency.recurrence')}</Text>
-                <View style={styles.recurrencePickerContainer}>
-                  <Picker
-                    selectedValue={recurrenceOption}
-                    style={styles.recurrencePicker}
-                    onValueChange={itemValue => setRecurrenceOption(itemValue)}>
-                    <Picker.Item label={strings('common.frequency.recurrenceOption1')} value={1} />
-                    <Picker.Item label={strings('common.frequency.recurrenceOption2')} value={3} />
+      <ScrollView>
+        <Text style={styles.serviceQuestion}>{strings('common.serviceQuestion')}</Text>
+        <Text style={styles.cleaningType}>{strings('common.cleaningType')}</Text>
+        <View style={styles.cleaningOptionsContainer}>
+          <Touchable onPress={() => _toggleCleaningOption(1)}>
+            <View style={styles.cleaningOption}>
+              {_renderNormalCleaningImage()}
+              <Text style={styles.cleaningMainText}>{strings('common.cleaning.main').toUpperCase()}</Text>
+              <Text style={styles.cleaningDeepText}>{strings('common.cleaning.normal').toUpperCase()}</Text>
+            </View>
+          </Touchable>
+          <Touchable onPress={() => _toggleCleaningOption(2)}>
+            <View style={styles.cleaningOption}>
+              {_renderDeepCleaningImage()}
+              <Text style={styles.cleaningMainText}>{strings('common.cleaning.main').toUpperCase()}</Text>
+              <Text style={styles.cleaningDeepText}>{strings('common.cleaning.deep').toUpperCase()}</Text>
+            </View>
+          </Touchable>
+        </View>
+        <View style={styles.bottomView}>
+          {!disabled && (
+            <View style={styles.frequency}>
+              {_renderOnceOption()}
+              {_renderFrequentOption()}
+            </View>
+          )}
+          {!disabled && (
+            <View style={styles.frequencyInfoContainer}>
+              {isFrequentOptionSelected && (
+                <View style={styles.frequencyOptionContainer}>
+                  <Text style={styles.frequencyOptionText}>{strings('common.frequency.recurrence')}</Text>
+                  <View style={styles.recurrencePickerContainer}>
+                    <Picker
+                      selectedValue={recurrenceOption}
+                      style={styles.recurrencePicker}
+                      onValueChange={itemValue => setRecurrenceOption(itemValue)}>
+                      <Picker.Item label={strings('common.frequency.recurrenceOption1')} value={1} />
+                      <Picker.Item label={strings('common.frequency.recurrenceOption2')} value={3} />
+                    </Picker>
+                  </View>
+                </View>
+              )}
+              <View style={{ ...styles.frequencyOptionContainer, marginTop: isFrequentOptionSelected ? 4 : 0 }}>
+                <Text style={styles.frequencyOptionText}>{strings('common.frequency.dayOfService')}</Text>
+                <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowDatepicker(true)}>
+                  <View style={styles.dateTimePickerContainer}>
+                    <Image style={styles.dateTimePickerImage} source={Images.calendar} resizeMode="contain" />
+                    <Text style={styles.dateTimePickerText}>{date.toFormat(isFrequentOptionSelected ? 'EEEE' : 'dd/MM/yyyy')}</Text>
+                    {showDatepicker && (
+                      <DateTimePicker
+                        value={date.toJSDate()}
+                        mode="date"
+                        minimumDate={new Date()}
+                        maximumDate={DateTime.local()
+                          .plus({ days: 15 })
+                          .toJSDate()}
+                        onChange={(event, date) => _setDate(date)}
+                      />
+                    )}
+                  </View>
+                </Touchable>
+              </View>
+              <View style={{ ...styles.frequencyOptionContainer, marginTop: 4 }}>
+                <Text style={styles.frequencyOptionText}>{strings('common.frequency.startOfService')}</Text>
+                <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowTimepicker(true)}>
+                  <View style={styles.dateTimePickerContainer}>
+                    <Image style={styles.dateTimePickerImage} source={Images.clock} resizeMode="contain" />
+                    <Text style={styles.dateTimePickerText}>{time.toFormat('HH:mm')}</Text>
+                    {showTimepicker && <DateTimePicker value={time.toJSDate()} mode="time" onChange={(event, date) => _setTime(date)} />}
+                  </View>
+                </Touchable>
+              </View>
+              <Text style={styles.placeQuestion}>{strings('common.service.placeQuestion')}</Text>
+              <View style={styles.placeOptionContainer}>
+                <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
+                {_renderPlacesPicker()}
+              </View>
+              <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
+              <View style={styles.serviceHoursOptionContainer}>
+                <View style={styles.serviceHoursOptionImageContainer}>
+                  <Image style={styles.serviceHoursOptionImage} source={Images.clock} resizeMode="contain" />
+                </View>
+                <View style={styles.serviceHoursPickerContainer}>
+                  <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => _setSelectedHour(itemValue)}>
+                    {availableHours.map((hour, index) => (
+                      <Picker.Item key={index} label={strings('common.service.selectedHours', { hour })} value={hour} />
+                    ))}
                   </Picker>
                 </View>
               </View>
-            )}
-            <View style={{ ...styles.frequencyOptionContainer, marginTop: isFrequentOptionSelected ? 4 : 0 }}>
-              <Text style={styles.frequencyOptionText}>{strings('common.frequency.dayOfService')}</Text>
-              <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowDatepicker(true)}>
-                <View style={styles.dateTimePickerContainer}>
-                  <Image style={styles.dateTimePickerImage} source={Images.calendar} resizeMode="contain" />
-                  <Text style={styles.dateTimePickerText}>{date.toFormat(isFrequentOptionSelected ? 'EEEE' : 'dd/MM/yyyy')}</Text>
-                  {showDatepicker && (
-                    <DateTimePicker
-                      value={date.toJSDate()}
-                      mode="date"
-                      minimumDate={new Date()}
-                      maximumDate={DateTime.local()
-                        .plus({ days: 15 })
-                        .toJSDate()}
-                      onChange={(event, date) => _setDate(date)}
-                    />
-                  )}
+              <View style={styles.cardOptionContainer}>
+                <Image style={styles.cardOptionImage} source={Images.card} resizeMode="contain" />
+                <View style={styles.cardPickerContainer}>
+                  <Picker selectedValue={selectedCardId} style={styles.cardPicker} onValueChange={itemValue => _setSelectedCard(itemValue)}>
+                    {availableCards.map((card, index) => (
+                      <Picker.Item key={card.id} label={strings('common.service.cardEnd', { cardNumber: card.number.substr(12) })} value={card.id} />
+                    ))}
+                  </Picker>
                 </View>
-              </Touchable>
-            </View>
-            <View style={{ ...styles.frequencyOptionContainer, marginTop: 4 }}>
-              <Text style={styles.frequencyOptionText}>{strings('common.frequency.startOfService')}</Text>
-              <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowTimepicker(true)}>
-                <View style={styles.dateTimePickerContainer}>
-                  <Image style={styles.dateTimePickerImage} source={Images.clock} resizeMode="contain" />
-                  <Text style={styles.dateTimePickerText}>{time.toFormat('HH:mm')}</Text>
-                  {showTimepicker && <DateTimePicker value={time.toJSDate()} mode="time" onChange={(event, date) => _setTime(date)} />}
-                </View>
-              </Touchable>
-            </View>
-            <Text style={styles.placeQuestion}>{strings('common.service.placeQuestion')}</Text>
-            <View style={styles.placeOptionContainer}>
-              <View style={styles.placeOptionImageContainer}>{_renderPlaceImage()}</View>
-              {_renderPlacesPicker()}
-            </View>
-            <Text style={styles.serviceHours}>{strings('common.service.hours')}</Text>
-            <View style={styles.serviceHoursOptionContainer}>
-              <View style={styles.serviceHoursOptionImageContainer}>
-                <Image style={styles.serviceHoursOptionImage} source={Images.clock} resizeMode="contain" />
-              </View>
-              <View style={styles.serviceHoursPickerContainer}>
-                <Picker selectedValue={selectedHour} style={styles.serviceHoursPicker} onValueChange={itemValue => _setSelectedHour(itemValue)}>
-                  {availableHours.map((hour, index) => (
-                    <Picker.Item key={index} label={strings('common.service.selectedHours', { hour })} value={hour} />
-                  ))}
-                </Picker>
               </View>
             </View>
-            <View style={styles.cardOptionContainer}>
-              <Image style={styles.cardOptionImage} source={Images.card} resizeMode="contain" />
-              <View style={styles.cardPickerContainer}>
-                <Picker selectedValue={selectedCardId} style={styles.cardPicker} onValueChange={itemValue => _setSelectedCard(itemValue)}>
-                  {availableCards.map((card, index) => (
-                    <Picker.Item key={card.id} label={strings('common.service.cardEnd', { cardNumber: card.number.substr(12) })} value={card.id} />
-                  ))}
-                </Picker>
+          )}
+          <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={disabled ? _openPopup : _askForService}>
+            <View style={styles.askForButtonPartsContainer}>
+              <View style={styles.askForButtonTopPart}>
+                <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>
+                <Text style={styles.now}>{strings('common.now').toUpperCase()}</Text>
+              </View>
+              <View style={styles.askForButtonBottomPart}>
+                <Text style={styles.calculatedPrice}>{`$${calculatedPrice}`}</Text>
               </View>
             </View>
+          </Touchable>
+          <View style={styles.mapContainer}>
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.map}
+              region={{
+                latitude: -0.1832607,
+                longitude: -78.4792473,
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.0121,
+              }}
+              zoomEnabled={false}
+              rotateEnabled={false}
+              scrollEnabled={false}
+            />
           </View>
-        )}
-        <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={disabled ? _openPopup : _askForService}>
-          <View style={styles.askForButtonPartsContainer}>
-            <View style={styles.askForButtonTopPart}>
-              <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>
-              <Text style={styles.now}>{strings('common.now').toUpperCase()}</Text>
-            </View>
-            <View style={styles.askForButtonBottomPart}>
-              <Text style={styles.calculatedPrice}>{`$${calculatedPrice}`}</Text>
-            </View>
-          </View>
-        </Touchable>
-        <View style={styles.mapContainer}>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            region={{
-              latitude: -0.1832607,
-              longitude: -78.4792473,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.0121,
-            }}
-            zoomEnabled={false}
-            rotateEnabled={false}
-            scrollEnabled={false}
-          />
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
