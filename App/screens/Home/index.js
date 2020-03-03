@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import Touchable from 'react-native-platform-touchable';
@@ -249,6 +249,30 @@ const Home = props => {
     setDialogVisible(false);
   };
 
+  const scrollView = useRef(null);
+  const [rotate, setRotate] = useState({ transform: [{ rotate: '0deg' }] });
+  const [maxOffset, setMaxOffset] = useState(0);
+  const [yOffset, setYOffset] = useState(0);
+
+  const _scroll = () => {
+    if (yOffset === maxOffset) {
+      scrollView.current.scrollTo({ x: 0, y: 0, animated: true });
+    } else {
+      scrollView.current.scrollToEnd();
+    }
+  };
+
+  const _onScroll = event => {
+    event.nativeEvent.contentOffset.y === 0 && setRotate({ transform: [{ rotate: '0deg' }] });
+    const currentOffset = +(event.nativeEvent.contentOffset.y + event.nativeEvent.layoutMeasurement.height).toFixed(2);
+    currentOffset === maxOffset && setRotate({ transform: [{ rotate: '180deg' }] });
+    setYOffset(currentOffset);
+  };
+
+  useEffect(() => {
+    !isDeepCleaningOptionSelected && !isNormalCleaningOptionSelected && scrollView.current.scrollTo({ x: 0, y: 0, animated: true });
+  }, [isDeepCleaningOptionSelected, isNormalCleaningOptionSelected]);
+
   const _askForService = () => {
     const service = {
       habilidades: '5e39af19d570ae0004200587',
@@ -294,7 +318,12 @@ const Home = props => {
       </Dialog>
       <StatusBar backgroundColor={EStyleSheet.value('$primaryColor')} barStyle="light-content" />
       <Text style={styles.greeting}>{strings('common.greeting', { name: 'Daniel' })}</Text>
-      <ScrollView>
+      <ScrollView
+        ref={scrollView}
+        scrollEnabled={!disabled}
+        showsVerticalScrollIndicator={false}
+        onContentSizeChange={(_, height) => setMaxOffset(+height.toFixed(2))}
+        onScroll={_onScroll}>
         <Text style={styles.serviceQuestion}>{strings('common.serviceQuestion')}</Text>
         <Text style={styles.cleaningType}>{strings('common.cleaningType')}</Text>
         <View style={styles.cleaningOptionsContainer}>
@@ -336,7 +365,7 @@ const Home = props => {
                   </View>
                 </View>
               )}
-              <View style={{ ...styles.frequencyOptionContainer, marginTop: isFrequentOptionSelected ? 4 : 0 }}>
+              <View style={{ ...styles.frequencyOptionContainer, marginTop: isFrequentOptionSelected ? 8 : 0 }}>
                 <Text style={styles.frequencyOptionText}>{strings('common.frequency.dayOfService')}</Text>
                 <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowDatepicker(true)}>
                   <View style={styles.dateTimePickerContainer}>
@@ -356,7 +385,7 @@ const Home = props => {
                   </View>
                 </Touchable>
               </View>
-              <View style={{ ...styles.frequencyOptionContainer, marginTop: 4 }}>
+              <View style={{ ...styles.frequencyOptionContainer, marginTop: 8 }}>
                 <Text style={styles.frequencyOptionText}>{strings('common.frequency.startOfService')}</Text>
                 <Touchable style={styles.dateTimePickerTouchableArea} onPress={() => setShowTimepicker(true)}>
                   <View style={styles.dateTimePickerContainer}>
@@ -396,7 +425,9 @@ const Home = props => {
               </View>
             </View>
           )}
-          <Touchable style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1 }} onPress={disabled ? _openPopup : _askForService}>
+          <Touchable
+            style={{ ...styles.askForButton, opacity: disabled ? 0.7 : 1, marginTop: disabled ? 0 : 'auto' }}
+            onPress={disabled ? _openPopup : _askForService}>
             <View style={styles.askForButtonPartsContainer}>
               <View style={styles.askForButtonTopPart}>
                 <Text style={styles.askForText}>{strings('common.service.askFor').toUpperCase()}</Text>
@@ -424,6 +455,11 @@ const Home = props => {
           </View>
         </View>
       </ScrollView>
+      {!disabled && (
+        <Touchable style={styles.scrollArrow} onPress={_scroll}>
+          <Image style={{ ...styles.scrollArrowImage, ...rotate }} source={Images.whiteDownArrowV2} resizeMode="cover" />
+        </Touchable>
+      )}
     </View>
   );
 };

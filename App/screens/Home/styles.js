@@ -63,6 +63,7 @@ export default EStyleSheet.create({
   bottomView: {
     flex: 1,
     height: 600,
+    justifyContent: 'center',
   },
   frequency: {
     flexDirection: 'row',
@@ -91,8 +92,8 @@ export default EStyleSheet.create({
     marginHorizontal: 20,
     backgroundColor: '$mainColorLight',
     borderRadius: 30,
-    paddingTop: 25,
-    paddingBottom: 2,
+    paddingTop: 30,
+    paddingBottom: 4,
     paddingHorizontal: 30,
     zIndex: 1,
   },
@@ -139,7 +140,7 @@ export default EStyleSheet.create({
     fontSize: '$xSmall',
   },
   placeQuestion: {
-    marginTop: 4,
+    marginTop: 8,
     fontSize: '$medium',
     textAlign: 'center',
     color: '$greyText',
@@ -152,7 +153,7 @@ export default EStyleSheet.create({
     padding: 3,
     marginHorizontal: 20,
     borderRadius: 16,
-    marginTop: 2,
+    marginTop: 4,
   },
   placeOptionImageContainer: {
     backgroundColor: '$mainColorLight',
@@ -182,7 +183,7 @@ export default EStyleSheet.create({
     fontSize: '$xxxSmall',
   },
   serviceHours: {
-    marginTop: 4,
+    marginTop: 8,
     fontSize: '$small',
     textAlign: 'center',
     color: '$greyText',
@@ -195,6 +196,7 @@ export default EStyleSheet.create({
     padding: 2,
     marginHorizontal: 50,
     borderRadius: 12,
+    marginTop: 4,
   },
   serviceHoursOptionImageContainer: {
     backgroundColor: '$mainColorLight',
@@ -224,7 +226,7 @@ export default EStyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 55,
     alignSelf: 'center',
-    marginTop: 4,
+    marginTop: 8,
   },
   cardOptionImage: {
     height: 16,
@@ -243,22 +245,32 @@ export default EStyleSheet.create({
     marginRight: -65,
     marginTop: -2,
   },
+  scrollArrow: {
+    zIndex: 2,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  },
+  scrollArrowImage: {
+    tintColor: '$primaryColor',
+    width: 40,
+    height: 25,
+  },
   askForButton: {
-    height: 120,
-    width: 120,
+    height: 140,
+    width: 140,
     backgroundColor: '$primaryColor',
     zIndex: 1,
-    marginTop: 'auto',
     alignSelf: 'center',
     marginBottom: 20,
-    borderRadius: 60,
+    borderRadius: 70,
     alignItems: 'center',
     justifyContent: 'center',
   },
   askForButtonPartsContainer: {
-    height: 104,
-    width: 104,
-    borderRadius: 52,
+    height: 120,
+    width: 120,
+    borderRadius: 60,
     overflow: 'hidden',
   },
   askForButtonTopPart: {
