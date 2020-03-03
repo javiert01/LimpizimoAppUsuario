@@ -31,6 +31,7 @@ import purpleCircle from './Global/purpleCircle.png';
 import greenCheck from './Global/greenCheck.png';
 import whiteLeftArrow from './Icons/whiteLeftArrow.png';
 import animatedLogo from './Global/splashlogo.gif';
+import waitingService from './Global/waitingService.png';
 
 export default {
   logo,
@@ -66,4 +67,5 @@ export default {
   greenCheck,
   whiteLeftArrow,
   animatedLogo,
+  waitingService
 };

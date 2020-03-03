@@ -6,7 +6,7 @@ export const sendMessageToRoom = (roomName, message) => ({ type: SEND_MESSAGE_TO
 
 export const listenMessage = eventName => ({ type: LISTEN_MESSAGE, eventName: eventName });
 
-export const updateServiceStatusSocket = (roomName, eventName, idService, state) => ({
+export const updateServiceStatusSocket = (roomName, eventName, idService, state, msmCancelation) => ({
   type: UPDATE_SERVICE_STATUS_SOCKET,
-  payload: { roomName, eventName, idService, state },
+  payload: { roomName, eventName, idService, state, msmCancelation },
 });

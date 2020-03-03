@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './styles';
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
+import useInterval from '../../customHooks/useInterval';
+import KeepWaitingService from '../../modals/KeepWatingService';
+import { updateServiceStatusSocket } from '../../store/actions/webSockets';
 
 const ServiceStandby = props => {
   const isServiceAssigned = useSelector(state => state.services.isServiceAssigned);
+  const [delay, setDelay] = useState(10000);
+  const [isTimeOver, setIsTimeOver] = useState(false);
+  const serviceId = useSelector(state => state.services.askForService.idService);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isServiceAssigned) {
+      setDelay(null);
+      setIsTimeOver(false);
       props.navigation.navigate({
         routeName: 'EmployeeFound',
         key: 'EmployeeFound',
@@ -17,8 +26,29 @@ const ServiceStandby = props => {
     }
   }, [isServiceAssigned]);
 
+  useInterval(() => {
+    _openModal();
+  }, delay);
+
+  const _openModal = () => {
+    setIsTimeOver(true);
+    setDelay(null);
+  };
+
+  const _onCloseModal = () => {
+    setIsTimeOver(false);
+    setDelay(10000);
+  };
+
+  const _onRequestServiceAgainPressed = () => {
+    console.log(serviceId);
+    dispatch(updateServiceStatusSocket('sala1', 'update-service', serviceId, 'Cancelado', 'Tiempo de esperado agotado'));
+    props.navigation.popToTop();
+  };
+
   return (
     <View style={styles.container}>
+      <KeepWaitingService visible={isTimeOver} onCloseModal={_onCloseModal} onRequestServiceAgainPressed={_onRequestServiceAgainPressed} />
       <Text style={styles.text}>{strings('serviceStandby.message')}</Text>
       <Image style={styles.logo} source={Images.animatedBroom} resizeMode="contain" />
     </View>

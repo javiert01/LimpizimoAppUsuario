@@ -70,7 +70,7 @@ const Home = props => {
   });
 
   useEffect(() => {
-    dispatch(getPlaces('5e39b065d570ae00042005ac'));
+    dispatch(getPlaces('5e5e7d29118798000424fdc5'));
   }, []);
 
   useEffect(() => {
@@ -251,21 +251,22 @@ const Home = props => {
 
   const _askForService = () => {
     const service = {
-      habilidades: '5e39af19d570ae0004200587',
-      usuario: '5e39b065d570ae00042005ac',
+      habilidades: '5e5e7b50118798000424fda0',
+      usuario: '5e5e7d29118798000424fdc5',
       estado: 'Pendiente',
       fechaInicio: date.toFormat('yyyy,MM,dd'),
-      aux_id_domicilio: '5e10a2b818b18900044de346',
+      aux_id_domicilio: '5e5e7e09118798000424fdc7',
       duracion: selectedHour,
       costo: parseFloat(calculatedPrice),
       frecuencia: recurrenceOption,
       tipoFrecuencia: isOnceOptionSelected ? strings('common.service.once') : strings('common.service.frequent'),
+      tipoLimpieza: isDeepCleaningOptionSelected ? `${strings('common.cleaning.main')} ${strings('common.cleaning.deep')}` : `${strings('common.cleaning.main')} ${strings('common.cleaning.normal')}`,
       nombreSala: 'sala1',
       horaInicio: time.toFormat('HH:mm'),
       horaFin: time.plus({ hours: selectedHour }).toFormat('HH:mm'),
     };
     dispatch(connectToRoom('sala1'));
-    dispatch(connectToRoom('Armando'));
+    dispatch(connectToRoom('armando'));
     dispatch(listenMessage('servicio-asignado'));
     dispatch(askForService(service));
     props.navigation.navigate({
