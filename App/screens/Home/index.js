@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
+import { Animated, Image, Picker, Platform, ScrollView, StatusBar, Text, View } from 'react-native';
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import Touchable from 'react-native-platform-touchable';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -59,6 +59,7 @@ const Home = props => {
       cvv: 456,
     },
   ];
+  const [scrollArrowPosition] = useState(new Animated.Value(20));
   const [selectedCardId, setSelectedCardId] = useState(availableCards[0].id);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const [service, setService] = useState({
@@ -69,8 +70,17 @@ const Home = props => {
     calculatedPrice,
   });
 
+  const runAnimation = () => {
+    scrollArrowPosition.setValue(20);
+    Animated.timing(scrollArrowPosition, {
+      toValue: 40,
+      duration: 500,
+    }).start(() => runAnimation());
+  };
+
   useEffect(() => {
-    dispatch(getPlaces('5e39b065d570ae00042005ac'));
+    runAnimation();
+    dispatch(getPlaces('5e5fcfd35fd1d60004a4a5a0'));
   }, []);
 
   useEffect(() => {
@@ -275,21 +285,24 @@ const Home = props => {
 
   const _askForService = () => {
     const service = {
-      habilidades: '5e39af19d570ae0004200587',
-      usuario: '5e39b065d570ae00042005ac',
+      habilidades: '5e5fceeb5fd1d60004a4a57b',
+      usuario: '5e5fcfd35fd1d60004a4a5a0',
       estado: 'Pendiente',
       fechaInicio: date.toFormat('yyyy,MM,dd'),
-      aux_id_domicilio: '5e10a2b818b18900044de346',
+      aux_id_domicilio: '5e5fcfeb5fd1d60004a4a5a2',
       duracion: selectedHour,
       costo: parseFloat(calculatedPrice),
       frecuencia: recurrenceOption,
       tipoFrecuencia: isOnceOptionSelected ? strings('common.service.once') : strings('common.service.frequent'),
+      tipoLimpieza: isDeepCleaningOptionSelected
+        ? `${strings('common.cleaning.main')} ${strings('common.cleaning.deep')}`
+        : `${strings('common.cleaning.main')} ${strings('common.cleaning.normal')}`,
       nombreSala: 'sala1',
       horaInicio: time.toFormat('HH:mm'),
       horaFin: time.plus({ hours: selectedHour }).toFormat('HH:mm'),
     };
     dispatch(connectToRoom('sala1'));
-    dispatch(connectToRoom('Armando'));
+    dispatch(connectToRoom('armando'));
     dispatch(listenMessage('servicio-asignado'));
     dispatch(askForService(service));
     props.navigation.navigate({
@@ -321,7 +334,7 @@ const Home = props => {
       <ScrollView
         ref={scrollView}
         scrollEnabled={!disabled}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
         onContentSizeChange={(_, height) => setMaxOffset(+height.toFixed(2))}
         onScroll={_onScroll}>
         <Text style={styles.serviceQuestion}>{strings('common.serviceQuestion')}</Text>
@@ -443,22 +456,26 @@ const Home = props => {
               provider={PROVIDER_GOOGLE}
               style={styles.map}
               region={{
-                latitude: -0.1832607,
-                longitude: -78.4792473,
+                latitude: -0.1832607 + 0.003,
+                longitude: -78.4792473 - 0.003,
                 latitudeDelta: 0.015,
                 longitudeDelta: 0.0121,
               }}
+              moveOnMarkerPress={false}
               zoomEnabled={false}
               rotateEnabled={false}
-              scrollEnabled={false}
-            />
+              scrollEnabled={false}>
+              <Marker coordinate={{ latitude: -0.1832607, longitude: -78.4792473 }} image={Images.customMarker} />
+            </MapView>
           </View>
         </View>
       </ScrollView>
       {!disabled && (
-        <Touchable style={styles.scrollArrow} onPress={_scroll}>
-          <Image style={{ ...styles.scrollArrowImage, ...rotate }} source={Images.whiteDownArrowV2} resizeMode="cover" />
-        </Touchable>
+        <Animated.View style={{ ...styles.scrollArrow, bottom: scrollArrowPosition }}>
+          <Touchable onPress={_scroll}>
+            <Image style={{ ...styles.scrollArrowImage, ...rotate }} source={Images.whiteDownArrowV2} resizeMode="cover" />
+          </Touchable>
+        </Animated.View>
       )}
     </View>
   );
