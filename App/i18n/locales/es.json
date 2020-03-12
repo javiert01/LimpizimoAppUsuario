@@ -78,7 +78,11 @@
   "keepWaitingService": {
     "message": "Upps! Parece que está tardando mucho.",
     "question": "¿Qué deseas hacer?",
-    "requestAgain": "Solicitar Nuevamente.",
+    "requestAgain": "Solicitar nuevamente.",
     "keepWaiting": "Seguir esperando."
   },
+  "cancelReasons": {
+    "waitingTime": "Tiempo de espera agotado.",
+    "cancelByUser": "Cancelado por el usuario." 
+  }
 }

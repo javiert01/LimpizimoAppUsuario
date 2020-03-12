@@ -74,7 +74,7 @@ const ServiceAccepted = props => {
   };
 
   const _onCancelServicePressed = () => {
-    dispatch(updateServiceStatusSocket('sala1', 'update-service', service.id, 'Cancelado', 'Cancelado por el usuario'));
+    dispatch(updateServiceStatusSocket('sala1', 'update-service', service.id, 'Cancelado', strings('cancelReasons.cancelByUser')));
     props.navigation.popToTop();
   };
 

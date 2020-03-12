@@ -1,6 +1,6 @@
 let CONSTANTS = {
-  retryTimes: 3,
   HOST: 'https://limpizimo-optimus.herokuapp.com',
+  WAITING_TIME: 10000,
 };
 
 export default CONSTANTS;

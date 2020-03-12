@@ -145,7 +145,6 @@ export default EStyleSheet.create({
     textAlign: 'center',
     color: '$greyText',
     fontWeight: 'bold',
-    marginBottom: 5,
   },
   placeOptionContainer: {
     flexDirection: 'row',
@@ -154,7 +153,7 @@ export default EStyleSheet.create({
     padding: 3,
     marginHorizontal: 20,
     borderRadius: 16,
-    marginTop: 4,
+    marginTop: 9,
   },
   placeOptionImageContainer: {
     backgroundColor: '$mainColorLight',

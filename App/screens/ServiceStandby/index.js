@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './styles';
 import { strings } from '../../i18n';
 import Images from '../../assets/images';
+import CONSTANTS from '../../constants';
 import useInterval from '../../customHooks/useInterval';
 import KeepWaitingService from '../../modals/KeepWatingService';
 import { updateServiceStatusSocket } from '../../store/actions/webSockets';
 
 const ServiceStandby = props => {
   const isServiceAssigned = useSelector(state => state.services.isServiceAssigned);
-  const [delay, setDelay] = useState(10000);
+  const [delay, setDelay] = useState(CONSTANTS.WAITING_TIME);
   const [isTimeOver, setIsTimeOver] = useState(false);
   const serviceId = useSelector(state => state.services.askForService.idService);
   const dispatch = useDispatch();
@@ -37,13 +38,12 @@ const ServiceStandby = props => {
 
   const _onCloseModal = () => {
     setIsTimeOver(false);
-    setDelay(10000);
+    setDelay(CONSTANTS.WAITING_TIME);
   };
 
   const _onRequestServiceAgainPressed = () => {
-    console.log(serviceId);
-    dispatch(updateServiceStatusSocket('sala1', 'update-service', serviceId, 'Cancelado', 'Tiempo de esperado agotado'));
-    props.navigation.popToTop();
+    dispatch(updateServiceStatusSocket('sala1', 'update-service', serviceId, 'Cancelado', strings('cancelReasons.waitingTime')));
+    props.navigation.pop();
   };
 
   return (

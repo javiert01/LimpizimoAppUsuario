@@ -334,7 +334,6 @@ const Home = props => {
       <ScrollView
         ref={scrollView}
         scrollEnabled={!disabled}
-        showsVerticalScrollIndicator={true}
         onContentSizeChange={(_, height) => setMaxOffset(+height.toFixed(2))}
         onScroll={_onScroll}>
         <Text style={styles.serviceQuestion}>{strings('common.serviceQuestion')}</Text>
