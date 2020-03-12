@@ -46,7 +46,6 @@ const socketMidleware = () => {
           data: 'prueba desde app',
         };
         socket.post(
-          // /empresa/subscribe?nombreSala=sexSala
           CONSTANTS.HOST + '/socket/enviar-broadcast',
           auxData,
           resData => {
@@ -56,7 +55,6 @@ const socketMidleware = () => {
       case 'UPDATE_SERVICE_STATUS_SOCKET':
         const auxDataUpdate = { ...action.payload, data: '' };
         socket.patch(
-          // /empresa/subscribe?nombreSala=sexSala
           `${CONSTANTS.HOST}/servicio/cancel`,
           auxDataUpdate,
           resData => {

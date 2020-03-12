@@ -74,5 +74,15 @@
     "message": "Cancelar ahora puede tener un costo asociado",
     "keepService": "Mantener Servicio",
     "cancelService": "Cancelar Servicio"
+  },
+  "keepWaitingService": {
+    "message": "Upps! Parece que está tardando mucho.",
+    "question": "¿Qué deseas hacer?",
+    "requestAgain": "Solicitar nuevamente.",
+    "keepWaiting": "Seguir esperando."
+  },
+  "cancelReasons": {
+    "waitingTime": "Tiempo de espera agotado.",
+    "cancelByUser": "Cancelado por el usuario." 
   }
 }
